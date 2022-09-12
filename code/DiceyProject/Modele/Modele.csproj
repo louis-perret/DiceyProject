@@ -5,4 +5,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Manager\NewFolder\**" />
+    <EmbeddedResource Remove="Manager\NewFolder\**" />
+    <None Remove="Manager\NewFolder\**" />
+    <Page Remove="Manager\NewFolder\**" />
+  </ItemGroup>
+
 </Project>

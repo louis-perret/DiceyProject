@@ -5,8 +5,9 @@ namespace Modele.Business.DiceFolder
  
     /// <summary>
     /// Represents a dice.
+    /// 
     /// </summary>
-    public abstract class Dice
+    public abstract class Dice : IEquatable<Dice>
     {
         /// <summary>
         /// Number of faces
@@ -16,7 +17,7 @@ namespace Modele.Business.DiceFolder
         /// <summary>
         /// Dice's result after it was launched
         /// </summary>
-        private int _result;
+        public int Result { get; set; }
         
         /// <summary>
         /// Constructor
@@ -34,15 +35,6 @@ namespace Modele.Business.DiceFolder
         public int GetNbFaces()
         {
             return _nbFaces;
-        }
-
-        /// <summary>
-        /// Getter of _result
-        /// </summary>
-        /// <returns></returns>
-        public int GetResult()
-        {
-            return _result;
         }
 
         /// <summary>

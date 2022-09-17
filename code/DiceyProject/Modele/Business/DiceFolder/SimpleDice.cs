@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Modele.Business.DiceFolder
 {
+
     /// <summary>
     /// Represents a simple dice.
     /// </summary>

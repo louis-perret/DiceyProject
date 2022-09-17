@@ -31,7 +31,7 @@ namespace Modele.Manager.DiceManagerFolder
         /// <returns></returns>
         public override bool AddDice(IList<int> nbFaces)
         {
-            foreach(Dice d in new DiceFactory().CreateDice(nbFaces))
+            foreach (Dice d in new DiceFactory().CreateDice(nbFaces))
             {
                 GetDice().Add(d);
             }

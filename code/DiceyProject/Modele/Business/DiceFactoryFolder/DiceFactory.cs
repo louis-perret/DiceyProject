@@ -30,7 +30,7 @@ namespace Modele.Business.DiceFactoryFolder
         public IList<Dice> CreateDice(IList<int> nbFaces)
         {
             IList<Dice> diceList = new List<Dice>();
-            foreach(int faces in nbFaces)
+            foreach (int faces in nbFaces)
             {
                 diceList.Add(new SimpleDice(faces));
             }

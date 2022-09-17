@@ -1,5 +1,4 @@
-﻿using Modele.Business;
-using Modele.Business.DiceFolder;
+﻿using Modele.Business.DiceFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;

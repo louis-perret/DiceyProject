@@ -21,8 +21,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Modele\Modele.csproj" />
-  </ItemGroup>
-
 </Project>

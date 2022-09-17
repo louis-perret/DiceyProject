@@ -1,8 +1,12 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Modele.Business.DiceFolder
 {
- 
+
     /// <summary>
     /// Represents a dice.
     /// 
@@ -18,7 +22,7 @@ namespace Modele.Business.DiceFolder
         /// Dice's result after it was launched
         /// </summary>
         public int Result { get; set; }
-        
+
         /// <summary>
         /// Constructor
         /// </summary>

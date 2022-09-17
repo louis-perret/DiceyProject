@@ -1056,7 +1056,7 @@
 											"top": 1125,
 											"width": 147.41796875,
 											"height": 13,
-											"text": "-_result",
+											"text": "-_result: int",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1465,7 +1465,7 @@
 										"$ref": "AAAAAAGDKAovKrs5IRk="
 									},
 									"edgePosition": 1,
-									"text": "-_dices"
+									"text": "-_dice"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2478,8 +2478,8 @@
 								"$ref": "AAAAAAGDKAJxoaoy7Ow="
 							},
 							"font": "Arial;13;0",
-							"left": 456,
-							"top": 664,
+							"left": 400,
+							"top": 680,
 							"width": 241,
 							"height": 77,
 							"text": "Use ProfileManager with related Profile class. (SimpleProfileManager with SimpleProfile and ComplicatedProfileMangager with ComplicatedProfile)"
@@ -2497,7 +2497,7 @@
 							"tail": {
 								"$ref": "AAAAAAGDKBeB7PVjQMY="
 							},
-							"points": "576:740;576:827;592:827"
+							"points": "576:756;576:827;592:827"
 						},
 						{
 							"_type": "UMLAssociationView",
@@ -8021,7 +8021,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGDKAn1gboNCIA="
 							},
-							"name": "_dices",
+							"name": "_dice",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAGDKAovJ7s2Cd4=",
@@ -8067,7 +8067,7 @@
 							},
 							"name": "_result",
 							"visibility": "private",
-							"type": ""
+							"type": "int"
 						}
 					],
 					"operations": [

@@ -11,7 +11,7 @@ namespace Modele.Manager.DiceManagerFolder
     /// <summary>
     /// Represent a manager of simple dice
     /// </summary>
-    class SimpleDiceManager : DiceManager
+    public class SimpleDiceManager : DiceManager
     {
         /// <summary>
         /// Add one simple dice

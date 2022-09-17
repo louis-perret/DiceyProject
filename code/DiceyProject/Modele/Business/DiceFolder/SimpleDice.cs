@@ -10,7 +10,7 @@ namespace Modele.Business.DiceFolder
     /// <summary>
     /// Represents a simple dice.
     /// </summary>
-    class SimpleDice : Dice
+    public class SimpleDice : Dice
     {
         /// <summary>
         /// Constructor

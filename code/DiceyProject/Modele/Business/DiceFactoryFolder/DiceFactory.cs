@@ -10,7 +10,7 @@ namespace Modele.Business.DiceFactoryFolder
     /// <summary>
     /// Manage the creation of simple dice
     /// </summary>
-    class DiceFactory : IDiceFactory
+    public class DiceFactory : IDiceFactory
     {
         /// <summary>
         /// Create one dice

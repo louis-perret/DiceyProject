@@ -11,7 +11,7 @@ namespace Modele.Business.DiceFactoryFolder
     /// <summary>
     /// Manage the creation of different dice
     /// </summary>
-    interface IDiceFactory
+    public interface IDiceFactory
     {
         /// <summary>
         /// Create one dice

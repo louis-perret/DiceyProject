@@ -10,7 +10,7 @@ namespace Modele.Manager.DiceManagerFolder
     /// <summary>
     /// Represent a manager of dice
     /// </summary>
-    abstract class DiceManager
+    public abstract class DiceManager
     {
         /// <summary>
         /// List of dice that it manipulates

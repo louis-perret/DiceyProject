@@ -40,7 +40,7 @@ steps:
     secrets: [ DiceyProjectToken ]
     settings:
       # accessible en ligne de commande par ${PLUGIN_SONAR_HOST}
-      sonar_host: https://codefirst.ddns.net/sonar/
+      sonar_host: https://codefirst.iut.uca.fr/sonar/
       # accessible en ligne de commande par ${PLUGIN_SONAR_TOKEN}
       sonar_token:
         from_secret: DiceyProjectToken

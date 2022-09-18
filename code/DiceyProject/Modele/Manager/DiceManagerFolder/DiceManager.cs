@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace Modele.Manager.DiceManagerFolder
 {
@@ -13,25 +14,48 @@ namespace Modele.Manager.DiceManagerFolder
     public abstract class DiceManager
     {
         /// <summary>
-        /// List of dice that it manipulates
+        /// List of dice that it manipulates.
+        /// Protected so that no one other that the DiceManager classes can access the class' content.
+        /// readonly because we do not want children to break the ReadOnlyCollection.
         /// </summary>
-        private readonly IList<Dice> _dice;
+        protected readonly IList<Dice> _dice;
 
         /// <summary>
-        /// Getter of _dice
+        /// Wrapper of the dice collection, so that other classes can only read its content.
         /// </summary>
-        /// <returns></returns>
-        public IList<Dice> GetDice()
+        public ReadOnlyCollection<Dice> DiceROC { get; private set; }
+
+        /// <summary>
+        /// Constructor with no parameters.
+        /// Initializes <see cref="_dice"> to an empty List.
+        /// </summary>
+        public DiceManager()
         {
-            return _dice;
+            _dice = new List<Dice>();
+            DiceROC = new ReadOnlyCollection<Dice>(_dice);
         }
 
         /// <summary>
-        /// Remove all dice from the list
+        /// Constructor with no parameters.
+        /// Initializes <see cref="_dice"> to the parameter's value
+        /// </summary>
+        /// <param name="dice"> An IList of dice </param>
+        public DiceManager(IList<Dice> dice)
+        {
+            // Create a new list of dice instead of copying the reference. 
+            // This allows the manager to hace complete control over the list it contains. 
+            // If another class had the reference, the list could be updated without the manager's consent.
+            _dice = new List<Dice>(dice);
+
+            DiceROC = new ReadOnlyCollection<Dice>(_dice);
+        }
+
+        /// <summary>
+        /// Remove all dice from the list, if it contains any.
         /// </summary>
         public void ClearDice()
         {
-            _dice.Clear();
+            if(_dice.Count != 0) _dice.Clear();
         }
 
         /// <summary>

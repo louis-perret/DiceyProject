@@ -82,7 +82,7 @@ namespace Modele.Business.DiceFolder
         public override bool Equals(object ?obj)
         {
             if (obj is null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (this == obj) return true;
             if (! GetType().Equals(obj.GetType())) return false;
 
             return Equals((Dice)obj);

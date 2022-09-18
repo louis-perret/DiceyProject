@@ -1,7 +1,7 @@
 ﻿using Modele.Business.DiceFolder;
 using Modele.Business.DiceFactoryFolder;
 
-namespace UT_Modele
+namespace UT_Modele.UT_Business.UT_DiceFactoryFolder
 {
     public class UT_DiceFactory
     {
@@ -11,7 +11,7 @@ namespace UT_Modele
         }
 
         [Theory]
-        [InlineData(true, false,  1, 1)]
+        [InlineData(true, false, 1, 1)]
         [InlineData(false, false, 2, 1)]
         [InlineData(false, true, 0, 0)]
         public void Test_Create_SingleDice(bool isValid, bool throwsException, int nbFaces, int expectedNbFaces)

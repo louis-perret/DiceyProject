@@ -21,7 +21,7 @@ namespace Modele.Business.DiceFolder
         /// <summary>
         /// Dice's result after it was launched
         /// </summary>
-        public int Result { get; set; }
+        private int _result;
 
         /// <summary>
         /// Constructor
@@ -29,6 +29,8 @@ namespace Modele.Business.DiceFolder
         /// <param name="nbFaces">Number of faces</param>
         protected Dice(int nbFaces)
         {
+            if (nbFaces <= 0) throw new ArgumentOutOfRangeException("Dice nbFaces should be positive");
+
             _nbFaces = nbFaces;
         }
 
@@ -41,13 +43,27 @@ namespace Modele.Business.DiceFolder
             return _nbFaces;
         }
 
+        public int getResult()
+        {
+            return _result;
+        }
+
+        public void setResult(int result)
+        {
+            if (result <= 0 || result > _nbFaces) throw new ArgumentOutOfRangeException("Result out of bonds for this dice");
+
+            _result = result;
+        }
+
         /// <summary>
         /// Return true if they are equal
         /// </summary>
         /// <param name="Other">Other Dice to compare</param>
         /// <returns>a bool</returns>
-        public bool Equals(Dice Other)
+        public bool Equals(Dice ?Other)
         {
+            if (Other == null) return false;
+
             return this._nbFaces == Other._nbFaces;
         }
 
@@ -56,11 +72,11 @@ namespace Modele.Business.DiceFolder
         /// </summary>
         /// <param name="Other">Other Dice to compare</param>
         /// <returns>a bool</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object ?obj)
         {
-            if (ReferenceEquals(obj, null)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(obj, this)) return true;
-            if (GetType().Equals(obj.GetType())) return false;
+            if (! GetType().Equals(obj.GetType())) return false;
 
             return Equals((Dice)obj);
         }

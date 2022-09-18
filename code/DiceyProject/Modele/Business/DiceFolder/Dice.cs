@@ -27,6 +27,7 @@ namespace Modele.Business.DiceFolder
         /// Constructor
         /// </summary>
         /// <param name="nbFaces">Number of faces</param>
+        ///  <exception cref="ArgumentOutOfRangeException"> A dice can not have a negative number of faces. </exception>
         protected Dice(int nbFaces)
         {
             if (nbFaces <= 0) throw new ArgumentOutOfRangeException("Dice nbFaces should be positive");
@@ -48,6 +49,12 @@ namespace Modele.Business.DiceFolder
             return _result;
         }
 
+        /// <summary>
+        /// Sets the result of a dice.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="result"> The result to be set <param>
+        /// <exception cref="ArgumentOutOfRangeException"> The result of a throw can neither be negative or greater than the dice's number of faces </exception>
         public void setResult(int result)
         {
             if (result <= 0 || result > _nbFaces) throw new ArgumentOutOfRangeException("Result out of bonds for this dice");

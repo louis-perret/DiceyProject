@@ -33,11 +33,11 @@ namespace UT_Modele
         [InlineData(true, 5, 5, 5)]
         [InlineData(false, 5, 0, 0)]
         [InlineData(false, 5, 6, 6)]
-        public void Set_Result_And_Throw_Exception(bool isValid, int nbFaces, int result, int expectedResult)
+        public void Set_Result_And_Throw_Exception(bool throwsException, int nbFaces, int result, int expectedResult)
         {
             Dice dice = new SimpleDice(nbFaces);
 
-            if(! isValid)
+            if(! throwsException)
             {
                 Assert.Throws<ArgumentOutOfRangeException>(() => dice.setResult(result));
             }

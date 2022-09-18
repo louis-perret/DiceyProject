@@ -43,7 +43,7 @@ namespace Modele.Manager.DiceManagerFolder
         public DiceManager(IList<Dice> dice)
         {
             // Create a new list of dice instead of copying the reference. 
-            // This allows the manager to hace complete control over the list it contains. 
+            // This allows the manager to have complete control over the list it contains. 
             // If another class had the reference, the list could be updated without the manager's consent.
             _dice = new List<Dice>(dice);
 

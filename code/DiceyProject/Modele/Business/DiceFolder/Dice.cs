@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,16 +14,48 @@ namespace Modele.Business.DiceFolder
     /// </summary>
     public abstract class Dice : IEquatable<Dice>
     {
+
+
         /// <summary>
-        /// Number of faces
+        /// Public property encapsulating the number of faces.
+        /// Cannot set this property.
+        /// </summary>
+        public int NbFaces
+        {
+            get => _nbFaces;
+        }
+
+        /// <summary>
+        /// Private readonly number of faces.
         /// </summary>
         private readonly int _nbFaces;
+
+
+        private int _result;
 
         /// <summary>
         /// Dice's result after it was launched
         /// </summary>
-        private int _result;
+        /// 
+        public int Result
+        {
+            //Simple getter.
+            get
+            {
+                if (_result == -1) throw new ArgumentNullException(nameof(_result));
 
+                return _result;
+            }
+
+            //Setter throws exception if value is smaller or equal to 0, or greater than the number of faces.
+            set
+            {
+                if (value <= 0 || value > NbFaces) throw new ArgumentOutOfRangeException(nameof(value));
+
+                _result = value;
+            }
+        }
+        
         /// <summary>
         /// Constructor
         /// </summary>
@@ -30,36 +63,10 @@ namespace Modele.Business.DiceFolder
         ///  <exception cref="ArgumentOutOfRangeException"> A dice can not have a negative number of faces. </exception>
         protected Dice(int nbFaces)
         {
-            if (nbFaces <= 0) throw new ArgumentOutOfRangeException("Dice nbFaces should be positive");
+            if (nbFaces <= 0) throw new ArgumentOutOfRangeException(nameof(nbFaces));
 
             _nbFaces = nbFaces;
-        }
-
-        /// <summary>
-        /// Getter of _nbFaces
-        /// </summary>
-        /// <returns></returns>
-        public int GetNbFaces()
-        {
-            return _nbFaces;
-        }
-
-        public int getResult()
-        {
-            return _result;
-        }
-
-        /// <summary>
-        /// Sets the result of a dice.
-        /// </summary>
-        /// <returns></returns>
-        /// <param name="result"> The result to be set <param>
-        /// <exception cref="ArgumentOutOfRangeException"> The result of a throw can neither be negative or greater than the dice's number of faces </exception>
-        public void setResult(int result)
-        {
-            if (result <= 0 || result > _nbFaces) throw new ArgumentOutOfRangeException("Result out of bonds for this dice");
-
-            _result = result;
+            _result = -1;
         }
 
         /// <summary>
@@ -71,7 +78,7 @@ namespace Modele.Business.DiceFolder
         {
             if (Other == null) return false;
 
-            return this._nbFaces == Other._nbFaces;
+            return this.NbFaces == Other.NbFaces;
         }
 
         /// <summary>

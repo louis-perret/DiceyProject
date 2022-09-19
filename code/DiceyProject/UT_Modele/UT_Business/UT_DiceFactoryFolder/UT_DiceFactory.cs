@@ -5,7 +5,7 @@ namespace UT_Modele.UT_Business.UT_DiceFactoryFolder
 {
     public class UT_DiceFactory
     {
-        private DiceFactory getDiceFactory()
+        private static DiceFactory GetDiceFactory()
         {
             return new DiceFactory();
         }
@@ -16,7 +16,7 @@ namespace UT_Modele.UT_Business.UT_DiceFactoryFolder
         [InlineData(false, true, 0, 0)]
         public void Test_Create_SingleDice(bool isValid, bool throwsException, int nbFaces, int expectedNbFaces)
         {
-            DiceFactory df = getDiceFactory();
+            DiceFactory df = GetDiceFactory();
 
             if (throwsException)
             {
@@ -26,7 +26,7 @@ namespace UT_Modele.UT_Business.UT_DiceFactoryFolder
             {
                 Dice dice = df.CreateDice(nbFaces);
 
-                Assert.Equal(isValid, dice.GetNbFaces() == expectedNbFaces);
+                Assert.Equal(isValid, dice.NbFaces == expectedNbFaces);
             }
         }
 
@@ -51,7 +51,7 @@ namespace UT_Modele.UT_Business.UT_DiceFactoryFolder
         [MemberData(nameof(Data_Test_Create_SeveralDice))]
         public void Test_Create_SeveralDice(bool throwsException, IList<int> nbFaces, IList<Dice> expectedDice)
         {
-            DiceFactory df = getDiceFactory();
+            DiceFactory df = GetDiceFactory();
 
             if (throwsException)
             {

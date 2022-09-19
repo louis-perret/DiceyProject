@@ -36,7 +36,6 @@ namespace Modele.Business.DiceFactoryFolder
             {
                 diceList.Add(new SimpleDice(faces));
             }
-
             return diceList;
         }
     }

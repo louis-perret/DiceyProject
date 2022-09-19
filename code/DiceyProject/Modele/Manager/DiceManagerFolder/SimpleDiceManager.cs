@@ -96,8 +96,6 @@ namespace Modele.Manager.DiceManagerFolder
             {
                 return false;
             }
-
-            
         }
     }
 }

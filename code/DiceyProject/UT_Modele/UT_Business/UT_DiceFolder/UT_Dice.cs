@@ -19,8 +19,8 @@ namespace UT_Modele.UT_Business.UT_DiceFolder
         private static Dice SetDiceMock(Mock<Dice> mock)
         {
             mock.CallBase = true;
-            var mockObject = mock.Object;
-            return mockObject;
+            return mock.Object;
+
         }
 
         [Theory]

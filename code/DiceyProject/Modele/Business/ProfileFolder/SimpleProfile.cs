@@ -11,5 +11,9 @@ namespace Modele.Business.ProfileFolder
         public SimpleProfile(string name, string surname) : base(name, surname)
         {
         }
+
+        public SimpleProfile(int id, string name, string surname) : base(id, name, surname)
+        {
+        }
     }
 }

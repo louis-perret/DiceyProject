@@ -6,12 +6,58 @@ using System.Threading.Tasks;
 
 namespace Modele.Business.ProfileFolder
 {
-    public abstract class Profile : IEquatable<Object>
+    /// <summary>
+    /// Represent a player's profile
+    /// </summary>
+    public abstract class Profile : IEquatable<Profile>
     {
+        /// <summary>
+        /// Palyer's id
+        /// </summary>
         public int Id { get; private set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
 
+        private string _name;
+        /// <summary>
+        /// Player's name
+        /// </summary>
+        public string Name 
+        {
+            get => _name;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException(nameof(Name));
+                }
+                _name = value;
+            }
+        }
+
+        private string _surname;
+
+        /// <summary>
+        /// Player's surname
+        /// </summary>
+        public string Surname
+        {
+            get => _surname;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException(nameof(Name));
+                }
+                _surname = value;
+            }
+        }
+
+        /// <summary>
+        /// Constructor with parameters
+        /// </summary>
+        /// <param name="id">player's id</param>
+        /// <param name="name">player's name</param>
+        /// <param name="surname">player's surname</param>
+        /// <exception cref="ArgumentException"></exception>
         public Profile(int id, string name, string surname)
         {
             Id = id;
@@ -23,15 +69,27 @@ namespace Modele.Business.ProfileFolder
         {
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            return obj is Profile profile &&
-                   Id == profile.Id;
+            if(obj == null) return false;
+            if(obj == this) return true;
+            if(!GetType().Equals(obj.GetType())) return false;
+
+            return Equals((Profile)obj);
+        }
+
+        public bool Equals(Profile? other)
+        {
+            if(other == null) return false;
+
+            return Id == other.Id;
+
         }
 
         public override int GetHashCode()
         {
             return Id;
         }
+
     }
 }

@@ -94,5 +94,10 @@ namespace Modele.Business.DiceFolder
 
             return Equals((Dice)obj);
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_nbFaces);
+        }
     }
 }

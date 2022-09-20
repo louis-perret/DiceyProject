@@ -29,14 +29,10 @@ namespace Modele.Manager.DiceManagerFolder
         /// Constructor with no parameters.
         /// Initializes <see cref="_dice"> to an empty List.
         /// </summary>
-        public DiceManager()
-        {
-            _dice = new List<Dice>();
-            DiceROC = new ReadOnlyCollection<Dice>(_dice);
-        }
+        public DiceManager() : this(new List<Dice>()){ }
 
         /// <summary>
-        /// Constructor with no parameters.
+        /// Constructor with parameters.
         /// Initializes <see cref="_dice"> to the parameter's value
         /// </summary>
         /// <param name="dice"> An IList of dice </param>

@@ -62,13 +62,6 @@ namespace Modele.Manager.DiceManagerFolder
         public abstract bool AddDice(int nbFace);
 
         /// <summary>
-        /// Add a bunch of dice
-        /// </summary>
-        /// <param name="nbFace">Dice's number of faces to add</param>
-        /// <returns></returns>
-        public abstract bool AddDice(IList<int> nbFaces);
-
-        /// <summary>
         /// Remove one dice from the list
         /// </summary>
         /// <param name="nbFaces">Dice's number of faces to remove</param>

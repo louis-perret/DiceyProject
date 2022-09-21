@@ -16,7 +16,7 @@ namespace Modele.Business.ProfileFolder
         /// </summary>
         public int Id { get; private set; }
 
-        private string _name;
+
         /// <summary>
         /// Player's name
         /// </summary>
@@ -32,8 +32,10 @@ namespace Modele.Business.ProfileFolder
                 _name = value;
             }
         }
+        private string _name;
 
-        private string _surname;
+
+        
 
         /// <summary>
         /// Player's surname
@@ -50,6 +52,7 @@ namespace Modele.Business.ProfileFolder
                 _surname = value;
             }
         }
+        private string _surname;
 
         /// <summary>
         /// Constructor with parameters
@@ -69,6 +72,14 @@ namespace Modele.Business.ProfileFolder
         {
         }
 
+        public bool Equals(Profile? other)
+        {
+            if (other == null) return false;
+
+            return Id == other.Id;
+
+        }
+
         public override bool Equals(object? obj)
         {
             if(obj == null) return false;
@@ -78,13 +89,7 @@ namespace Modele.Business.ProfileFolder
             return Equals((Profile)obj);
         }
 
-        public bool Equals(Profile? other)
-        {
-            if(other == null) return false;
 
-            return Id == other.Id;
-
-        }
 
         public override int GetHashCode()
         {

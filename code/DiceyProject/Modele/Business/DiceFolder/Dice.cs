@@ -31,8 +31,6 @@ namespace Modele.Business.DiceFolder
         private readonly int _nbFaces;
 
 
-        private int _result;
-
         /// <summary>
         /// Dice's result after it was launched
         /// </summary>
@@ -55,7 +53,9 @@ namespace Modele.Business.DiceFolder
                 _result = value;
             }
         }
-        
+
+        private int _result;
+
         /// <summary>
         /// Constructor
         /// </summary>

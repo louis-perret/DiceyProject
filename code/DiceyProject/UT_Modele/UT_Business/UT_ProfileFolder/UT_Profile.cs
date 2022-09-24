@@ -11,18 +11,18 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
 {
     public class UT_Profile
     {
-        private Profile getProfileMock(string name, string surname)
+        private Profile GetProfileMock(string name, string surname)
         {
             var mock = new Mock<Profile>(name, surname);
-            return setProfileMock(mock);
+            return SetProfileMock(mock);
         }
-        private Profile getProfileMock(int id, string name, string surname)
+        private Profile GetProfileMock(int id, string name, string surname)
         {
             var mock = new Mock<Profile>(id, name, surname);
-            return setProfileMock(mock);
+            return SetProfileMock(mock);
         }
 
-        private Profile setProfileMock(Mock<Profile> mock)
+        private Profile SetProfileMock(Mock<Profile> mock)
         {
             mock.CallBase = true;
             var mockObject = mock.Object;
@@ -39,11 +39,11 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
         {
             if (!throwsExceptions)
             {
-                Assert.Throws<TargetInvocationException>(() => getProfileMock(name, surname));
+                Assert.Throws<TargetInvocationException>(() => GetProfileMock(name, surname));
             }
             else
             {
-                var moqProfile = getProfileMock(name, surname);
+                var moqProfile = GetProfileMock(name, surname);
                 Assert.NotNull(moqProfile);
                 Assert.Equal(moqProfile.Id, -1);
                 Assert.Equal(expectedName, moqProfile.Name);
@@ -61,11 +61,11 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
         {
             if (!throwsExceptions)
             {
-                Assert.Throws<TargetInvocationException>(() => getProfileMock(name, surname));
+                Assert.Throws<TargetInvocationException>(() => GetProfileMock(name, surname));
             }
             else
             {
-                var moqProfile = getProfileMock(id, name, surname);
+                var moqProfile = GetProfileMock(id, name, surname);
                 Assert.NotNull(moqProfile);
                 Assert.Equal(moqProfile.Id, expectedId);
                 Assert.Equal(expectedName, moqProfile.Name);
@@ -107,10 +107,10 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
             Profile newProfile;
             Profile? newOtherProfile;
 
-            newProfile = setProfileMock(profile);
+            newProfile = SetProfileMock(profile);
 
             if (isOtherNull) newOtherProfile = null;
-            else newOtherProfile = setProfileMock(otherProfile);
+            else newOtherProfile = SetProfileMock(otherProfile);
 
 
             Assert.Equal(expectedResult, newProfile.Equals(newOtherProfile));
@@ -161,11 +161,11 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
         {
             Profile newProfile;
 
-            newProfile = setProfileMock(profile);
+            newProfile = SetProfileMock(profile);
 
             if (!isOtherNull && otherObject != null)
             {
-                if (otherObject.GetType() == profile.GetType()) otherObject = setProfileMock((Mock<Profile>)otherObject);
+                if (otherObject.GetType() == profile.GetType()) otherObject = SetProfileMock((Mock<Profile>)otherObject);
             }
             else otherObject = null;
 
@@ -183,7 +183,7 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
         [Fact]
         public void Test_HashCode()
         {
-            Profile profile = getProfileMock("Louis", "Perret");
+            Profile profile = GetProfileMock("Louis", "Perret");
 
             Assert.Equal(-1, profile.GetHashCode());
         }

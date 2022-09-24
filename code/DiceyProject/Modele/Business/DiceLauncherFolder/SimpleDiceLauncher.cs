@@ -28,7 +28,7 @@ namespace Modele.Business.DiceLauncherFolder
 
             foreach(Dice d in dice)
             {
-                d.Result = random.Next(d.NbFaces + 1);
+                d.Result = random.Next(d.NbFaces) + 1;
             }
 
             return true;

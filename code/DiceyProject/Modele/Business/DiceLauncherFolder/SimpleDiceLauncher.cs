@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,11 +25,9 @@ namespace Modele.Business.DiceLauncherFolder
                 return false;
             }
 
-            Random random = new Random();
-
             foreach(Dice d in dice)
             {
-                d.Result = random.Next(d.NbFaces) + 1;
+                d.Result = RandomNumberGenerator.GetInt32(1, d.NbFaces);
             }
 
             return true;

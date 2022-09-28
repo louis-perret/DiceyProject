@@ -11,7 +11,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
 {
     public class UT_ProfileManager
     {
-        public IList<Profile> getDataListProfile()
+        public IList<Profile> GetDataListProfile()
         {
             return new List<Profile>()
             {
@@ -20,19 +20,19 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
             };
         }
 
-        public ProfileManager getMockProfileManager()
+        public ProfileManager GetMockProfileManager()
         {
             var mock = new Mock<ProfileManager>();
-            return setMockProfileManager(mock);
+            return SetMockProfileManager(mock);
         }
 
-        public ProfileManager getMockProfileManager(IList<Profile> profiles)
+        public ProfileManager GetMockProfileManager(IList<Profile> profiles)
         {
             var mock = new Mock<ProfileManager>(profiles);
-            return setMockProfileManager(mock);
+            return SetMockProfileManager(mock);
         }
 
-        public ProfileManager setMockProfileManager(Mock<ProfileManager> mock)
+        public ProfileManager SetMockProfileManager(Mock<ProfileManager> mock)
         {
             mock.CallBase = true;
             var mockObject = mock.Object;
@@ -42,7 +42,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         [Fact]
         public void Constructor_Inititalize_ListProfiles()
         {
-            ProfileManager profileManager = getMockProfileManager();
+            ProfileManager profileManager = GetMockProfileManager();
             Assert.NotNull(profileManager);
             Assert.NotNull(profileManager.Profiles);
         }
@@ -50,9 +50,9 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         [Fact]
         public void Constructor_Inititalize_ListProfilesWithList()
         {
-            IList<Profile> profiles = getDataListProfile();
+            IList<Profile> profiles = GetDataListProfile();
 
-            ProfileManager profileManager = getMockProfileManager(profiles);
+            ProfileManager profileManager = GetMockProfileManager(profiles);
             Assert.NotNull(profileManager);
             Assert.NotNull(profileManager.Profiles);
             Assert.True(profiles.Count == profileManager.Profiles.Count);
@@ -65,7 +65,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         [InlineData(0, false, 2)]
         public void Test_RemoveProfileWithId(int idToRemove, bool expectedResult, int expectedCount)
         {
-            var profileManager = getMockProfileManager(getDataListProfile());
+            var profileManager = GetMockProfileManager(GetDataListProfile());
             Assert.Equal(expectedResult, profileManager.RemoveProfile(idToRemove));
             Assert.Equal(expectedCount, profileManager.Profiles.Count);
         }
@@ -79,7 +79,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         [InlineData("Come", null, false, 2)]
         public void Test_RemoveProfileWithNameAndSurname(string name, string surname, bool expectedResult, int expectedCount)
         {
-            var profileManager = getMockProfileManager(getDataListProfile());
+            var profileManager = GetMockProfileManager(GetDataListProfile());
             Assert.Equal(expectedResult, profileManager.RemoveProfile(name, surname));
             Assert.Equal(expectedCount, profileManager.Profiles.Count);
         }
@@ -89,7 +89,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         [InlineData(0, "", "", false)]
         public void Test_ModifyProfile(int id, string newName, string newSurname, bool expectedResult)
         {
-            var profileManager = getMockProfileManager(getDataListProfile());
+            var profileManager = GetMockProfileManager(GetDataListProfile());
             Assert.Equal(expectedResult, profileManager.ModifyProfile(id, newName, newSurname));
         }
 
@@ -98,7 +98,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         [InlineData(0, false)]
         public void Test_GetProfileWithId(int id, bool expectedResult)
         {
-            var profileManager = getMockProfileManager(getDataListProfile());
+            var profileManager = GetMockProfileManager(GetDataListProfile());
             Assert.Equal(expectedResult, profileManager.GetProfile(id) != null);
         }
 
@@ -110,7 +110,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         [InlineData(null, null, false)]
         public void Test_GetProfileWithNameAndSurname(string name, string surname, bool expectedResult)
         {
-            var profileManager = getMockProfileManager(getDataListProfile());
+            var profileManager = GetMockProfileManager(GetDataListProfile());
             Assert.Equal(expectedResult, profileManager.GetProfile(name, surname) != null);
         }
     }

@@ -440,3 +440,4 @@ Temporary Items
 # Built Visual Studio Code Extensions
 *.vsix
 
+code/DiceyProject/Persistance_EF/Migrations

@@ -45,7 +45,6 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
             {
                 var moqProfile = GetProfileMock(name, surname);
                 Assert.NotNull(moqProfile);
-                Assert.Equal(moqProfile.Id, -1);
                 Assert.Equal(expectedName, moqProfile.Name);
                 Assert.Equal(expectedsurname, moqProfile.Surname);
             }
@@ -183,9 +182,9 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
         [Fact]
         public void Test_HashCode()
         {
-            Profile profile = GetProfileMock("Louis", "Perret");
+            Profile profile = GetProfileMock(10,"Louis", "Perret");
 
-            Assert.Equal(-1, profile.GetHashCode());
+            Assert.Equal(10, profile.GetHashCode());
         }
     }
 }

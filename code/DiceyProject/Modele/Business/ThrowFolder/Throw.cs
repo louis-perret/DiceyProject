@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Modele.Business.ThrowFolder
 {
+    /// <summary>
+    /// Represents a Throw. 
+    /// 
+    /// </summary>
     public abstract class Throw : IEquatable<Throw>
     {
         public Guid ProfileId { get; private set; }

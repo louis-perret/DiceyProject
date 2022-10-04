@@ -15,12 +15,12 @@ namespace Modele.Business.ThrowFolder
     {
         public Guid ProfileId { get; private set; }
 
-        public SimpleDice SimpleDice { get; private set; }
+        public Dice SimpleDice { get; private set; }
 
-        public Throw(Guid profileId, SimpleDice simpleDice)
+        public Throw(Guid profileId, Dice dice)
         {
             ProfileId = profileId;
-            SimpleDice = simpleDice;
+            SimpleDice = dice;
         }
 
         public bool Equals(Throw? other)

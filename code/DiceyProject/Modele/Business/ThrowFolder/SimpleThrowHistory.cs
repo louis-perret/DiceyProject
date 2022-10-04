@@ -12,7 +12,7 @@ namespace Modele.Business.ThrowFolder
         {
         }
 
-        public SimpleThrowHistory(Dictionary<DateTime, ListThrowEncapsulation> history) : base(history)
+        public SimpleThrowHistory(Dictionary<DateOnly, ListThrowEncapsulation> history) : base(history)
         {
         }
     }

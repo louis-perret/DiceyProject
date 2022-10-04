@@ -9,7 +9,7 @@ namespace Modele.Business.ThrowFolder
 {
     public class SimpleThrow : Throw
     {
-        public SimpleThrow(Guid profileId, SimpleDice simpleDice) : base(profileId, simpleDice)
+        public SimpleThrow(Guid profileId, Dice dice) : base(profileId, dice)
         {
         }
     }

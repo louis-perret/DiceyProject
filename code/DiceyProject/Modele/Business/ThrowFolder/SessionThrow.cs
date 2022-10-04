@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Modele.Business.ThrowFolder
 {
-    internal class SessionThrow : SimpleThrow, IEquatable<SessionThrow>
+    public class SessionThrow : SimpleThrow, IEquatable<SessionThrow>
     {
         public Guid SessionId { get; private set; }
 
-        public SessionThrow(Guid profileId, SimpleDice simpleDice, Guid sessionId) : base(profileId, simpleDice)
+        public SessionThrow(Guid profileId, Dice dice, Guid sessionId) : base(profileId, dice)
         {
             SessionId = sessionId;
         }
@@ -21,7 +21,7 @@ namespace Modele.Business.ThrowFolder
             if (other == null) return false;
             if(ReferenceEquals(this, other)) return true;
 
-            return SessionId != other.SessionId
+            return SessionId != other.SessionId;
 
         }
 

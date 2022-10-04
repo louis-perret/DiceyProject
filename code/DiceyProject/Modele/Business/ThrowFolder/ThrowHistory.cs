@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modele.Business.DiceFolder;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Modele.Business.ThrowFolder
 {
-    public class ThrowHistory
+    public class ThrowHistory : IThrowHistory
     {
         private Dictionary<DateOnly, ListThrowEncapsulation> _history;
 
@@ -35,6 +36,7 @@ namespace Modele.Business.ThrowFolder
             return true;
 
         }
+
         public bool AddThrows(Dictionary<DateOnly, IList<Throw>> dic)
         {
             foreach (KeyValuePair<DateOnly, IList<Throw>> kvp in dic)
@@ -46,9 +48,37 @@ namespace Modele.Business.ThrowFolder
                     AddThrowWithoutVerif(kvp.Key, kvp.Value[i]);
                 }
             }
-
             return true;
         }
+
+
+        public bool AddThrow(DateOnly date, Dice dice, Guid profileId)
+        {
+            SimpleThrow @throw = new SimpleThrow(profileId, dice);
+            return AddThrow(date, @throw);
+        }
+
+        public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId)
+        {
+            SessionThrow @throw = new SessionThrow(profileId, dice, sessionId);
+            return AddThrow(date, @throw);
+        }
+
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows()
+        {
+            return History;
+        }
+
+        public Dictionary<DateOnly, ListThrowEncapsulation> GetSessionThrows(Guid sessionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<DateOnly, ListThrowEncapsulation> GetProfileThrows(Guid profileID)
+        {
+            throw new NotImplementedException();
+        }
+
 
         private void AddThrowWithoutVerif(DateOnly date, Throw t)
         {
@@ -67,10 +97,9 @@ namespace Modele.Business.ThrowFolder
 
         private bool checkDate(DateOnly date)
         {
-            if (date > DateTime.Now.Date) return false;
+            if (date > DateTimeConverter.ConverToDateOnly(DateTime.Now)) return false;
             return true;
         }
-
 
     }
 }

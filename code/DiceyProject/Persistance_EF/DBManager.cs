@@ -14,37 +14,59 @@ namespace Persistance_EF
     /// <summary>
     /// Represents the manager of our database
     /// </summary>
-    public class DBManager : IDataManager
+    public class DBManager : ILoader
     {
         /// <summary>
         /// Context of our database
         /// </summary>
         public DiceyProject_DBContext DiceyProjectDBContext { get; private set; }
 
-        /// <summary>
-        /// Load the list of profiles from our database
-        /// </summary>
-        /// <returns></returns>
-        public IList<Profile> Load()
+        public Profile getProfileById(int id)
         {
-            IList<Profile> list = new List<Profile>();
-            using (DiceyProjectDBContext = new DiceyProject_DBContext())
+            Profile profile = null;
+            using(DiceyProjectDBContext = new DiceyProject_DBContext())
             {
-                list = DiceyProjectDBContext.ProfilesSet.ToList().ToProfileModels().ToList();
+                var p = DiceyProjectDBContext.ProfilesSet.Where(profile => profile.Id == id).ToList();
+                if(p.Count > 0)
+                {
+                    profile = p.Select(profile => profile.ToProfileModel()).First();
+
+                }
             }
 
-            return list;
+            return profile;
         }
 
-
-        /// <summary>
-        /// Save changement in database
-        /// </summary>
-        /// <param name="profiles"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Save(IList<Profile> profiles)
+        public IList<Profile> getProfileByName(string name, string surname)
         {
-            throw new NotImplementedException();
+            IList<Profile> profileList = new List<Profile>();
+            using (DiceyProjectDBContext = new DiceyProject_DBContext())
+            {
+                var p = DiceyProjectDBContext.ProfilesSet.Where(profile => profile.Name.Equals(name) && profile.Surname.Equals(surname)).ToList();
+                if (p.Count > 0)
+                {
+                    profileList = p.Select(profile => profile.ToProfileModel()).ToList();
+                }
+            }
+
+            return profileList;
+        }
+
+        public IList<Profile> getProfileByPage(int numberPage, int count)
+        {
+            IList<Profile> profileList = new List<Profile>();
+            using (DiceyProjectDBContext = new DiceyProject_DBContext())
+            {
+                if(numberPage >= 0 && count >= 0)
+                {
+                    profileList = DiceyProjectDBContext.ProfilesSet.Skip(count * (numberPage - 1))
+                                                               .Take(count)
+                                                               .Select(profile => profile.ToProfileModel())
+                                                               .ToList();
+                }
+            }
+
+            return profileList;
         }
     }
 }

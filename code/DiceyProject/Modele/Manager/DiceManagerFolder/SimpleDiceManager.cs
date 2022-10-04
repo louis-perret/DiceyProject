@@ -1,6 +1,5 @@
 ﻿using Modele.Business.DiceFactoryFolder;
 using Modele.Business.DiceFolder;
-using Modele.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

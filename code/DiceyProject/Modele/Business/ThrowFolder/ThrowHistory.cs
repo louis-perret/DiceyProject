@@ -69,11 +69,6 @@ namespace Modele.Business.ThrowFolder
         /// <param name="dice"> Dé contenant le résultat du lancé. </param>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public bool AddThrow(DateOnly date, Dice dice, Guid profileId)
-        {
-            SimpleThrow @throw = new SimpleThrow(profileId, dice);
-            return AddThrow(date, @throw);
-        }
 
         public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId)
         {
@@ -87,11 +82,6 @@ namespace Modele.Business.ThrowFolder
             return AddThrow(date, @throw);
         }
 
-        public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId)
-        {
-            SessionThrow @throw = new SessionThrow(profileId, dice, sessionId);
-            return AddThrow(date, @throw);
-        }
 
         public bool AddThrows(Dictionary<DateOnly, IList<Throw>> dic)
         {

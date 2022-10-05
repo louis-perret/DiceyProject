@@ -29,7 +29,7 @@ namespace Modele.Business.ThrowFolder
         public Throw(Guid profileId, Dice dice)
         {
             ProfileId = profileId;
-            SimpleDice = dice;
+            Dice =  dice;
 
             try{
                 int a = dice.Result;

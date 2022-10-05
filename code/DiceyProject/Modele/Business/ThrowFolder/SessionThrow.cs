@@ -9,7 +9,6 @@ using System.Transactions;
 
 namespace Modele.Business.ThrowFolder
 {
-
     public class SessionThrow : SimpleThrow, IEqualityComparer<SessionThrow>
     {
         public Guid SessionId { get; private set; }
@@ -28,19 +27,18 @@ namespace Modele.Business.ThrowFolder
             SessionThrow newOther = (SessionThrow)other;
 
             return Equals(this, newOther);
-
         }
 
         public bool Equals(SessionThrow? x, SessionThrow? y)
         {
-            base.Equals(x,y);
-
             if (x == null || y == null) return false;
-
             if (ReferenceEquals(x, y)) return true;
 
-            return x.SessionId == y.SessionId;
-        }
+            if (x.SessionId != y.SessionId) return false;
+
+            return base.Equals(x, y);
+
+        } 
 
         public int GetHashCode([DisallowNull] SessionThrow obj)
         {

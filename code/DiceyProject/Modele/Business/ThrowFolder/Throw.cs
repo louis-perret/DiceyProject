@@ -9,19 +9,38 @@ using System.Threading.Tasks;
 namespace Modele.Business.ThrowFolder
 {
     /// <summary>
-    /// Represents a Throw. 
-    /// 
+    /// Représente un lancé.
     /// </summary>
     public abstract class Throw : IEqualityComparer<Throw>
     {
+        //Il est mandatoire pour un lancé d'avoir un profil.
         public Guid ProfileId { get; private set; }
 
-        public Dice SimpleDice { get; private set; }
+        // Dé ayant un nombre de faces et un résultat.
+        public Dice Dice { get; private set; }
 
+        /// <summary>
+        /// Constructeur de Throw.
+        /// Vérifie que le dé a bien un résultat.
+        /// </summary>
+        /// <param name="profileId"> Personne ayant lancé le dé. </param>
+        /// <param name="dice"> Dé ayant un résultat. </param>
+        /// <exception cref="System.ArgumentNullException"> Il faut que le dé n'ait pas un résultat null. </exception>
         public Throw(Guid profileId, Dice dice)
         {
             ProfileId = profileId;
             SimpleDice = dice;
+
+            try{
+                int a = dice.Result;
+            } 
+            catch(ArgumentNullException ane)
+            {
+                throw ane;
+            }
+
+            Dice = dice;
+
         }
 
         public override bool Equals(Object? other)
@@ -41,10 +60,11 @@ namespace Modele.Business.ThrowFolder
         {
             if (x == null || y == null) return false;
             if (ReferenceEquals(x, y)) return true;
+
+
             if (x.ProfileId != y.ProfileId) return false;
 
-
-            return x.SimpleDice.Equals(y.SimpleDice);
+            return x.Dice.Equals(y.Dice);
         }
 
         public int GetHashCode([DisallowNull] Throw obj)

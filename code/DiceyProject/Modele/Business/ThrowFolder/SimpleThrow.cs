@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Modele.Business.ThrowFolder
 {
+
     /// <summary>
     /// Implémentation simple de la classe Throw.
     /// </summary>
@@ -21,7 +22,6 @@ namespace Modele.Business.ThrowFolder
         public SimpleThrow(Guid profileId, Dice dice) : base(profileId, dice)
         {
         }
-
 
         /// <summary>
         /// Appel la méthode d'égalité de sa mère.
@@ -48,5 +48,6 @@ namespace Modele.Business.ThrowFolder
         {
             throw new NotImplementedException();
         }
+
     }
 }

@@ -13,7 +13,7 @@ namespace Modele.Business.ThrowFolder
     {
 
         public bool AddThrow(DateOnly date, Throw t);
-        
+
         public bool AddThrow(DateOnly  date, Dice dice, Guid profileId);
 
         public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId );

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modele\Modele.csproj" />
+    <ProjectReference Include="..\Persistance_EF\Persistance_EF.csproj" />
   </ItemGroup>
 
   <ItemGroup>

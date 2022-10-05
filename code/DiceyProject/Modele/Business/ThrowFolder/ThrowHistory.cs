@@ -37,6 +37,18 @@ namespace Modele.Business.ThrowFolder
 
         }
 
+        public bool AddThrow(DateOnly date, Dice dice, Guid profileId)
+        {
+            SimpleThrow @throw = new SimpleThrow(profileId, dice);
+            return AddThrow(date, @throw);
+        }
+
+        public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId)
+        {
+            SessionThrow @throw = new SessionThrow(profileId, dice, sessionId);
+            return AddThrow(date, @throw);
+        }
+
         public bool AddThrows(Dictionary<DateOnly, IList<Throw>> dic)
         {
             foreach (KeyValuePair<DateOnly, IList<Throw>> kvp in dic)
@@ -49,19 +61,6 @@ namespace Modele.Business.ThrowFolder
                 }
             }
             return true;
-        }
-
-
-        public bool AddThrow(DateOnly date, Dice dice, Guid profileId)
-        {
-            SimpleThrow @throw = new SimpleThrow(profileId, dice);
-            return AddThrow(date, @throw);
-        }
-
-        public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId)
-        {
-            SessionThrow @throw = new SessionThrow(profileId, dice, sessionId);
-            return AddThrow(date, @throw);
         }
 
         public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows()

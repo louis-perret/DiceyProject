@@ -9,7 +9,7 @@ namespace Modele.Business.ThrowFolder
 {
     public class ListThrowEncapsulation
     {
-        private IList<Throw> _throws;
+        private readonly IList<Throw> _throws;
 
         public ReadOnlyCollection<Throw> ThrowsROC { get; private set; }
 

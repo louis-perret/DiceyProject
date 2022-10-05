@@ -16,9 +16,9 @@ namespace Modele.Business.ThrowFolder
         
         public bool AddThrows(Dictionary<DateOnly, IList<Throw>> dic);
 
-        public bool AddThrow(DateOnly  date, Dice dice, Guid profileId);
-
         public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId );
+
+        public bool AddThrow(DateOnly date, Dice dice, Guid profileId);
 
         public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows();
 

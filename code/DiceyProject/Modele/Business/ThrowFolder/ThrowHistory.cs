@@ -9,12 +9,25 @@ using System.Threading.Tasks;
 
 namespace Modele.Business.ThrowFolder
 {
+
+    /// <summary>
+    /// Gère l'historique des lancés. 
+    /// Déclare toutes les méthodes nécessaires à l'ajout / la récupération de différents types de lancés.
+    /// </summary>
     public class ThrowHistory : IThrowHistory
     {
-        private Dictionary<DateOnly, ListThrowEncapsulation> _history;
 
+        //Dictionnaire privé, ne pouvant pas être changé, mais modifié par cette classe.
+        //La clé du dictionnaire est une date, pour pouvoir trié les lancés, et sa valeur est une ListThrowEncapsulation.
+        private readonly Dictionary<DateOnly, ListThrowEncapsulation> _history;
+
+        //Dictionnaire visible par les autres classes.
         public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> History { get; private set; }
 
+        /// <summary>
+        /// Constructeur sans arguments.
+        /// instancie un nouveau historique.
+        /// </summary>
         public ThrowHistory()
         {
             _history = new Dictionary<DateOnly, ListThrowEncapsulation>();
@@ -22,6 +35,11 @@ namespace Modele.Business.ThrowFolder
             History = new ReadOnlyDictionary<DateOnly, ListThrowEncapsulation>(_history);
         }
 
+        /// <summary>
+        /// Constructeur avec argument. 
+        /// Fait en sorte que la référence vers le dictionnaire soit détruite, pour que la seule classe la maîtrisant soit ThrowHistory.
+        /// </summary>
+        /// <param name="history"> Dictionnaire d'historique temporaire. </param>
         public ThrowHistory(Dictionary<DateOnly, ListThrowEncapsulation> history)
         {
             _history = new Dictionary<DateOnly, ListThrowEncapsulation>(history); ;
@@ -29,12 +47,38 @@ namespace Modele.Business.ThrowFolder
             History = new ReadOnlyDictionary<DateOnly, ListThrowEncapsulation>(_history);
         }
 
+        /// <summary>
+        /// Méthode publique pour ajouter un lancé à l'historique.
+        /// </summary>
+        /// <param name="date"> Date du lancé. </param>
+        /// <param name="t"> Lancé à ajouter. </param>
+        /// <returns></returns>
         public bool AddThrow(DateOnly date, Throw t)
         {
             if (!checkDate(date)) return false;
-            AddThrowWithoutVerif(date, t);
-            return true;
 
+            AddThrowWithoutVerif(date, t);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Méthode publique pour ajouter un lancé simple (lié à un profil) à l'historique.
+        /// </summary>
+        /// <param name="date"> Date du lancé. </param>
+        /// <param name="dice"> Dé contenant le résultat du lancé. </param>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        public bool AddThrow(DateOnly date, Dice dice, Guid profileId)
+        {
+            SimpleThrow @throw = new SimpleThrow(profileId, dice);
+            return AddThrow(date, @throw);
+        }
+
+        public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId)
+        {
+            SessionThrow @throw = new SessionThrow(profileId, dice, sessionId);
+            return AddThrow(date, @throw);
         }
 
         public bool AddThrows(Dictionary<DateOnly, IList<Throw>> dic)
@@ -49,19 +93,6 @@ namespace Modele.Business.ThrowFolder
                 }
             }
             return true;
-        }
-
-
-        public bool AddThrow(DateOnly date, Dice dice, Guid profileId)
-        {
-            SimpleThrow @throw = new SimpleThrow(profileId, dice);
-            return AddThrow(date, @throw);
-        }
-
-        public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId)
-        {
-            SessionThrow @throw = new SessionThrow(profileId, dice, sessionId);
-            return AddThrow(date, @throw);
         }
 
         public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows()

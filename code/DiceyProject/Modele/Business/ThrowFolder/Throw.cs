@@ -36,7 +36,7 @@ namespace Modele.Business.ThrowFolder
             } 
             catch(ArgumentNullException)
             {
-                throw ;
+                throw;
             }
 
             Dice = dice;

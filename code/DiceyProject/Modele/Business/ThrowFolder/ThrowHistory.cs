@@ -42,7 +42,7 @@ namespace Modele.Business.ThrowFolder
         /// <param name="history"> Dictionnaire d'historique temporaire. </param>
         public ThrowHistory(Dictionary<DateOnly, ListThrowEncapsulation> history)
         {
-            _history = new Dictionary<DateOnly, ListThrowEncapsulation>(history); ;
+            _history = new Dictionary<DateOnly, ListThrowEncapsulation>(history);
 
             History = new ReadOnlyDictionary<DateOnly, ListThrowEncapsulation>(_history);
         }

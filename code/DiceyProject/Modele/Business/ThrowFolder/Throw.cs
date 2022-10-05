@@ -26,7 +26,7 @@ namespace Modele.Business.ThrowFolder
         /// <param name="profileId"> Personne ayant lancé le dé. </param>
         /// <param name="dice"> Dé ayant un résultat. </param>
         /// <exception cref="System.ArgumentNullException"> Il faut que le dé n'ait pas un résultat null. </exception>
-        public Throw(Guid profileId, Dice dice)
+        protected Throw(Guid profileId, Dice dice)
         {
             ProfileId = profileId;
             Dice =  dice;
@@ -36,21 +36,21 @@ namespace Modele.Business.ThrowFolder
             } 
             catch(ArgumentNullException ane)
             {
-                throw ane;
+                throw ;
             }
 
             Dice = dice;
 
         }
 
-        public override bool Equals(Object? other)
+        public override bool Equals(Object? obj)
         {
-            if (other == null) return false;
+            if (obj == null) return false;
 
-            if (ReferenceEquals(this, other)) return true;
-            if(!GetType().Equals(other.GetType())) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if(!GetType().Equals(obj.GetType())) return false;
 
-            Throw? otherThrow = (Throw?)other;
+            Throw? otherThrow = (Throw?)obj;
 
             return Equals(this, otherThrow);
 

@@ -34,7 +34,7 @@ namespace Modele.Business.ThrowFolder
             try{
                 int a = dice.Result;
             } 
-            catch(ArgumentNullException ane)
+            catch(ArgumentNullException)
             {
                 throw ;
             }

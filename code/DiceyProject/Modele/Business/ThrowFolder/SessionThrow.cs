@@ -18,13 +18,13 @@ namespace Modele.Business.ThrowFolder
             SessionId = sessionId;
         }
 
-        public override bool Equals(Object? other)
+        public override bool Equals(Object? obj)
         {
-            if (other == null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if(! GetType().Equals(other.GetType())) return false;
+            if (obj == null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if(! GetType().Equals(obj.GetType())) return false;
 
-            SessionThrow newOther = (SessionThrow)other;
+            SessionThrow newOther = (SessionThrow)obj;
 
             return Equals(this, newOther);
         }

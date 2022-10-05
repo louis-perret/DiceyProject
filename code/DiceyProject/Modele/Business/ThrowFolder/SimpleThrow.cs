@@ -28,9 +28,9 @@ namespace Modele.Business.ThrowFolder
         /// </summary>
         /// <param name="other"> Objet à comparer. </param>
         /// <returns> Vrai si les deux objets sont égal, faux autrement. </returns>
-        public override bool Equals(object? other)
+        public override bool Equals(object? obj)
         {
-            return base.Equals(other);
+            return base.Equals(obj);
         }
 
         /// <summary>

@@ -56,18 +56,18 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
 
         [Theory]
         [MemberData(nameof(Data_Test_Constructor))]
-        private void Test_Constructor(Mock<Dice> dice, Mock<Dice> expectedDice,Guid idProf,Guid ExpectedIdProf, bool throwsException)
+        private void Test_Constructor(Mock<Dice> dice, Mock<Dice> expectedDice, Guid idProf, Guid ExpectedIdProf, bool throwsException)
         {
             var newDice = SetDiceMock(dice);
             var newDiceExpected = SetDiceMock(expectedDice);
-            if(throwsException)
+            if (throwsException)
             {
                 Assert.Throws<TargetInvocationException>(() => SetThrowMock(new Mock<Throw>(idProf, newDice)));
             }
             else
             {
                 var mockThrow = SetThrowMock(new Mock<Throw>(idProf, newDice));
-                Assert.Equal(mockThrow.SimpleDice,newDiceExpected);
+                Assert.Equal(mockThrow.SimpleDice, newDiceExpected);
                 Assert.Equal(mockThrow.ProfileId, ExpectedIdProf);
             }
         }
@@ -106,7 +106,7 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
 
         [Theory]
         [MemberData(nameof(Data_Test_IEquatable))]
-        private void Test_IEquatable(Mock<Throw> @throw, Mock<Throw> otherThrow,bool expectedResult, bool isOtherNull)
+        private void Test_IEquatable(Mock<Throw> @throw, Mock<Throw> otherThrow, bool expectedResult, bool isOtherNull)
         {
             Throw newThrow = SetThrowMock(@throw);
             Throw? newOtherThrow;
@@ -164,6 +164,37 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
             if (otherObject?.GetType() == @throw.GetType()) otherObject = SetThrowMock((Mock<Throw>)otherObject);
 
             Assert.Equal(expectedResult, newthrow.Equals(otherObject));
+        }
+
+        private static IEnumerable<object[]> Data_Test_HashCode()
+        {
+            yield return new object[]
+            {
+                new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
+                new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
+                true
+            };
+            yield return new object[]
+            {
+                new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
+                new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39AA1E4"),SetDiceMock(new Mock<Dice>(6))),
+                false
+            };
+            yield return new object[]
+            {
+                new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
+                new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(10))),
+                false
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_HashCode))]
+        private void Test_HashCode(Mock<Throw> @throw, Mock<Throw> otherThrow, bool expectedResult)
+        {
+            Throw newThrow = SetThrowMock(@throw);
+            Throw newOtherThrow = SetThrowMock(otherThrow);
+            Assert.Equal(expectedResult, newThrow.GetHashCode() == newOtherThrow.GetHashCode());
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Modele.Business.ProfileFolder
             get => _name;
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException(nameof(Name));
                 }
@@ -45,7 +45,7 @@ namespace Modele.Business.ProfileFolder
             get => _surname;
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException(nameof(Name));
                 }

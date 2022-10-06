@@ -13,7 +13,18 @@ namespace Modele.Business.ThrowFolder
     /// </summary>
     public abstract class Throw : IEquatable<Throw>
     {
-        public Guid ProfileId { get; private set; }
+        private Guid _profileId;
+        public Guid ProfileId { 
+            get => _profileId; 
+            
+            private set
+            {
+                if (value.Equals(Guid.Empty))
+                    throw new ArgumentException();
+                else
+                    _profileId = value;
+            }
+        }
 
         public Dice SimpleDice { get; private set; }
 
@@ -45,6 +56,11 @@ namespace Modele.Business.ThrowFolder
 
             return Equals(otherThrow);
 
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine<Dice,Guid>(SimpleDice,ProfileId);
         }
     }
 }

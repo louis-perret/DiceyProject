@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Logging;
+using LoggingConfig.LogFactory;
 
 namespace Modele.Manager.DiceManagerFolder
 {
@@ -13,6 +15,8 @@ namespace Modele.Manager.DiceManagerFolder
     /// </summary>
     public abstract class DiceManager
     {
+        ILogger logger = LogFactory.GetLogger(LoggingConfig.Choice.Model);
+
         /// <summary>
         /// List of dice that it manipulates.
         /// Protected so that no one other that the DiceManager classes can access the class' content.

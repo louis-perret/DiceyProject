@@ -18,13 +18,20 @@ namespace Persistance_EF.DBContext
         /// </summary>
         public DbSet<ProfileEntity> ProfilesSet { get; set; }
 
+        public DiceyProject_DBContext() { }
+
+        public DiceyProject_DBContext(DbContextOptions<DiceyProject_DBContext> options) : base(options) { }
+
         /// <summary>
         /// Etablish the connection to the database
         /// </summary>
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DiceyProject.mdf;Trusted_Connection=True;");
+            if(!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DiceyProject.mdf;Trusted_Connection=True;");
+            }
         }
     }
 }

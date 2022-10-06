@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Modele.Business.ProfileFolder;
+/*using Modele.Business.ProfileFolder;
 using Modele.Data;
 using Persistance_EF;
 using Persistance_EF.DBContext;
@@ -35,7 +35,7 @@ Console.WriteLine("Hello, World!");
 
 
     db.SaveChanges();
-}*/
+}
 
 ILoader dataManager = new DBManager();
 

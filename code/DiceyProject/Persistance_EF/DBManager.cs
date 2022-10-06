@@ -26,11 +26,10 @@ namespace Persistance_EF
             Profile profile = null;
             using(DiceyProjectDBContext = new DiceyProject_DBContext())
             {
-                var p = DiceyProjectDBContext.ProfilesSet.Where(profile => profile.Id == id).ToList();
-                if(p.Count > 0)
+                var p = DiceyProjectDBContext.ProfilesSet.SingleOrDefault(p => p.Id == id);
+                if(p != null)
                 {
-                    profile = p.Select(profile => profile.ToProfileModel()).First();
-
+                    profile = p.ToProfileModel();
                 }
             }
 

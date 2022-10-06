@@ -1,13 +1,14 @@
 ﻿using Modele.Business.ProfileFolder;
 using Persistance_EF.Entities;
 using Persistance_EF.Extensions;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UT_Modele.UT_Persistance.UT_Persistance_EF
+namespace UT_Persistance_EF
 {
     public class UT_Extensions
     {
@@ -33,7 +34,7 @@ namespace UT_Modele.UT_Persistance.UT_Persistance_EF
             };
             IEnumerable<ProfileEntity> listeProfilesEntity = listeProfiles.ToProfileEntities();
             Assert.NotNull(listeProfilesEntity);
-            for(int index = 0; index< listeProfiles.Count(); index++)
+            for (int index = 0; index < listeProfiles.Count(); index++)
             {
                 Assert.Equal(listeProfiles.ElementAt(index).Id, listeProfilesEntity.ElementAt(index).Id);
                 Assert.Equal(listeProfiles.ElementAt(index).Name, listeProfilesEntity.ElementAt(index).Name);

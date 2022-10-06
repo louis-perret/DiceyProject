@@ -9,7 +9,16 @@ namespace Modele.Business.ThrowFolder
 {
     public class SessionThrow : SimpleThrow, IEquatable<SessionThrow>
     {
-        public Guid SessionId { get; private set; }
+        private Guid _sessionId;
+        public Guid SessionId { 
+            get => _sessionId; 
+            private set
+            {
+                if (value.Equals(Guid.Empty))
+                    throw new ArgumentException("Session Id in Session throw can't be empty");
+                else _sessionId = value;
+            }
+        }
 
         public SessionThrow(Guid profileId, Dice dice, Guid sessionId) : base(profileId, dice)
         {
@@ -35,6 +44,11 @@ namespace Modele.Business.ThrowFolder
 
             return Equals(newOther);
 
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode,SessionId);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Modele.Business.ThrowFolder
             private set
             {
                 if (value.Equals(Guid.Empty))
-                    throw new ArgumentException();
+                    throw new ArgumentException("Profile Id in throw can't be empty");
                 else
                     _profileId = value;
             }

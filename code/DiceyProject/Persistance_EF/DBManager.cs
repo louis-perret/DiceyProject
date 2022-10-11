@@ -1,4 +1,5 @@
-﻿using Modele.Business.ProfileFolder;
+﻿using Microsoft.EntityFrameworkCore;
+using Modele.Business.ProfileFolder;
 using Modele.Data;
 using Persistance_EF.DBContext;
 using Persistance_EF.Entities;
@@ -20,6 +21,11 @@ namespace Persistance_EF
         /// Context of our database
         /// </summary>
         public DiceyProject_DBContext DiceyProjectDBContext { get; private set; }
+
+        public DBManager(DbContextOptions<DiceyProject_DBContext> options)
+        {
+            DiceyProjectDBContext = new DiceyProject_DBContext(options);
+        }
 
         public Profile getProfileById(int id)
         {

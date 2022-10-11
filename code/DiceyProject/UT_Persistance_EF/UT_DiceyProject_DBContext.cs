@@ -19,7 +19,7 @@ namespace UT_Persistance_EF
             connection.Open();
 
             var options = new DbContextOptionsBuilder<DiceyProject_DBContext>()
-                .UseInMemoryDatabase(databaseName: "Add_Test_database")
+                .UseInMemoryDatabase(databaseName: "AddProfiles_Test_database")
                 .Options;
 
             ProfileEntity profile1 = new ProfileEntity("Louis", "Perret");
@@ -44,11 +44,11 @@ namespace UT_Persistance_EF
             }
         }
 
-        /*[Fact]
+        [Fact]
         public void Test_RemoveProfile()
         {
             var options = new DbContextOptionsBuilder<DiceyProject_DBContext>()
-                .UseInMemoryDatabase(databaseName: "Add_Test_database")
+                .UseInMemoryDatabase(databaseName: "RemoveAProfile_Test_database")
                 .Options;
 
             ProfileEntity profile1 = new ProfileEntity("Louis", "Perret");
@@ -64,13 +64,60 @@ namespace UT_Persistance_EF
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = new DiceyProject_DBContext(options))
+            using(var dbContext = new DiceyProject_DBContext(options))
             {
                 dbContext.ProfilesSet.Remove(profile1);
+                dbContext.SaveChanges();
+            }
+
+            using (var dbContext = new DiceyProject_DBContext(options))
+            {
                 Assert.Equal(2, dbContext.ProfilesSet.Count());
                 Assert.Equal(profile2.Name, dbContext.ProfilesSet.First().Name);
                 Assert.Equal(profile3.Name, dbContext.ProfilesSet.Skip(1).Take(1).First().Name);
             }
-        }*/
+        }
+
+        [Fact]
+        public void Test_ModifyProfile()
+        {
+            var options = new DbContextOptionsBuilder<DiceyProject_DBContext>()
+                .UseInMemoryDatabase(databaseName: "ModifyAProfile_Test_database")
+                .Options;
+
+            ProfileEntity profile1 = new ProfileEntity("Louis", "Perret");
+            ProfileEntity profile2 = new ProfileEntity("Côme", "Grienenberger");
+            ProfileEntity profile3 = new ProfileEntity("Neitah", "Malvezin");
+            string newName = "Martin";
+
+            using (var dbContext = new DiceyProject_DBContext(options))
+            {
+                dbContext.ProfilesSet.Add(profile1);
+                dbContext.ProfilesSet.Add(profile2);
+                dbContext.ProfilesSet.Add(profile3);
+
+                dbContext.SaveChanges();
+            }
+
+            using (var dbContext = new DiceyProject_DBContext(options))
+            {
+                string subString = "er";
+                Assert.Equal(2, dbContext.ProfilesSet.Where(p => p.Surname.ToLower().Contains(subString)).Count());
+                subString = "zi";
+                Assert.Equal(1, dbContext.ProfilesSet.Where(p => p.Surname.ToLower().Contains(subString)).Count());
+                var profile = dbContext.ProfilesSet.Where(p => p.Surname.ToLower().Contains(subString)).First();
+                profile.Name = newName;
+
+                dbContext.SaveChanges();
+            }
+
+            using (var dbContext = new DiceyProject_DBContext(options))
+            {
+                Assert.Equal(3, dbContext.ProfilesSet.Count());
+                Assert.Equal(profile1.Name, dbContext.ProfilesSet.First().Name);
+                Assert.Equal(profile2.Name, dbContext.ProfilesSet.Skip(1).Take(1).First().Name);
+                Assert.Equal(newName, dbContext.ProfilesSet.Skip(2).Take(1).First().Name);
+            }
+        }
     }
 }

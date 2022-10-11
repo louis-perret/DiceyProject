@@ -9,6 +9,11 @@ namespace Modele.Business.ThrowFolder
     public class DateTimeConverter
     {
 
+        protected DateTimeConverter()
+        {
+
+        }
+
         public static DateOnly ConverToDateOnly(DateTime date)
         {
             return new DateOnly(date.Year, date.Month , date.Day);

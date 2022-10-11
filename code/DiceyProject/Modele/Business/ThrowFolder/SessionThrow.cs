@@ -1,13 +1,15 @@
 ﻿using Modele.Business.DiceFolder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Modele.Business.ThrowFolder
 {
-    public class SessionThrow : SimpleThrow, IEquatable<SessionThrow>
+    public class SessionThrow : SimpleThrow, IEqualityComparer<SessionThrow>
     {
         private Guid _sessionId;
         public Guid SessionId { 
@@ -25,30 +27,31 @@ namespace Modele.Business.ThrowFolder
             SessionId = sessionId;
         }
 
-        public bool Equals(SessionThrow? other)
+        public override bool Equals(Object? obj)
         {
-            if (other == null) return false;
-            if(ReferenceEquals(this, other)) return true;
+            if (obj == null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if(! GetType().Equals(obj.GetType())) return false;
 
-            return SessionId != other.SessionId;
+            SessionThrow newOther = (SessionThrow)obj;
 
+            return Equals(this, newOther);
         }
 
-        public override bool Equals(Object? other)
+        public bool Equals(SessionThrow? x, SessionThrow? y)
         {
-            if (other == null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if(! GetType().Equals(other.GetType())) return false;
+            if (x == null || y == null) return false;
+            if (ReferenceEquals(x, y)) return true;
 
-            SessionThrow newOther = (SessionThrow)other;
+            if (x.SessionId != y.SessionId) return false;
 
-            return Equals(newOther);
+            return base.Equals(x, y);
 
-        }
+        } 
 
-        public override int GetHashCode()
+        public int GetHashCode([DisallowNull] SessionThrow obj)
         {
-            return HashCode.Combine(base.GetHashCode,SessionId);
+            throw new NotImplementedException();
         }
     }
 }

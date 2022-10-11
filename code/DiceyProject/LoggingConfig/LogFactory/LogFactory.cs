@@ -8,22 +8,23 @@ using LoggingConfig.LogConfig;
 using Microsoft.Extensions.Logging;
 
 [assembly:InternalsVisibleTo("Modele")]
+[assembly:InternalsVisibleTo("FunctionalTest")]
 
 namespace LoggingConfig.LogFactory
 {
     internal class LogFactory
     {
-        internal static ILogger GetLogger(Choice c)
+        internal static NLog.Logger GetLogger(Choice c)
         {
 
             switch (c)
             {
                 case Choice.Model:
                     LoggerConfig.SetModelConfig();
-                    return (ILogger)NLog.LogManager.GetLogger();
+                    return NLog.LogManager.GetCurrentClassLogger();
 
                 default:
-                    return (ILogger)NLog.LogManager.GetLogger(className);
+                    return NLog.LogManager.GetCurrentClassLogger();
             }
 
 

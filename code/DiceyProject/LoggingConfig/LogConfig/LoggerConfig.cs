@@ -16,10 +16,11 @@ namespace LoggingConfig.LogConfig
 
             var logfile = new NLog.Targets.FileTarget("logfile") { FileName = "modelLogs.txt" };
             var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
- 
-            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
+            
             config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
-          
+
+            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
+
             NLog.LogManager.Configuration = config;
         }
     }

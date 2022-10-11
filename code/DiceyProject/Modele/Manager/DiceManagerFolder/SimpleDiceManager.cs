@@ -1,4 +1,5 @@
-﻿using Modele.Business.DiceFactoryFolder;
+﻿using Microsoft.Extensions.Logging;
+using Modele.Business.DiceFactoryFolder;
 using Modele.Business.DiceFolder;
 using Modele.Exceptions;
 using System;
@@ -18,13 +19,13 @@ namespace Modele.Manager.DiceManagerFolder
         /// <summary>
         /// Calls parent's no parameters constructor.
         /// </summary>
-        public SimpleDiceManager() : base() {}
+        public SimpleDiceManager(ILogger<SimpleDiceManager> logger) : base(logger) {}
 
         /// <summary>
         /// Calls parent's one parameter constructor.
         /// </summary>
         /// <param name="dice"> A list of dice </param>
-        public SimpleDiceManager(IList<Dice> dice) : base(dice) { }
+        public SimpleDiceManager(IList<Dice> dice, ILogger<SimpleDiceManager> logger) : base(dice, logger) { }
 
         /// <summary>
         /// Add one simple dice

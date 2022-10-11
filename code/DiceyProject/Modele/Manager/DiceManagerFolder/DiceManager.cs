@@ -15,7 +15,8 @@ namespace Modele.Manager.DiceManagerFolder
     /// </summary>
     public abstract class DiceManager
     {
-        ILogger logger = LogFactory.GetLogger(LoggingConfig.Choice.Model);
+        //TODO : Put in the manager
+        private ILogger _logger;
 
         /// <summary>
         /// List of dice that it manipulates.
@@ -33,20 +34,21 @@ namespace Modele.Manager.DiceManagerFolder
         /// Constructor with no parameters.
         /// Initializes <see cref="_dice"> to an empty List.
         /// </summary>
-        public DiceManager() : this(new List<Dice>()){ }
+        public DiceManager(ILogger<DiceManager> logger) : this(new List<Dice>(), logger){ }
 
         /// <summary>
         /// Constructor with parameters.
         /// Initializes <see cref="_dice"> to the parameter's value
         /// </summary>
         /// <param name="dice"> An IList of dice </param>
-        public DiceManager(IList<Dice> dice)
+        public DiceManager(IList<Dice> dice, ILogger<DiceManager> diceManagerLogger)
         {
             // Create a new list of dice instead of copying the reference. 
             // This allows the manager to have complete control over the list it contains. 
             // If another class had the reference, the list could be updated without the manager's consent.
             _dice = new List<Dice>(dice);
-
+            _logger = diceManagerLogger;
+            _logger.LogDebug("AYEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             DiceROC = new ReadOnlyCollection<Dice>(_dice);
         }
 

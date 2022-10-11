@@ -67,7 +67,7 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
             else
             {
                 var mockThrow = SetThrowMock(new Mock<Throw>(idProf, newDice));
-                Assert.Equal(mockThrow.SimpleDice, newDiceExpected);
+                Assert.Equal(mockThrow.Dice, newDiceExpected);
                 Assert.Equal(mockThrow.ProfileId, ExpectedIdProf);
             }
         }

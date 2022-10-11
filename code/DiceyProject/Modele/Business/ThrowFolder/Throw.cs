@@ -26,12 +26,12 @@ namespace Modele.Business.ThrowFolder
             }
         }
 
-        public Dice SimpleDice { get; private set; }
+        public Dice Dice { get; private set; }
 
         public Throw(Guid profileId, Dice dice)
         {
             ProfileId = profileId;
-            SimpleDice = dice;
+            Dice = dice;
         }
 
         public bool Equals(Throw? other)
@@ -42,7 +42,7 @@ namespace Modele.Business.ThrowFolder
             if(ProfileId != other.ProfileId) return false;
             
 
-            return SimpleDice.Equals(other.SimpleDice);
+            return Dice.Equals(other.Dice);
         }
 
         public override bool Equals(Object? other)
@@ -60,7 +60,7 @@ namespace Modele.Business.ThrowFolder
 
         public override int GetHashCode()
         {
-            return HashCode.Combine<Dice,Guid>(SimpleDice,ProfileId);
+            return HashCode.Combine<Dice,Guid>(Dice,ProfileId);
         }
     }
 }

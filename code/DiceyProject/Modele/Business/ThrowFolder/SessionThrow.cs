@@ -49,9 +49,16 @@ namespace Modele.Business.ThrowFolder
 
         } 
 
+
+
         public int GetHashCode([DisallowNull] SessionThrow obj)
         {
-            throw new NotImplementedException();
+            return obj.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), SessionId);
         }
     }
 }

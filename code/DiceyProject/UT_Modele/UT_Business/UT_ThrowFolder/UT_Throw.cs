@@ -72,19 +72,21 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
             }
         }
 
-        private static IEnumerable<object[]> Data_Test_IEquatable()
+        private static IEnumerable<object[]> Data_Test_IEqualityComparer()
         {
             yield return new object[]
             {
                 new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
                 new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
                 true,
+                false,
                 false
             };
             yield return new object[]
             {
                 new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
                 new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39AA1E4"),SetDiceMock(new Mock<Dice>(6))),
+                false,
                 false,
                 false
             };
@@ -93,6 +95,7 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
                 new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
                 new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(10))),
                 false,
+                false,
                 false
             };
             yield return new object[]
@@ -100,21 +103,31 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
                 new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
                 new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
                 false,
+                true,
+                false
+            };
+            yield return new object[]
+            {
+                new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
+                new Mock<Throw>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6))),
+                true,
+                false,
                 true
             };
         }
 
         [Theory]
-        [MemberData(nameof(Data_Test_IEquatable))]
-        private void Test_IEquatable(Mock<Throw> @throw, Mock<Throw> otherThrow, bool expectedResult, bool isOtherNull)
+        [MemberData(nameof(Data_Test_IEqualityComparer))]
+        private void Test_IEqualityComparer(Mock<Throw> @throw, Mock<Throw> otherThrow, bool expectedResult, bool isOtherNull, bool isReferenceEquals)
         {
             Throw newThrow = SetThrowMock(@throw);
             Throw? newOtherThrow;
 
+            if (isReferenceEquals) newOtherThrow = newThrow;
             if (isOtherNull) newOtherThrow = null;
             else newOtherThrow = SetThrowMock(otherThrow);
 
-            Assert.Equal(expectedResult, newThrow.Equals(newOtherThrow));
+            Assert.Equal(expectedResult, newThrow.Equals(newThrow,newOtherThrow));
         }
 
         private static IEnumerable<object[]> Data_Test_GenericEquals()
@@ -194,7 +207,7 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
         {
             Throw newThrow = SetThrowMock(@throw);
             Throw newOtherThrow = SetThrowMock(otherThrow);
-            Assert.Equal(expectedResult, newThrow.GetHashCode() == newOtherThrow.GetHashCode());
+            Assert.Equal(expectedResult, newThrow.GetHashCode(newThrow) == newOtherThrow.GetHashCode(newOtherThrow));
         }
     }
 }

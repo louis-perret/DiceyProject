@@ -73,9 +73,9 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
             }
         }
 
-        private static IEnumerable<object[]> Data_Test_IEquatable()
+        private static IEnumerable<object?[]> Data_Test_IEqualityComparer()
         {
-            yield return new object[]
+            yield return new object?[]
             {
                 new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")),
                 new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")),
@@ -83,20 +83,59 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
                 false
             };
 
-            yield return new object[]
+            yield return new object?[]
             {
                 new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")),
                 new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F916845E-CEB2-4faa-B6BF-329BF39FA1E4")),
                 false,
                 false
             };
-            yield return new object[]
+            yield return new object?[]
+            {
+                new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")),
+                null,
+                false,
+                false
+            };
+            yield return new object?[]
+            {
+                new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")),
+                new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F916845E-CEB2-4faa-B6BF-329BF39FA1E4")),
+                true,
+                true
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_IEqualityComparer))]
+        public void Test_IEqualityComparer(SessionThrow sessionThrow, SessionThrow? otherSessionThrow,bool expectedResult, bool isReferenceEquals)
+        {
+            if (isReferenceEquals) otherSessionThrow = sessionThrow;
+            Assert.Equal(expectedResult, sessionThrow.Equals(sessionThrow, otherSessionThrow));
+        }
+
+        private static IEnumerable<object?[]> Data_Test_GetHashCode()
+        {
+            yield return new object?[]
+            {
+                new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")),
+                new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")),
+                true,
+            };
+
+            yield return new object?[]
             {
                 new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")),
                 new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),SetDiceMock(new Mock<Dice>(6)),new Guid("F916845E-CEB2-4faa-B6BF-329BF39FA1E4")),
                 false,
-                true
             };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_GetHashCode))]
+        public void Test_GetHashCode(SessionThrow sessionThrow, SessionThrow otherSessionThrow,bool expectedResult)
+        {
+            Assert.Equal(expectedResult, sessionThrow.GetHashCode(sessionThrow) == otherSessionThrow.GetHashCode(otherSessionThrow));
         }
     }
 }

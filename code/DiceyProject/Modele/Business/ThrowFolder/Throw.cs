@@ -73,8 +73,8 @@ namespace Modele.Business.ThrowFolder
         }
 
         public int GetHashCode([DisallowNull] Throw obj)
-            {
-                throw new NotImplementedException();
-            }
+        {
+            return obj.GetHashCode();
         }
+    }
 }

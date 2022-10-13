@@ -6,27 +6,24 @@ using System.Text;
 using System.Threading.Tasks;
 using LoggingConfig.LogConfig;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 [assembly:InternalsVisibleTo("Modele")]
 [assembly:InternalsVisibleTo("FunctionalTest")]
 
 namespace LoggingConfig.LogFactory
 {
-    internal class LogFactory
+    internal class LogFactory<T>
     {
-        internal static NLog.Logger GetLogger(Choice c)
+        internal static NLog.Logger? GetLogger(Choice c, T t)
         {
 
-            switch (c)
-            {
+            switch (c) {
                 case Choice.Model:
                     LoggerConfig.SetModelConfig();
-                    return NLog.LogManager.GetCurrentClassLogger();
-
-                default:
-                    return NLog.LogManager.GetCurrentClassLogger();
+                    return (NLog.Logger)LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<T>();
             }
-
+            return null;
 
         }
 

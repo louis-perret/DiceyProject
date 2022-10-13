@@ -31,6 +31,15 @@ namespace Modele.Manager.DiceManagerFolder
         public ReadOnlyCollection<Dice> DiceROC { get; private set; }
 
         /// <summary>
+        /// No args constructor.
+        /// Initializes the list of dice as empty, and the logger as a null reference.
+        /// </summary>
+        public DiceManager() : this(new List<Dice>())
+        {
+            _logger = null;
+        }
+
+        /// <summary>
         /// Constructor with no parameters.
         /// Initializes <see cref="_dice"> to an empty List.
         /// </summary>

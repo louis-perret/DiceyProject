@@ -15,17 +15,23 @@ namespace Modele.Manager.DiceManagerFolder
     /// </summary>
     public class SimpleDiceManager : DiceManager
     {
-
         /// <summary>
-        /// Calls parent's no parameters constructor.
+        /// Calls parent's constructor with a logger.
         /// </summary>
+        /// <param name="logger"> A SimpleDiceManager logger </param>
         public SimpleDiceManager(ILogger<SimpleDiceManager> logger) : base(logger) {}
 
         /// <summary>
-        /// Calls parent's one parameter constructor.
+        /// Calls parent's constructor with a dice list and a logger.
         /// </summary>
         /// <param name="dice"> A list of dice </param>
         public SimpleDiceManager(IList<Dice> dice, ILogger<SimpleDiceManager> logger) : base(dice, logger) { }
+
+        /// <summary>
+        /// Calls parent constructor with only a list of dice.
+        /// </summary>
+        /// <param name="dice"> A list of dice </param>
+        public SimpleDiceManager(IList<Dice> dice) : base(dice) { }
 
         /// <summary>
         /// Add one simple dice

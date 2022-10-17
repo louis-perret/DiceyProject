@@ -12,7 +12,7 @@ namespace Modele.Business.ProfileFolder
         {
         }
 
-        public SimpleProfile(int id, string name, string surname) : base(id, name, surname)
+        public SimpleProfile(Guid id, string name, string surname) : base(id, name, surname)
         {
         }
     }

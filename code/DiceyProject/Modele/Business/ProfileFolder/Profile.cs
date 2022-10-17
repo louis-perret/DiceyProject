@@ -14,7 +14,7 @@ namespace Modele.Business.ProfileFolder
         /// <summary>
         /// Palyer's id
         /// </summary>
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
 
 
         /// <summary>
@@ -61,14 +61,14 @@ namespace Modele.Business.ProfileFolder
         /// <param name="name">player's name</param>
         /// <param name="surname">player's surname</param>
         /// <exception cref="ArgumentException"></exception>
-        public Profile(int id, string name, string surname)
+        public Profile(Guid id, string name, string surname)
         {
             Id = id;
             Name = name;
             Surname = surname;
         }
 
-        public Profile(string name, string surname) : this(-1, name, surname)
+        public Profile(string name, string surname) : this(Guid.Empty, name, surname)
         {
         }
 
@@ -76,7 +76,7 @@ namespace Modele.Business.ProfileFolder
         {
             if (other == null) return false;
 
-            return Id == other.Id;
+            return Id.Equals(other.Id);
 
         }
 
@@ -93,7 +93,7 @@ namespace Modele.Business.ProfileFolder
 
         public override int GetHashCode()
         {
-            return Id;
+            return HashCode.Combine(Id,Name,Surname);
         }
 
     }

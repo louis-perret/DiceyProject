@@ -29,6 +29,8 @@ namespace Modele.Business.ThrowFolder
         // Dé ayant un nombre de faces et un résultat.
         public Dice Dice { get; private set; }
 
+        public DateTime DateTime { get; private set; }
+
         /// <summary>
         /// Constructeur de Throw.
         /// Vérifie que le dé a bien un résultat.

@@ -36,12 +36,10 @@ namespace Modele.Business.ThrowFolder
 
         public void AddThrows(IList<Throw> throws)
         {
-            foreach(Throw t in throws){
+            foreach(Throw t in throws)
+            {
                 _throws.Add(t);
             }
         }
-
-
-
     }
 }

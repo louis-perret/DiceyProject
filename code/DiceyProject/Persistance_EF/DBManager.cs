@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modele.Business.ProfileFolder;
 using Modele.Data;
-using Persistance_EF.DBContext;
 using Persistance_EF.Entities;
 using Persistance_EF.Extensions;
 using System;
@@ -27,9 +26,9 @@ namespace Persistance_EF
             DiceyProjectDBContext = new DiceyProject_DBContext(options);
         }
 
-        public Profile getProfileById(int id)
+        public Profile? getProfileById(int id)
         {
-            Profile profile = null;
+            Profile? profile = null;
             using(DiceyProjectDBContext = new DiceyProject_DBContext())
             {
                 var p = DiceyProjectDBContext.ProfilesSet.SingleOrDefault(p => p.Id == id);

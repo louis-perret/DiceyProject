@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistance_EF.DBContext
+namespace Persistance_EF
 {
     /// <summary>
     /// Context of our database. It allows us to access to our data and to apply changement on local to the database
@@ -28,7 +28,7 @@ namespace Persistance_EF.DBContext
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if(!optionsBuilder.IsConfigured)
+            if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DiceyProject.mdf;Trusted_Connection=True;");
             }

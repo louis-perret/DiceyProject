@@ -13,6 +13,6 @@ namespace Modele.Data
 
         public IList<Profile> getProfileByName(string name, string surname);
 
-        public Profile getProfileById(int id);
+        public Profile? getProfileById(int id);
     }
 }

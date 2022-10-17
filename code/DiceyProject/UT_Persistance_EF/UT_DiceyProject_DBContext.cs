@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Persistance_EF.DBContext;
+using Persistance_EF;
 using Persistance_EF.Entities;
 using System;
 using System.Collections.Generic;

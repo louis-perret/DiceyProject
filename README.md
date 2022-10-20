@@ -22,7 +22,7 @@ Afin de lancer notre application (pour l'instant uniquement disponible en mode c
 
 ## Documentation
 
-La documentation du projet, avec les sketchs et les différents diagrammes UML est disponible sur notre [wiki]((https://codefirst.iut.uca.fr/git/come.grienenberger/DiceyProject/wiki/Home)).
+La documentation du projet, avec les sketchs et les différents diagrammes UML est disponible sur notre [wiki](https://codefirst.iut.uca.fr/git/come.grienenberger/DiceyProject/wiki/Home).
 
 ## Project Structure
 

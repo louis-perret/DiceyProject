@@ -9,12 +9,26 @@ using System.Threading.Tasks;
 
 namespace Persistance_EF
 {
+    /// <summary>
+    /// Allow us to do have a stub in our data base when this latter is created
+    /// </summary>
     public class DiceyProject_DBContext_WithStub : DiceyProject_DBContext
     {
+        /// <summary>
+        /// Empty constructor
+        /// </summary>
         public DiceyProject_DBContext_WithStub() { }
 
+        /// <summary>
+        /// Constructor with optional options
+        /// </summary>
+        /// <param name="options">optional options, especially for the database provider that we want to use</param>
         public DiceyProject_DBContext_WithStub(DbContextOptions<DiceyProject_DBContext> options) : base(options) { }
 
+        /// <summary>
+        /// Method called when the database is created. Allow us to set a data set in it.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

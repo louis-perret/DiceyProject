@@ -18,14 +18,21 @@ namespace Persistance_EF
         /// </summary>
         public DbSet<ProfileEntity> ProfilesSet { get; set; }
 
+        /// <summary>
+        /// Empty constructor
+        /// </summary>
         public DiceyProject_DBContext() { }
 
+        /// <summary>
+        /// Constructor with optional options
+        /// </summary>
+        /// <param name="options"></param>
         public DiceyProject_DBContext(DbContextOptions<DiceyProject_DBContext> options) : base(options) { }
 
         /// <summary>
         /// Etablish the connection to the database
         /// </summary>
-        /// <param name="optionsBuilder"></param>
+        /// <param name="optionsBuilder">optional options, especially for the database provider that we want to use</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -35,8 +35,8 @@ namespace UT_Persistance_EF
                         .Options;
 
             DBManager dbManager = new DBManager(options);
-
-            ProfileEntity profile1 = new ProfileEntity("Louis", "Perret");
+            Guid id = Guid.NewGuid();
+            ProfileEntity profile1 = new ProfileEntity(id,"Louis", "Perret");
             ProfileEntity profile2 = new ProfileEntity("Côme", "Grienenberger");
             ProfileEntity profile3 = new ProfileEntity("Neitah", "Malvezin");
 
@@ -49,7 +49,7 @@ namespace UT_Persistance_EF
                 dbContext.SaveChanges();
             }
 
-            Profile profileExpected = new SimpleProfile(1,"Louis", "Perret");
+            Profile profileExpected = profile1.ToProfileModel();
             Profile? profileActual = dbManager.getProfileById(profileExpected.Id); 
 
             Assert.NotNull(profileActual);

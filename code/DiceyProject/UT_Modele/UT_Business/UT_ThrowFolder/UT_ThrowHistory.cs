@@ -1,4 +1,5 @@
-﻿using Modele.Business.ThrowFolder;
+﻿using Modele.Business.DiceFolder;
+using Modele.Business.ThrowFolder;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,6 +47,66 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
                 Assert.Equal(dico, history.History);
             }
 
+        }
+
+        private static IEnumerable<object[]> Data_Test_Add_Throw_Profile()
+        {
+            yield return new object[]
+            {
+                DateTimeConverter.ConverToDateOnly(DateTime.Now),
+                new SimpleDice(6),
+                new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),
+                1,
+                true
+            };
+            yield return new object[]
+            {
+                DateTimeConverter.ConverToDateOnly(DateTime.Now).AddDays(80),
+                new SimpleDice(6),
+                new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),
+                0,
+                false
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_Add_Throw_Profile))]
+        public void Test_Add_Throw_Profile(DateOnly date, Dice dice, Guid guid, int expectedCount, bool expectedResult)
+        {
+            ThrowHistory th = new ThrowHistory();
+            Assert.Equal(expectedResult,th.AddThrow(date, dice, guid));
+            Assert.Equal(expectedCount, th.History.Count);
+        }
+
+        private static IEnumerable<object[]> Data_Test_Add_Throw_Session()
+        {
+            yield return new object[]
+            {
+                DateTimeConverter.ConverToDateOnly(DateTime.Now),
+                new SimpleDice(6),
+                new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),
+                new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),
+                1,
+                true
+            };
+            yield return new object[]
+            {
+                DateTimeConverter.ConverToDateOnly(DateTime.Now).AddDays(80),
+                new SimpleDice(6),
+                new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),
+                new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),
+                0,
+                false
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_Add_Throw_Session))]
+        public void Test_Add_Throw_Session(DateOnly date, Dice dice, Guid guid, Guid guidSession, int expectedCount, bool expectedResult)
+        {
+            ThrowHistory th = new ThrowHistory();
+            Assert.Equal(expectedResult, th.AddThrow(date, dice, guidSession, guid));
+            Assert.Equal(expectedCount, th.History.Count);
         }
 
     }

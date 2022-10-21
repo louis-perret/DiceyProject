@@ -45,7 +45,6 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
             {
                 var moqProfile = GetProfileMock(name, surname);
                 Assert.NotNull(moqProfile);
-                Assert.Equal(moqProfile.Id, Guid.Empty);
                 Assert.Equal(expectedName, moqProfile.Name);
                 Assert.Equal(expectedsurname, moqProfile.Surname);
             }

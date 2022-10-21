@@ -61,15 +61,15 @@ namespace Modele.Business.ProfileFolder
         /// <param name="name">player's name</param>
         /// <param name="surname">player's surname</param>
         /// <exception cref="ArgumentException"></exception>
-        public Profile(int id, string name, string surname)
+        public Profile(int id, string name, string surname) : this(name, surname)
         {
             Id = id;
-            Name = name;
-            Surname = surname;
         }
 
-        public Profile(string name, string surname) : this(-1, name, surname)
+        public Profile(string name, string surname) 
         {
+            Name = name;
+            Surname= surname;
         }
 
         public bool Equals(Profile? other)

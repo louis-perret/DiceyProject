@@ -14,7 +14,7 @@ namespace Persistance_EF.Entities
         /// <summary>
         /// Id of profile
         /// </summary>
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Name of profile

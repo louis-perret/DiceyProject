@@ -14,7 +14,7 @@ namespace Persistance_EF.Entities
         /// <summary>
         /// Id of profile
         /// </summary>
-        public int Id { get; set; }
+        public Guid id { get; set; }
 
         /// <summary>
         /// Name of profile
@@ -33,7 +33,7 @@ namespace Persistance_EF.Entities
         /// <param name="id">id of profile</param>
         /// <param name="name">name of profile</param>
         /// <param name="surname">surname of profile</param>
-        public ProfileEntity(int id, string name, string surname) : this(name, surname)
+        public ProfileEntity(Guid id, string name, string surname) : this(name, surname)
         {
             Id = id;
         }

@@ -34,17 +34,17 @@ namespace Persistance_EF
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ProfileEntity>().HasData(
-                new ProfileEntity(1, "Perret", "Louis"),
-                new ProfileEntity(2, "Malvezin", "Neitah"),
-                new ProfileEntity(3, "Grienenberger", "Côme"),
-                new ProfileEntity(4, "Perret", "Christele"),
-                new ProfileEntity(5, "Perret", "Bruno"),
-                new ProfileEntity(6, "Perret", "Antoine"),
-                new ProfileEntity(7, "Perret", "Mathilde"),
-                new ProfileEntity(8, "Kim", "Minji"),
-                new ProfileEntity(9, "Kim", "Bora"),
-                new ProfileEntity(10, "Lee", "Siyeon"),
-                new ProfileEntity(11, "Han", "Dong")
+                new ProfileEntity(Guid.NewGuid(), "Perret", "Louis"),
+                new ProfileEntity(Guid.NewGuid(), "Malvezin", "Neitah"),
+                new ProfileEntity(Guid.NewGuid(), "Grienenberger", "Côme"),
+                new ProfileEntity(Guid.NewGuid(), "Perret", "Christele"),
+                new ProfileEntity(Guid.NewGuid(), "Perret", "Bruno"),
+                new ProfileEntity(Guid.NewGuid(), "Perret", "Antoine"),
+                new ProfileEntity(Guid.NewGuid(), "Perret", "Mathilde"),
+                new ProfileEntity(Guid.NewGuid(), "Kim", "Minji"),
+                new ProfileEntity(Guid.NewGuid(), "Kim", "Bora"),
+                new ProfileEntity(Guid.NewGuid(), "Lee", "Siyeon"),
+                new ProfileEntity(Guid.NewGuid(), "Han", "Dong")
             );
         }
     }

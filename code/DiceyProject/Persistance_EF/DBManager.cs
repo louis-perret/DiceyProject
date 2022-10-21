@@ -37,11 +37,11 @@ namespace Persistance_EF
         /// <param name="numberPage">number of the page</param>
         /// <param name="count">number of profile to get</param>
         /// <returns></returns>
-        public Profile? getProfileById(int id)
+        public Profile? getProfileById(Guid id)
         {
             Profile? profile = null;
             openConnectionToDB();
-            var p = DiceyProjectDBContext?.ProfilesSet.SingleOrDefault(p => p.Id == id);
+            var p = DiceyProjectDBContext?.ProfilesSet.SingleOrDefault(p => p.Id.Equals(id));
             if(p != null)
             {
                 profile = p.ToProfileModel();
@@ -127,11 +127,11 @@ namespace Persistance_EF
         /// <param name="profileId">profile's id to modify</param>
         /// <param name="name">new name</param>
         /// <returns></returns>
-        public bool ModifyProfileName(int profileId, string name)
+        public bool ModifyProfileName(Guid profileId, string name)
         {
             openConnectionToDB();
             bool ans = true;
-            ProfileEntity? profile = DiceyProjectDBContext?.ProfilesSet.Where(p => p.Id == profileId).First();
+            ProfileEntity? profile = DiceyProjectDBContext?.ProfilesSet.Where(p => p.Id.Equals(profileId)).First();
             if (profile != null)
             {
                 profile.Name = name;
@@ -151,11 +151,11 @@ namespace Persistance_EF
         /// <param name="profileId">profile's id to modify</param>
         /// <param name="name">new surname</param>
         /// <returns></returns>
-        public bool ModifyProfileSurname(int profileId, string surname)
+        public bool ModifyProfileSurname(Guid profileId, string surname)
         {
             openConnectionToDB();
             bool ans = true;
-            ProfileEntity? profile = DiceyProjectDBContext?.ProfilesSet.Where(p => p.Id == profileId).First();
+            ProfileEntity? profile = DiceyProjectDBContext?.ProfilesSet.Where(p => p.Id.Equals(profileId)).First();
             if (profile != null)
             {
                 profile.Surname = surname;

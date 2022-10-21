@@ -48,6 +48,39 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
             }
 
         }
+        private static IEnumerable<object[]> Data_Test_Add_Throw()
+        {
+            yield return new object[]
+            {
+                DateTimeConverter.ConverToDateOnly(DateTime.Now),
+                new SimpleThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6)),
+                1,
+                true
+            };
+            yield return new object[]
+            {
+                DateTimeConverter.ConverToDateOnly(DateTime.Now),
+                new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6),new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4")),
+                1,
+                true
+            };
+            yield return new object[]
+            {
+                DateTimeConverter.ConverToDateOnly(DateTime.Now).AddDays(80),
+                new SimpleThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6)),
+                0,
+                false
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_Add_Throw))]
+        public void Test_Add_Throw(DateOnly date, Throw @throw, int expectedCount, bool expectedResult)
+        {
+            ThrowHistory th = new ThrowHistory();
+            Assert.Equal(expectedResult, th.AddThrow(date, @throw));
+            Assert.Equal(expectedCount, th.History.Count);
+        }
 
         private static IEnumerable<object[]> Data_Test_Add_Throw_Profile()
         {
@@ -109,5 +142,23 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
             Assert.Equal(expectedCount, th.History.Count);
         }
 
+        private static IEnumerable<object[]> Data_Test_Add_Throws()
+        {
+            yield return new object[]
+            {
+                2,
+                true,
+                DateTimeConverter.ConverToDateOnly(DateTime.Now),
+                new SimpleThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6)),
+                new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6),new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4")),
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_Add_Throws))]
+        public void Test_Add_Throws(int expectedCount, )
+        {
+
+        }
     }
 }

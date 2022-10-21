@@ -14,7 +14,7 @@ namespace Persistance_EF
     /// <summary>
     /// Represents the manager of our database
     /// </summary>
-    public class DBManager : ILoader
+    public class DBManager : ILoader, ISaver
     {
         /// <summary>
         /// Context of our database
@@ -40,15 +40,14 @@ namespace Persistance_EF
         public Profile? getProfileById(int id)
         {
             Profile? profile = null;
-            if (options == null) DiceyProjectDBContext = new DiceyProject_DBContext();
-            else DiceyProjectDBContext = new DiceyProject_DBContext(options);
-            var p = DiceyProjectDBContext.ProfilesSet.SingleOrDefault(p => p.Id == id);
+            openConnectionToDB();
+            var p = DiceyProjectDBContext?.ProfilesSet.SingleOrDefault(p => p.Id == id);
             if(p != null)
             {
                 profile = p.ToProfileModel();
             }
 
-            DiceyProjectDBContext.Dispose();
+            DiceyProjectDBContext?.Dispose();
             return profile;
         }
 
@@ -62,16 +61,14 @@ namespace Persistance_EF
         public IList<Profile> getProfileByName(string name, string surname)
         {
             IList<Profile> profileList = new List<Profile>();
-            if (options == null) DiceyProjectDBContext = new DiceyProject_DBContext();
-            else DiceyProjectDBContext = new DiceyProject_DBContext(options);
-
-            var p = DiceyProjectDBContext.ProfilesSet.Where(profile => profile.Name.Equals(name) && profile.Surname.Equals(surname)).ToList();
+            openConnectionToDB();
+            var p = DiceyProjectDBContext?.ProfilesSet.Where(profile => profile.Name.Equals(name) && profile.Surname.Equals(surname)).ToList();
             if (p.Count > 0)
             {
                 profileList = p.Select(profile => profile.ToProfileModel()).ToList();
             }
 
-            DiceyProjectDBContext.Dispose();
+            DiceyProjectDBContext?.Dispose();
             return profileList;
         }
 
@@ -82,13 +79,11 @@ namespace Persistance_EF
         /// <returns></returns>
         public IList<Profile> getProfileByPage(int numberPage, int count)
         {
-            IList<Profile> profileList = new List<Profile>();
-            if (options == null) DiceyProjectDBContext = new DiceyProject_DBContext();
-            else DiceyProjectDBContext = new DiceyProject_DBContext(options);
-
+            IList<Profile>? profileList = new List<Profile>();
+            openConnectionToDB();
             if (numberPage >= 0 && count >= 0)
             {
-                profileList = DiceyProjectDBContext.ProfilesSet.Skip(count * (numberPage - 1))
+                profileList = DiceyProjectDBContext?.ProfilesSet.Skip(count * (numberPage - 1))
                                                                .Take(count)
                                                                .Select(profile => profile.ToProfileModel())
                                                                .ToList();
@@ -96,6 +91,91 @@ namespace Persistance_EF
 
             DiceyProjectDBContext?.Dispose();
             return profileList;
+        }
+
+        /// <summary>
+        /// Add profile
+        /// </summary>
+        /// <param name="profile">profile to add</param>
+        /// <returns></returns>
+        public bool AddProfile(Profile profile)
+        {
+            openConnectionToDB();
+            DiceyProjectDBContext?.ProfilesSet.Add(profile.ToProfileEntity());
+            DiceyProjectDBContext?.SaveChanges();
+            DiceyProjectDBContext?.Dispose();
+            return true;
+        }
+
+        /// <summary>
+        /// Remove profile
+        /// </summary>
+        /// <param name="profile">profile to remove</param>
+        /// <returns></returns>
+        public bool RemoveProfile(Profile profile)
+        {
+            openConnectionToDB();
+            DiceyProjectDBContext?.ProfilesSet.Remove(profile.ToProfileEntity());
+            DiceyProjectDBContext?.SaveChanges();
+            DiceyProjectDBContext?.Dispose();
+            return true;
+        }
+
+        /// <summary>
+        /// Modify profile's name
+        /// </summary>
+        /// <param name="profileId">profile's id to modify</param>
+        /// <param name="name">new name</param>
+        /// <returns></returns>
+        public bool ModifyProfileName(int profileId, string name)
+        {
+            openConnectionToDB();
+            bool ans = true;
+            ProfileEntity? profile = DiceyProjectDBContext?.ProfilesSet.Where(p => p.Id == profileId).First();
+            if (profile != null)
+            {
+                profile.Name = name;
+                DiceyProjectDBContext?.SaveChanges();
+            }
+            else
+            {
+                ans = true;
+            }
+            DiceyProjectDBContext?.Dispose();
+            return ans;
+        }
+
+        /// <summary>
+        /// Modify profile's surname
+        /// </summary>
+        /// <param name="profileId">profile's id to modify</param>
+        /// <param name="name">new surname</param>
+        /// <returns></returns>
+        public bool ModifyProfileSurname(int profileId, string surname)
+        {
+            openConnectionToDB();
+            bool ans = true;
+            ProfileEntity? profile = DiceyProjectDBContext?.ProfilesSet.Where(p => p.Id == profileId).First();
+            if (profile != null)
+            {
+                profile.Surname = surname;
+                DiceyProjectDBContext?.SaveChanges();
+            }
+            else
+            {
+                ans = true;
+            }
+            DiceyProjectDBContext?.Dispose();
+            return ans;
+        }
+
+        /// <summary>
+        /// Private method which open the connection to the database regarding to the options
+        /// </summary>
+        private void openConnectionToDB()
+        {
+            if (options == null) DiceyProjectDBContext = new DiceyProject_DBContext();
+            else DiceyProjectDBContext = new DiceyProject_DBContext(options);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Persistance_EF.Entities
     /// <summary>
     /// Represents the entity Profile on our database
     /// </summary>
-    public class ProfileEntity
+    public class ProfileEntity : IEquatable<ProfileEntity?>
     {
         /// <summary>
         /// Id of profile
@@ -47,6 +47,20 @@ namespace Persistance_EF.Entities
         {
             Name = name;
             Surname = surname;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (GetType() != obj.GetType()) return false;
+
+            return Equals(obj as ProfileEntity);
+        }
+
+        public bool Equals(ProfileEntity? other)
+        {
+            return other is not null && Id == other.Id;
         }
     }
 }

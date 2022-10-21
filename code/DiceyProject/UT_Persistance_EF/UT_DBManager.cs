@@ -166,5 +166,92 @@ namespace UT_Persistance_EF
             Assert.True(testSameElements);
         }
 
+        [Fact]
+        public void Test_AddProfile()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            var options = new DbContextOptionsBuilder<DiceyProject_DBContext>()
+                        .UseInMemoryDatabase(databaseName: "Test_database_AddProfile")
+                        .Options;
+
+            DBManager dbManager = new DBManager(options);
+
+            Profile p1 = new SimpleProfile(1, "Perret", "Louis");
+            bool actualAns = dbManager.AddProfile(p1);
+            Assert.True(actualAns);
+
+            Profile? actualProfile = dbManager.getProfileById(p1.Id);
+            Assert.NotNull(actualProfile);
+            Assert.Equal(actualProfile?.ToProfileEntity(), p1.ToProfileEntity());
+        }
+
+        [Fact]
+        public void Test_RemoveProfile()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            var options = new DbContextOptionsBuilder<DiceyProject_DBContext>()
+                        .UseInMemoryDatabase(databaseName: "Test_database_RemoveProfile")
+                        .Options;
+
+            DBManager dbManager = new DBManager(options);
+
+            Profile p1 = new SimpleProfile(1, "Perret", "Louis");
+            dbManager.AddProfile(p1);
+            bool actualAns = dbManager.RemoveProfile(p1);
+            Assert.True(actualAns);
+
+            Profile? actualProfile = dbManager.getProfileById(p1.Id);
+            Assert.Null(actualProfile);
+        }
+
+        [Fact]
+        public void Test_ModifyProfileName()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            var options = new DbContextOptionsBuilder<DiceyProject_DBContext>()
+                        .UseInMemoryDatabase(databaseName: "Test_database_ModifyProfileName")
+                        .Options;
+
+            DBManager dbManager = new DBManager(options);
+
+            Profile p1 = new SimpleProfile(1, "Perret", "Louis");
+            dbManager.AddProfile(p1);
+            string newName = "newName";
+            bool actualAns = dbManager.ModifyProfileName(p1.Id, newName);
+            Assert.True(actualAns);
+
+            Profile? actualProfile = dbManager.getProfileById(p1.Id);
+            Assert.NotNull(actualProfile);
+            Assert.Equal(newName, actualProfile?.Name);
+        }
+
+        [Fact]
+        public void Test_ModifyProfileSurname()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            var options = new DbContextOptionsBuilder<DiceyProject_DBContext>()
+                        .UseInMemoryDatabase(databaseName: "Test_database_ModifyProfileSurname")
+                        .Options;
+
+            DBManager dbManager = new DBManager(options);
+
+            Profile p1 = new SimpleProfile(1, "Perret", "Louis");
+            dbManager.AddProfile(p1);
+            string newName = "newName";
+            bool actualAns = dbManager.ModifyProfileSurname(p1.Id, newName);
+            Assert.True(actualAns);
+
+            Profile? actualProfile = dbManager.getProfileById(p1.Id);
+            Assert.NotNull(actualProfile);
+            Assert.Equal(newName, actualProfile?.Surname);
+        }
     }
 }

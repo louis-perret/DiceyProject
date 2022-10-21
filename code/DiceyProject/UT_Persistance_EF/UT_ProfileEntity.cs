@@ -14,9 +14,9 @@ namespace UT_Persistance_EF
         public void Test_Constructor_WithId()
         {
             Guid id = Guid.NewGuid();
-            ProfileEntity profile = new ProfileEntity(Guid.NewGuid(), "Perret", "Louis");
+            ProfileEntity profile = new ProfileEntity(id, "Perret", "Louis");
             Assert.NotNull(profile);
-            Assert.Equal(Guid.NewGuid(), profile.Id);
+            Assert.Equal(id, profile.Id);
             Assert.Equal("Perret", profile.Name);
             Assert.Equal("Louis", profile.Surname);
         }

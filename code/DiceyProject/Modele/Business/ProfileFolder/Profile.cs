@@ -64,20 +64,22 @@ namespace Modele.Business.ProfileFolder
         public Profile(Guid id, string name, string surname)
         {
             Id = id;
+            Name = name;
+            Surname = surname;
         }
 
         public Profile(string name, string surname) : this(Guid.Empty, name, surname)
         {
-            Name = name;
-            Surname= surname;
         }
 
         public bool Equals(Profile? other)
         {
             if (other == null) return false;
 
-            return Id.Equals(other.Id);
-
+            if (Id.Equals(Guid.Empty) || other.Id.Equals(Guid.Empty))
+                return Name.Equals(other.Name) && Surname.Equals(other.Surname);
+            else
+                return Id.Equals(other.Id);
         }
 
         public override bool Equals(object? obj)

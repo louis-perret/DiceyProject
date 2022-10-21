@@ -97,7 +97,7 @@ namespace Modele.Manager.ProfileManagerFolder
             Profile p = null;
             foreach (Profile prof in _profiles)
             {
-                if (prof.Name == name && prof.Surname == surname) p = prof;
+                if (prof.Name.Equals(name) && prof.Surname.Equals(surname)) p = prof;
             }
 
             return p;

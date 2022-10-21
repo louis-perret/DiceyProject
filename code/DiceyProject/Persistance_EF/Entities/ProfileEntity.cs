@@ -49,6 +49,11 @@ namespace Persistance_EF.Entities
             Surname = surname;
         }
 
+        /// <summary>
+        /// Return true if obj is equal to the calling object
+        /// </summary>
+        /// <param name="obj">Obj to compare</param>
+        /// <returns></returns>
         public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -58,6 +63,11 @@ namespace Persistance_EF.Entities
             return Equals(obj as ProfileEntity);
         }
 
+        /// <summary>
+        /// Return true if obj is equal to the calling object
+        /// </summary>
+        /// <param name="obj">Obj to compare</param>
+        /// <returns></returns>
         public bool Equals(ProfileEntity? other)
         {
             return other is not null && Id == other.Id;

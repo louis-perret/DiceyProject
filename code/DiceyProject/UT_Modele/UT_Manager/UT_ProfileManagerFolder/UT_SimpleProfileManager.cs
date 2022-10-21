@@ -25,8 +25,8 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         }
 
         [Theory]
-        [InlineData("Louis", "Perret", false, true, 2)]
-        [InlineData("Come", "Grienenberger", true,  false, 1)]
+        [InlineData("Louis", "Perret", false, false, 1)]
+        [InlineData("Come", "Grienenberger", true,  true, 2)]
         public void Test_AddProfile(string name, string surname, bool secondTest, bool expectedResult, int expectedCount)
         {
             SimpleProfileManager profileManager;

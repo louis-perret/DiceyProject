@@ -183,7 +183,7 @@ namespace UT_Persistance_EF
 
             Profile? actualProfile = dbManager.getProfileById(p1.Id);
             Assert.NotNull(actualProfile);
-            Assert.Equal(actualProfile?.ToProfileEntity(), p1.ToProfileEntity());
+            Assert.Equal(actualProfile, p1);
         }
 
         [Fact]

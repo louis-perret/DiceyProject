@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Logging;
+using LoggingConfig.LogFactory;
 
 namespace Modele.Manager.DiceManagerFolder
 {
@@ -13,6 +15,9 @@ namespace Modele.Manager.DiceManagerFolder
     /// </summary>
     public abstract class DiceManager
     {
+        //TODO : Put in the manager
+        private ILogger? _logger;
+
         /// <summary>
         /// List of dice that it manipulates.
         /// Protected so that no one other that the DiceManager classes can access the class' content.
@@ -26,10 +31,35 @@ namespace Modele.Manager.DiceManagerFolder
         public ReadOnlyCollection<Dice> DiceROC { get; private set; }
 
         /// <summary>
+        /// No args constructor.
+        /// Initializes the list of dice as empty, and the logger as a null reference.
+        /// </summary>
+        public DiceManager() : this(new List<Dice>())
+        {
+            _logger = null;
+        }
+
+        /// <summary>
         /// Constructor with no parameters.
         /// Initializes <see cref="_dice"> to an empty List.
         /// </summary>
-        public DiceManager() : this(new List<Dice>()){ }
+        public DiceManager(ILogger<DiceManager> logger) : this(new List<Dice>(), logger){ }
+
+        /// <summary>
+        /// Constructor with parameters.
+        /// Initializes <see cref="_dice"> to the parameter's value
+        /// </summary>
+        /// <param name="dice"> An IList of dice </param>
+        public DiceManager(IList<Dice> dice, ILogger<DiceManager> diceManagerLogger)
+        {
+            // Create a new list of dice instead of copying the reference. 
+            // This allows the manager to have complete control over the list it contains. 
+            // If another class had the reference, the list could be updated without the manager's consent.
+            _dice = new List<Dice>(dice);
+            _logger = diceManagerLogger;
+            DiceROC = new ReadOnlyCollection<Dice>(_dice);
+        }
+
 
         /// <summary>
         /// Constructor with parameters.
@@ -42,7 +72,7 @@ namespace Modele.Manager.DiceManagerFolder
             // This allows the manager to have complete control over the list it contains. 
             // If another class had the reference, the list could be updated without the manager's consent.
             _dice = new List<Dice>(dice);
-
+            _logger = null;
             DiceROC = new ReadOnlyCollection<Dice>(_dice);
         }
 

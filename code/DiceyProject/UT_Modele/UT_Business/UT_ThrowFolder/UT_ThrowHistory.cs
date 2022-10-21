@@ -150,15 +150,30 @@ namespace UT_Modele.UT_Business.UT_ThrowFolder
                 true,
                 DateTimeConverter.ConverToDateOnly(DateTime.Now),
                 new SimpleThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6)),
-                new SessionThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6),new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4")),
+                new SessionThrow(new Guid("F9168E5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6),new Guid("F9168C5E-CEE3-4fba-B6BF-329BF39FA1E4")),
+            };
+            yield return new object[]
+            {
+                0,
+                false,
+                DateTimeConverter.ConverToDateOnly(DateTime.Now).AddDays(80),
+                new SimpleThrow(new Guid("F9168C5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6)),
+                new SessionThrow(new Guid("F9168E5E-CEB3-4fba-B6BF-329BF39FA1E4"),new SimpleDice(6),new Guid("F9168C5E-CEE3-4fba-B6BF-329BF39FA1E4")),
             };
         }
 
         [Theory]
         [MemberData(nameof(Data_Test_Add_Throws))]
-        public void Test_Add_Throws(int expectedCount, )
-        {
-
+        public void Test_Add_Throws(int expectedCount, bool expectedResult, DateOnly date, params Throw[] @throws)
+        { 
+            ThrowHistory th = new ThrowHistory();
+            Dictionary<DateOnly, IList<Throw>> dico = new Dictionary<DateOnly, IList<Throw>>();
+            dico.Add(date, @throws);
+            Assert.Equal(expectedResult,th.AddThrows(dico));
+            if (expectedCount > 0)
+                Assert.Equal(expectedCount, th.History.GetValueOrDefault(date).ThrowsROC.Count);
+            else
+                Assert.Throws<NullReferenceException>(() => th.History.GetValueOrDefault(date).ThrowsROC.Count);
         }
     }
 }

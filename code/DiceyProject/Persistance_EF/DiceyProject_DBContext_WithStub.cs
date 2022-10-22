@@ -20,9 +20,9 @@ namespace Persistance_EF
         public DiceyProject_DBContext_WithStub() { }
 
         /// <summary>
-        /// Constructor with optional options
+        /// Constructor with optional Options
         /// </summary>
-        /// <param name="options">optional options, especially for the database provider that we want to use</param>
+        /// <param name="options">optional Options, especially for the database provider that we want to use</param>
         public DiceyProject_DBContext_WithStub(DbContextOptions<DiceyProject_DBContext> options) : base(options) { }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Persistance_EF
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ProfileEntity>().HasData(
-                new ProfileEntity(Guid.NewGuid(), "Perret", "Louis"),
+                new ProfileEntity(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Perret", "Louis"),
                 new ProfileEntity(Guid.NewGuid(), "Malvezin", "Neitah"),
                 new ProfileEntity(Guid.NewGuid(), "Grienenberger", "Côme"),
                 new ProfileEntity(Guid.NewGuid(), "Perret", "Christele"),
@@ -44,8 +44,12 @@ namespace Persistance_EF
                 new ProfileEntity(Guid.NewGuid(), "Kim", "Minji"),
                 new ProfileEntity(Guid.NewGuid(), "Kim", "Bora"),
                 new ProfileEntity(Guid.NewGuid(), "Lee", "Siyeon"),
-                new ProfileEntity(Guid.NewGuid(), "Han", "Dong")
+                new ProfileEntity(Guid.NewGuid(), "Han", "Dong"),
+                new ProfileEntity(Guid.NewGuid(), "Kim", "Yoohyeon"),
+                new ProfileEntity(Guid.NewGuid(), "Lee", "Yubin"),
+                new ProfileEntity(Guid.NewGuid(), "Lee", "Gahyeon")
             );
+
         }
     }
 }

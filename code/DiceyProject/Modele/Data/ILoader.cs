@@ -18,7 +18,14 @@ namespace Modele.Data
         /// <param name="numberPage">number of the page</param>
         /// <param name="count">number of profile to get</param>
         /// <returns></returns>
-        public IList<Profile> getProfileByPage(int numberPage, int count);
+        public IList<Profile> GetProfileByPage(int numberPage, int count);
+
+        /// <summary>
+        /// Get all profiles which contains subString in their name or surname
+        /// </summary>
+        /// <param name="subString">substring entered by user</param>
+        /// <returns></returns>
+        public IList<Profile> GetProfileBySubString(string subString);
 
         /// <summary>
         /// Get profiles by their name
@@ -26,13 +33,13 @@ namespace Modele.Data
         /// <param name="name">name of profiles</param>
         /// <param name="surname">surname of profiles</param>
         /// <returns></returns>
-        public IList<Profile> getProfileByName(string name, string surname);
+        public IList<Profile> GetProfileByName(string name, string surname);
 
         /// <summary>
         /// Get profile by it's id
         /// </summary>
         /// <param name="id">profile's id</param>
         /// <returns></returns>
-        public Profile? getProfileById(Guid id);
+        public Profile? GetProfileById(Guid id);
     }
 }

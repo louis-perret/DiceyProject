@@ -59,7 +59,6 @@ steps:
     when:
       branch:
         - master
-        - FIX_GenerationDoc_Doxyfile
     depends_on: [ build ]
 
 volumes:

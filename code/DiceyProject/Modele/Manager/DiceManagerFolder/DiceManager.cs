@@ -15,8 +15,6 @@ namespace Modele.Manager.DiceManagerFolder
     /// </summary>
     public abstract class DiceManager
     {
-        //TODO : Put in the manager
-        private ILogger? _logger;
 
         /// <summary>
         /// List of dice that it manipulates.

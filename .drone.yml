@@ -50,8 +50,8 @@ steps:
     image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-docdeployer
     failure: ignore
     volumes:
-      - name: docs
-        path: /docs
+      - name: doc
+        path: /doc
     commands:
       #- cd documentation/doxygen
       #- doxygen Doxyfile
@@ -63,5 +63,5 @@ steps:
     depends_on: [ build ]
 
 volumes:
-- name: docs
+- name: doc
   temp: {}

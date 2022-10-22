@@ -55,7 +55,6 @@ namespace UT_Persistance_EF
         }
 
         [Theory]
-        [InlineData(false, false)]
         [InlineData(false, true)]
         [InlineData(true, true)]
         public void Test_OpenConnectionToDB(bool useDBWithStub, bool isOptionsToUse)

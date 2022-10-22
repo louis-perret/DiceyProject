@@ -63,7 +63,7 @@ namespace Persistance_EF
             IList<Profile> profileList = new List<Profile>();
             openConnectionToDB();
             var p = DiceyProjectDBContext?.ProfilesSet.Where(profile => profile.Name.Equals(name) && profile.Surname.Equals(surname)).ToList();
-            if (p.Count > 0)
+            if (p != null && p.Count > 0)
             {
                 profileList = p.Select(profile => profile.ToProfileModel()).ToList();
             }

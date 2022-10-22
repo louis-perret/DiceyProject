@@ -72,5 +72,14 @@ namespace Persistance_EF.Entities
         {
             return other is not null && Id == other.Id;
         }
+
+        /// <summary>
+        /// Hash method of ProfileEntity
+        /// </summary>
+        /// <returns>this instance's HashCode</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Name, Surname);
+        }
     }
 }

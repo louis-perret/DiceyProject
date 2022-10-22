@@ -33,6 +33,6 @@ namespace Modele.Data
         /// </summary>
         /// <param name="id">profile's id</param>
         /// <returns></returns>
-        public Profile? getProfileById(int id);
+        public Profile? getProfileById(Guid id);
     }
 }

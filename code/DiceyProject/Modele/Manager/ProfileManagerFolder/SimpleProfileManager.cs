@@ -15,7 +15,7 @@ namespace Modele.Manager.ProfileManagerFolder
             return AddProfile(prof);
         }
 
-        public override bool AddProfile(int id, string name, string surname)
+        public override bool AddProfile(Guid id, string name, string surname)
         {
             Profile prof = new SimpleProfile(id, name, surname);
             return AddProfile(prof);

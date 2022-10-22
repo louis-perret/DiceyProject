@@ -14,7 +14,7 @@ namespace Modele.Business.ProfileFolder
         /// <summary>
         /// Palyer's id
         /// </summary>
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
 
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Modele.Business.ProfileFolder
             get => _name;
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException(nameof(Name));
                 }
@@ -45,7 +45,7 @@ namespace Modele.Business.ProfileFolder
             get => _surname;
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException(nameof(Name));
                 }
@@ -61,23 +61,25 @@ namespace Modele.Business.ProfileFolder
         /// <param name="name">player's name</param>
         /// <param name="surname">player's surname</param>
         /// <exception cref="ArgumentException"></exception>
-        public Profile(int id, string name, string surname) : this(name, surname)
+        public Profile(Guid id, string name, string surname)
         {
             Id = id;
+            Name = name;
+            Surname = surname;
         }
 
-        public Profile(string name, string surname) 
+        public Profile(string name, string surname) : this(Guid.Empty, name, surname)
         {
-            Name = name;
-            Surname= surname;
         }
 
         public bool Equals(Profile? other)
         {
             if (other == null) return false;
 
-            return Id == other.Id;
-
+            if (Id.Equals(Guid.Empty) || other.Id.Equals(Guid.Empty))
+                return Name.Equals(other.Name) && Surname.Equals(other.Surname);
+            else
+                return Id.Equals(other.Id);
         }
 
         public override bool Equals(object? obj)
@@ -93,7 +95,7 @@ namespace Modele.Business.ProfileFolder
 
         public override int GetHashCode()
         {
-            return Id;
+            return HashCode.Combine(Id,Name,Surname);
         }
 
     }

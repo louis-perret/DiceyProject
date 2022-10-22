@@ -15,7 +15,7 @@ namespace UT_Persistance_EF
         [Fact]
         public void Test_ToProfileModel()
         {
-            Profile p = new SimpleProfile(0, "Louis", "Perret");
+            Profile p = new SimpleProfile(Guid.NewGuid(), "Louis", "Perret");
             ProfileEntity p2 = p.ToProfileEntity();
             Assert.NotNull(p2);
             Assert.Equal(p.Id, p2.Id);
@@ -28,9 +28,9 @@ namespace UT_Persistance_EF
         {
             IEnumerable<Profile> listeProfiles = new List<Profile>()
             {
-                new SimpleProfile(0, "Louis", "Perret"),
-                new SimpleProfile(1, "Côme", "Grienenberger"),
-                new SimpleProfile(2, "Neitah", "Malvezin")
+                new SimpleProfile(Guid.NewGuid(), "Louis", "Perret"),
+                new SimpleProfile(Guid.NewGuid(), "Côme", "Grienenberger"),
+                new SimpleProfile(Guid.NewGuid(), "Neitah", "Malvezin")
             };
             IEnumerable<ProfileEntity> listeProfilesEntity = listeProfiles.ToProfileEntities();
             Assert.NotNull(listeProfilesEntity);
@@ -45,7 +45,7 @@ namespace UT_Persistance_EF
         [Fact]
         public void Test_ToProfileEntity()
         {
-            ProfileEntity p = new ProfileEntity(0, "Louis", "Perret");
+            ProfileEntity p = new ProfileEntity(Guid.NewGuid(), "Louis", "Perret");
             Profile p2 = p.ToProfileModel();
             Assert.NotNull(p2);
             Assert.Equal(p.Id, p2.Id);
@@ -58,9 +58,9 @@ namespace UT_Persistance_EF
         {
             IEnumerable<ProfileEntity> listeProfilesEntity = new List<ProfileEntity>()
             {
-                new ProfileEntity(0, "Louis", "Perret"),
-                new ProfileEntity(1, "Côme", "Grienenberger"),
-                new ProfileEntity(2, "Neitah", "Malvezin")
+                new ProfileEntity(Guid.NewGuid(), "Louis", "Perret"),
+                new ProfileEntity(Guid.NewGuid(), "Côme", "Grienenberger"),
+                new ProfileEntity(Guid.NewGuid(), "Neitah", "Malvezin")
             };
             IEnumerable<Profile> listeProfiles = listeProfilesEntity.ToProfileModels();
             Assert.NotNull(listeProfilesEntity);

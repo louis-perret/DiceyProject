@@ -33,7 +33,7 @@ namespace Modele.Manager.ProfileManagerFolder
 
         public abstract bool AddProfile(string name, string surname);
 
-        public abstract bool AddProfile(int id, string name, string surname);
+        public abstract bool AddProfile(Guid id, string name, string surname);
 
         protected virtual bool AddProfile(Profile profile)
         {
@@ -44,7 +44,7 @@ namespace Modele.Manager.ProfileManagerFolder
             return true;
         }
 
-        public virtual bool RemoveProfile(int id)
+        public virtual bool RemoveProfile(Guid id)
         {
             Profile prof = GetProfile(id);
             if (prof != null)
@@ -68,7 +68,7 @@ namespace Modele.Manager.ProfileManagerFolder
             return false;
         }
 
-        public virtual bool ModifyProfile(int id, string newName, string newSurname)
+        public virtual bool ModifyProfile(Guid id, string newName, string newSurname)
         {
             Profile prof = GetProfile(id);
             if (prof != null)
@@ -81,7 +81,7 @@ namespace Modele.Manager.ProfileManagerFolder
             return false;
         }
 
-        public virtual Profile GetProfile(int id)
+        public virtual Profile GetProfile(Guid id)
         {
             Profile p = null;
             foreach (Profile prof in _profiles)
@@ -97,7 +97,7 @@ namespace Modele.Manager.ProfileManagerFolder
             Profile p = null;
             foreach (Profile prof in _profiles)
             {
-                if (prof.Name == name && prof.Surname == surname) p = prof;
+                if (prof.Name.Equals(name) && prof.Surname.Equals(surname)) p = prof;
             }
 
             return p;

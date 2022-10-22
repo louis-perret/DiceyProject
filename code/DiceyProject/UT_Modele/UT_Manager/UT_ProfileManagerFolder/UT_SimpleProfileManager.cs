@@ -13,7 +13,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         private SimpleProfileManager GetSimpleProfile()
         {
             SimpleProfileManager simpleProfileManager = new SimpleProfileManager();
-            simpleProfileManager.AddProfile(1, "Louis", "Perret");
+            simpleProfileManager.AddProfile(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Louis", "Perret");
             return simpleProfileManager;
         }
 
@@ -25,8 +25,8 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         }
 
         [Theory]
-        [InlineData("Louis", "Perret", false, true, 2)]
-        [InlineData("Come", "Grienenberger", true,  false, 1)]
+        [InlineData("Louis", "Perret", false, false, 1)]
+        [InlineData("Come", "Grienenberger", true,  true, 2)]
         public void Test_AddProfile(string name, string surname, bool secondTest, bool expectedResult, int expectedCount)
         {
             SimpleProfileManager profileManager;
@@ -43,10 +43,21 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
             Assert.Equal(expectedCount, profileManager.Profiles.Count);
         }
 
+        private static IEnumerable<object[]> Data_Test_AddProfileWithId()
+        {
+            yield return new object[]
+            {
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Louis", "Perret",false, 1
+            };
+            yield return new object[]
+            {
+                new Guid("F9168C5E-CEB2-4faa-B6AF-329BF39FA1E4"), "Luis", "Perre",true, 2
+            };
+        }
+
         [Theory]
-        [InlineData(1, "Louis", "Perret",false, 1)]
-        [InlineData(2, "Come", "Grienenberger", true, 2)]
-        public void Test_AddProfileWithId(int id, string name, string surname, bool expectedResult, int expectedCount)
+        [MemberData(nameof(Data_Test_AddProfileWithId))]
+        public void Test_AddProfileWithId(Guid id, string name, string surname, bool expectedResult, int expectedCount)
         {
             SimpleProfileManager profileManager = GetSimpleProfile();
             Assert.Equal(expectedResult, profileManager.AddProfile(id, name, surname));

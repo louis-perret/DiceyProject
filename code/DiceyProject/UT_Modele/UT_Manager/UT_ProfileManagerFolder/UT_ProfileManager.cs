@@ -15,8 +15,8 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
         {
             return new List<Profile>()
             {
-                new SimpleProfile(1,"Louis", "Perret"),
-                new SimpleProfile(2, "Neitah", "Malvezin")
+                new SimpleProfile(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                new SimpleProfile(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1A4"), "Neitah", "Malvezin")
             };
         }
 
@@ -60,10 +60,26 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
             Assert.Equal(profiles.ElementAt(1), profileManager.Profiles.ElementAt(1));
         }
 
+        private static IEnumerable<object[]> Data_Test_RemoveProfileWithId()
+        {
+            yield return new object[]
+            {
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                true,
+                1
+            };
+
+            yield return new object[]
+            {
+                new Guid("F9168C5C-CEB2-4faa-B6BF-329BF39FA1E4"),
+                false,
+                2
+            };
+        }
+
         [Theory]
-        [InlineData(1, true, 1)]
-        [InlineData(0, false, 2)]
-        public void Test_RemoveProfileWithId(int idToRemove, bool expectedResult, int expectedCount)
+        [MemberData(nameof(Data_Test_RemoveProfileWithId))]
+        public void Test_RemoveProfileWithId(Guid idToRemove, bool expectedResult, int expectedCount)
         {
             var profileManager = GetMockProfileManager(GetDataListProfile());
             Assert.Equal(expectedResult, profileManager.RemoveProfile(idToRemove));
@@ -84,19 +100,53 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
             Assert.Equal(expectedCount, profileManager.Profiles.Count);
         }
 
+        private static IEnumerable<object[]> Data_Test_ModifyProfile()
+        {
+            yield return new object[]
+            {
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), 
+                "Come",
+                "Grienenberger", 
+                true
+            };
+
+            yield return new object[]
+            {
+                new Guid("F9D68C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                "Comeaaaaaa",
+                "Grienenberaaaager",
+                false
+            };
+        }
+
         [Theory]
-        [InlineData(1, "Come", "Grienenberger", true)]
-        [InlineData(0, "", "", false)]
-        public void Test_ModifyProfile(int id, string newName, string newSurname, bool expectedResult)
+        [MemberData(nameof(Data_Test_ModifyProfile))]
+        public void Test_ModifyProfile(Guid id, string newName, string newSurname, bool expectedResult)
         {
             var profileManager = GetMockProfileManager(GetDataListProfile());
             Assert.Equal(expectedResult, profileManager.ModifyProfile(id, newName, newSurname));
         }
 
+        private static IEnumerable<object[]> Data_Test_GetProfileWithId()
+        {
+            yield return new object[]
+            {
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                true
+            };
+
+            yield return new object[]
+            {
+                new Guid("F9168C5E-CEB4-4faa-B6BF-329BF39FA1E4"),
+                false
+            };
+
+
+        }
+
         [Theory]
-        [InlineData(1, true)]
-        [InlineData(0, false)]
-        public void Test_GetProfileWithId(int id, bool expectedResult)
+        [MemberData(nameof(Data_Test_GetProfileWithId))]
+        public void Test_GetProfileWithId(Guid id, bool expectedResult)
         {
             var profileManager = GetMockProfileManager(GetDataListProfile());
             Assert.Equal(expectedResult, profileManager.GetProfile(id) != null);

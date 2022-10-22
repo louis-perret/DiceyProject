@@ -14,7 +14,7 @@ namespace Persistance_EF.Entities
         /// <summary>
         /// Id of profile
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Name of profile
@@ -33,7 +33,7 @@ namespace Persistance_EF.Entities
         /// <param name="id">id of profile</param>
         /// <param name="name">name of profile</param>
         /// <param name="surname">surname of profile</param>
-        public ProfileEntity(int id, string name, string surname) : this(name, surname)
+        public ProfileEntity(Guid id, string name, string surname) : this(name, surname)
         {
             Id = id;
         }
@@ -49,6 +49,11 @@ namespace Persistance_EF.Entities
             Surname = surname;
         }
 
+        /// <summary>
+        /// Return true if obj is equal to the calling object
+        /// </summary>
+        /// <param name="obj">Obj to compare</param>
+        /// <returns></returns>
         public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -58,6 +63,11 @@ namespace Persistance_EF.Entities
             return Equals(obj as ProfileEntity);
         }
 
+        /// <summary>
+        /// Return true if obj is equal to the calling object
+        /// </summary>
+        /// <param name="obj">Obj to compare</param>
+        /// <returns></returns>
         public bool Equals(ProfileEntity? other)
         {
             return other is not null && Id == other.Id;

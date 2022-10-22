@@ -16,7 +16,7 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
             var mock = new Mock<Profile>(name, surname);
             return SetProfileMock(mock);
         }
-        private Profile GetProfileMock(int id, string name, string surname)
+        private Profile GetProfileMock(Guid id, string name, string surname)
         {
             var mock = new Mock<Profile>(id, name, surname);
             return SetProfileMock(mock);
@@ -50,13 +50,69 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
             }
         }
 
+        private static IEnumerable<object?[]> Data_Constructor_Initialize_Profile_WithId()
+        {
+            yield return new object?[]
+            {
+                true,
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), 
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), 
+                "Louis", 
+                "Louis", 
+                "Perret", 
+                "Perret"
+            };
+
+            yield return new object?[]
+            {
+                false, 
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), 
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), 
+                "", 
+                "Louis", 
+                "Perret", 
+                "Perret"
+            };
+
+            yield return new object?[]
+            {
+                false,
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                "Louis",
+                "Louis",
+                "",
+                "Perret",
+            };
+
+            yield return new object?[]
+            {
+                false,
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                null,
+                "Louis",
+                //null,
+                "Perret",
+                "Perret"
+            };
+
+            yield return new object?[]
+            {
+                false,
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
+                "Louis",
+                "Louis",
+                null,
+                "Perret",
+                //null
+            };
+        }
+
         [Theory]
-        [InlineData(true, 1, 1, "Louis", "Louis", "Perret", "Perret")]
-        [InlineData(false, 1, 1, "", "Louis", "Perret", "Perret")]
-        [InlineData(false, 2, 2, "Louis", "Louis", "", "Perret")]
-        [InlineData(false, 1, 1, null, "Louis", "Perret", "Perret")]
-        [InlineData(false, 1, 1, "Louis", "Louis", null, "Perret")]
-        public void Constructor_Initialize_Profile_WithId(bool throwsExceptions, int id, int expectedId, string name, string expectedName, string surname, string expectedsurname)
+        [MemberData(nameof(Data_Constructor_Initialize_Profile_WithId))]    
+        public void Constructor_Initialize_Profile_WithId(bool throwsExceptions, Guid id, Guid expectedId, string name, string expectedName, string surname, string expectedsurname)
         {
             if (!throwsExceptions)
             {
@@ -76,24 +132,24 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
         {
             yield return new object[]
             {
-                new Mock<Profile>(1, "Louis", "Perret"),
-                new Mock<Profile>(1, "Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Louis", "Perret"),
                 true,
                 false,
             };
 
             yield return new object[]
             {
-                new Mock<Profile>(1,"Louis", "Perret"),
-                new Mock<Profile>(2,"Antoine", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEC2-4faa-B6BF-329BF39FA1E4"),"Antoine", "Perret"),
                 false,
                 false
             };
 
             yield return new object[]
             {
-                new Mock<Profile>(1, "Louis", "Perret"),
-                new Mock<Profile>(1, "Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Louis", "Perret"),
                 false,
                 true
             };
@@ -119,7 +175,7 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
         {
             yield return new object[]
             {
-                new Mock<Profile>(1,"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
                 new object(),
                 true,
                 false,
@@ -128,8 +184,8 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
 
             yield return new object[]
             {
-                new Mock<Profile>(1,"Louis", "Perret"),
-                new Mock<Profile>(1,"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
                 false,
                 true,
                 true
@@ -137,8 +193,8 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
 
             yield return new object[]
             {
-                new Mock<Profile>(1,"Louis", "Perret"),
-                new Mock<Profile>(2,"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1A4"),"Louis", "Perret"),
                 false,
                 false,
                 false
@@ -146,8 +202,8 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
 
             yield return new object[]
             {
-                new Mock<Profile>(1,"Louis", "Perret"),
-                new Mock<Profile>(1,"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
                 false,
                 false,
                 true
@@ -179,12 +235,29 @@ namespace UT_Modele.UT_Business.UT_ProfileFolder
             }
         }
 
-        [Fact]
-        public void Test_HashCode()
+        private static IEnumerable<object[]> Data_Test_HashCode()
         {
-            Profile profile = GetProfileMock(10,"Louis", "Perret");
+            yield return new object[]
+            {
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                true,
+            };
+            yield return new object[]
+            {
+                new Mock<Profile>(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                new Mock<Profile>(new Guid("F9168C5A-CEB2-4faa-B6BF-329BF39FA1E4"),"Louis", "Perret"),
+                false,
+            };
+        }
 
-            Assert.Equal(10, profile.GetHashCode());
+        [Theory]
+        [MemberData(nameof(Data_Test_HashCode))]
+        public void Test_HashCode(Mock<Profile> prof1, Mock<Profile >prof2, bool expectedResult)
+        {
+            Profile profile1 = SetProfileMock(prof1);
+            Profile profile2 = SetProfileMock(prof2);
+            Assert.Equal(expectedResult, profile1.GetHashCode() == profile2.GetHashCode());
         }
     }
 }

@@ -35,8 +35,8 @@ namespace UT_Persistance_EF
                         .Options;
 
             DBManager dbManager = new DBManager(options);
-
-            ProfileEntity profile1 = new ProfileEntity("Louis", "Perret");
+            Guid id = Guid.NewGuid();
+            ProfileEntity profile1 = new ProfileEntity(id,"Louis", "Perret");
             ProfileEntity profile2 = new ProfileEntity("Côme", "Grienenberger");
             ProfileEntity profile3 = new ProfileEntity("Neitah", "Malvezin");
 
@@ -49,7 +49,7 @@ namespace UT_Persistance_EF
                 dbContext.SaveChanges();
             }
 
-            Profile profileExpected = new SimpleProfile(1,"Louis", "Perret");
+            Profile profileExpected = profile1.ToProfileModel();
             Profile? profileActual = dbManager.getProfileById(profileExpected.Id); 
 
             Assert.NotNull(profileActual);
@@ -114,17 +114,17 @@ namespace UT_Persistance_EF
 
             DBManager dbManager = new DBManager(options);
 
-            ProfileEntity p1 = new ProfileEntity(1, "Perret", "Louis");
-            ProfileEntity p2 = new ProfileEntity(2, "Malvezin", "Neitah");
-            ProfileEntity p3 = new ProfileEntity(3, "Grienenberger", "Côme");
-            ProfileEntity p4 = new ProfileEntity(4, "Perret", "Christele");
-            ProfileEntity p5 = new ProfileEntity(5, "Perret", "Bruno");
-            ProfileEntity p6 = new ProfileEntity(6, "Perret", "Antoine");
-            ProfileEntity p7 = new ProfileEntity(7, "Perret", "Mathilde");
-            ProfileEntity p8 = new ProfileEntity(8, "Kim", "Minji");
-            ProfileEntity p9 = new ProfileEntity(9, "Kim", "Bora");
-            ProfileEntity p10 = new ProfileEntity(10, "Lee", "Siyeon");
-            ProfileEntity p11 = new ProfileEntity(11, "Han", "Dong");
+            ProfileEntity p1 = new ProfileEntity(Guid.NewGuid(), "Perret", "Louis");
+            ProfileEntity p2 = new ProfileEntity(Guid.NewGuid(), "Malvezin", "Neitah");
+            ProfileEntity p3 = new ProfileEntity(Guid.NewGuid(), "Grienenberger", "Côme");
+            ProfileEntity p4 = new ProfileEntity(Guid.NewGuid(), "Perret", "Christele");
+            ProfileEntity p5 = new ProfileEntity(Guid.NewGuid(), "Perret", "Bruno");
+            ProfileEntity p6 = new ProfileEntity(Guid.NewGuid(), "Perret", "Antoine");
+            ProfileEntity p7 = new ProfileEntity(Guid.NewGuid(), "Perret", "Mathilde");
+            ProfileEntity p8 = new ProfileEntity(Guid.NewGuid(), "Kim", "Minji");
+            ProfileEntity p9 = new ProfileEntity(Guid.NewGuid(), "Kim", "Bora");
+            ProfileEntity p10 = new ProfileEntity(Guid.NewGuid(), "Lee", "Siyeon");
+            ProfileEntity p11 = new ProfileEntity(Guid.NewGuid(), "Han", "Dong");
 
             using (var dbContext = new DiceyProject_DBContext(options))
             {
@@ -177,14 +177,13 @@ namespace UT_Persistance_EF
                         .Options;
 
             DBManager dbManager = new DBManager(options);
-
-            Profile p1 = new SimpleProfile(1, "Perret", "Louis");
+            Profile p1 = new SimpleProfile(Guid.NewGuid(), "Perret", "Louis");
             bool actualAns = dbManager.AddProfile(p1);
             Assert.True(actualAns);
 
             Profile? actualProfile = dbManager.getProfileById(p1.Id);
             Assert.NotNull(actualProfile);
-            Assert.Equal(actualProfile?.ToProfileEntity(), p1.ToProfileEntity());
+            Assert.Equal(actualProfile, p1);
         }
 
         [Fact]
@@ -199,7 +198,7 @@ namespace UT_Persistance_EF
 
             DBManager dbManager = new DBManager(options);
 
-            Profile p1 = new SimpleProfile(1, "Perret", "Louis");
+            Profile p1 = new SimpleProfile(Guid.NewGuid(), "Perret", "Louis");
             dbManager.AddProfile(p1);
             bool actualAns = dbManager.RemoveProfile(p1);
             Assert.True(actualAns);
@@ -220,7 +219,7 @@ namespace UT_Persistance_EF
 
             DBManager dbManager = new DBManager(options);
 
-            Profile p1 = new SimpleProfile(1, "Perret", "Louis");
+            Profile p1 = new SimpleProfile(Guid.NewGuid(), "Perret", "Louis");
             dbManager.AddProfile(p1);
             string newName = "newName";
             bool actualAns = dbManager.ModifyProfileName(p1.Id, newName);
@@ -243,7 +242,7 @@ namespace UT_Persistance_EF
 
             DBManager dbManager = new DBManager(options);
 
-            Profile p1 = new SimpleProfile(1, "Perret", "Louis");
+            Profile p1 = new SimpleProfile(Guid.NewGuid(), "Perret", "Louis");
             dbManager.AddProfile(p1);
             string newName = "newName";
             bool actualAns = dbManager.ModifyProfileSurname(p1.Id, newName);

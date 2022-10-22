@@ -1,46 +1,82 @@
 ﻿using Modele.Business.DiceFolder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Modele.Business.ThrowFolder
 {
-    public abstract class Throw : IEquatable<Throw>
+    /// <summary>
+    /// Représente un lancé.
+    /// </summary>
+    public abstract class Throw : IEqualityComparer<Throw>
     {
-        public Guid ProfileId { get; private set; }
+        private Guid _profileId;
+        public Guid ProfileId { 
+            get => _profileId; 
+            
+            private set
+            {
+                if (value.Equals(Guid.Empty))
+                    throw new ArgumentException("Profile Id in throw can't be empty");
+                else
+                    _profileId = value;
+            }
+        }
 
-        public SimpleDice SimpleDice { get; private set; }
+        // Dé ayant un nombre de faces et un résultat.
+        public Dice Dice { get; private set; }
 
-        public Throw(Guid profileId, SimpleDice simpleDice)
+        public DateTime DateTime { get; private set; }
+
+        /// <summary>
+        /// Constructeur de Throw.
+        /// Vérifie que le dé a bien un résultat.
+        /// </summary>
+        /// <param name="profileId"> Personne ayant lancé le dé. </param>
+        /// <param name="dice"> Dé ayant un résultat. </param>
+        /// <exception cref="System.ArgumentNullException"> Il faut que le dé n'ait pas un résultat null. </exception>
+        protected Throw(Guid profileId, Dice dice)
         {
             ProfileId = profileId;
-            SimpleDice = simpleDice;
+            Dice = dice;
         }
 
-        public bool Equals(Throw? other)
+        public override bool Equals(Object? obj)
         {
-            if (other == null) return false;
+            if (obj == null) return false;
 
-            if(ReferenceEquals(this, other)) return true;
-            if(ProfileId != other.ProfileId) return false;
-            
+            if (ReferenceEquals(this, obj)) return true;
+            if(!GetType().Equals(obj.GetType())) return false;
 
-            return SimpleDice.Equals(other.SimpleDice);
+            Throw? otherThrow = (Throw?)obj;
+
+            return Equals(this, otherThrow);
+
         }
 
-        public override bool Equals(Object? other)
+        public virtual bool Equals(Throw? x, Throw? y)
         {
-            if (other == null) return false;
+            if (x == null || y == null) return false;
+            if (ReferenceEquals(x, y)) return true;
 
-            if (ReferenceEquals(this, other)) return true;
-            if(!GetType().Equals(other.GetType())) return false;
 
-            Throw? otherThrow = (Throw?)other;
+            if (x.ProfileId != y.ProfileId) return false;
 
-            return Equals(otherThrow);
+            return x.Dice.Equals(y.Dice);
+        }
 
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine<Dice, Guid>(Dice, ProfileId);
+        }
+
+        public int GetHashCode([DisallowNull] Throw obj)
+        {
+            return obj.GetHashCode();
         }
     }
 }

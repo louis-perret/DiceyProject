@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Modele.Business.ProfileFolder
 {
     /// <summary>
-    /// Represent a player's profile
+    /// Abstract class that represent a player's profile
     /// </summary>
     public abstract class Profile : IEquatable<Profile>
     {
@@ -68,10 +68,21 @@ namespace Modele.Business.ProfileFolder
             Surname = surname;
         }
 
+        /// <summary>
+        /// Constructor with parameters, initializes the Id at Guid.Empty
+        /// </summary>
+        /// <param name="name">player's name</param>
+        /// <param name="surname">player's surname</param>
         public Profile(string name, string surname) : this(Guid.Empty, name, surname)
         {
         }
 
+        /// <summary>
+        /// Equals method wioth a profile. If both Profiles have an Id, then only the Ids are compared.
+        /// Else, both the name and surname are compared
+        /// </summary>
+        /// <param name="other">The other profile we want to compare with this one</param>
+        /// <returns>true if both Profiles are equal, false otherwise</returns>
         public bool Equals(Profile? other)
         {
             if (other == null) return false;
@@ -82,6 +93,11 @@ namespace Modele.Business.ProfileFolder
                 return Id.Equals(other.Id);
         }
 
+        /// <summary>
+        /// Equals method with an object of unknown type 
+        /// </summary>
+        /// <param name="obj">The object to compare</param>
+        /// <returns>true if both objects are equal, false otherwise</returns>
         public override bool Equals(object? obj)
         {
             if(obj == null) return false;
@@ -92,7 +108,10 @@ namespace Modele.Business.ProfileFolder
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return HashCode.Combine(Id,Name,Surname);

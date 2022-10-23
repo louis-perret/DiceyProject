@@ -5,6 +5,8 @@
 using Modele.Business.ProfileFolder;
 using Modele.Data;
 using Modele.Manager.ProfileManagerFolder;
+using System.Collections.ObjectModel;
+
 namespace Modele.Manager.ManagerFolder
 {
     public class Manager
@@ -21,9 +23,9 @@ namespace Modele.Manager.ManagerFolder
             profileManager.AddProfile(name, surname);
         }
 
-        /*public IReadOnlyCollection<Profile> getAllProfiles()
+        public IReadOnlyCollection<Profile> GetProfilesByPage(int nbPage, int count)
         {
-            //return profileManager.;
-        }*/
+            return new ReadOnlyCollection<Profile>(profileManager.GetProfileByPage(nbPage,count));
+        }
     }
 }

@@ -11,16 +11,17 @@ using FunctionalTest.Menu;
 using FunctionalTest.Reader;
 using Modele.Data;
 using Modele.Manager.ManagerFolder;
+using System.Runtime.CompilerServices;
 
 LoggerConfig.SetModelConfig();
 
-int choix = 0;
+int choix = -1;
 Display display = new Display();
 Reader read = new Reader();
 Stub stub = new Stub();
 Manager manager = new Manager(stub,stub);
 
-while(choix != 9)
+while(choix != 0)
 { 
     display.ShowMenu();
     choix = read.ReadInt();
@@ -32,7 +33,11 @@ while(choix != 9)
             manager.AddProfile(name, surname);
             break;
         case 2:
-            //display.AfficheProfiles(manager.getAllProfiles());
+            Console.WriteLine("Entrer le numéro de la page : ");
+            int nbPage = read.ReadInt();
+            Console.WriteLine("Entrer le nombre de profils par page : ");
+            int count = read.ReadInt();
+            display.AfficheProfiles(manager.GetProfilesByPage(nbPage,count));
             break;
         default: break;
     }

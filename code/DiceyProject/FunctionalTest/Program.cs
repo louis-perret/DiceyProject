@@ -94,10 +94,10 @@ while (choix != 0)
             display.AfficheResults(manager.GetAllDice());
             break;
         case 6:
-            display.AfficheThrow(manager.getHistory());
+            display.AfficheThrow(manager.GetHistory());
             break;
         case 7:
-            display.AfficheThrow(manager.getHistoryProfile(manager.getCurrentProfileId()));
+            display.AfficheThrow(manager.GetHistoryProfile(manager.GetCurrentProfileId()));
             break;
         case 8:
             String nom = read.ReadName();

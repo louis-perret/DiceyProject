@@ -20,7 +20,7 @@ namespace Modele.Business.ThrowFolder
 
         public bool AddThrows(Dictionary<DateOnly, IList<Throw>> dic);
 
-        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows();
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> GetThrows();
 
         public Dictionary<DateOnly, ListThrowEncapsulation> GetSessionThrows(Guid sessionId);
 

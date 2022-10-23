@@ -39,6 +39,9 @@ namespace Modele.Manager.ManagerFolder
         /// </summary>
         internal IDiceLauncher diceLauncher;
 
+        /// <summary>
+        /// Object which manages the history of users' throws
+        /// </summary>
         internal IThrowHistory throwHistory;
 
         /// <summary>
@@ -123,9 +126,9 @@ namespace Modele.Manager.ManagerFolder
         /// Method that returns the history of all the throws
         /// </summary>
         /// <returns>the history of all the throws</returns>
-        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getHistory()
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> GetHistory()
         {
-            return throwHistory.getThrows();
+            return throwHistory.GetThrows();
         }
 
         /// <summary>
@@ -133,7 +136,7 @@ namespace Modele.Manager.ManagerFolder
         /// </summary>
         /// <param name="idProf">the profile to get the history of</param>
         /// <returns>the history of all the throws for the profile passed in parameter</returns>
-        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getHistoryProfile(Guid idProf)
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> GetHistoryProfile(Guid idProf)
         {
             return new ReadOnlyDictionary<DateOnly, ListThrowEncapsulation>(throwHistory.GetProfileThrows(idProf));
         }
@@ -142,8 +145,9 @@ namespace Modele.Manager.ManagerFolder
         /// Method that returns the Id of the currentProfile
         /// </summary>
         /// <returns>the Id of the currentProfile</returns>
-        public Guid getCurrentProfileId()
+        public Guid GetCurrentProfileId()
         {
+            if (profileManager.CurrentProfile == null) return Guid.Empty;
             return profileManager.CurrentProfile.Id;
         }
 

@@ -72,6 +72,24 @@ while (choix != 0)
             manager.LaunchAllDice();
             display.AfficheResults(manager.GetAllDice());
             break;
+        case 6:
+            display.AfficheThrow(manager.getHistory());
+            break;
+        case 7:
+            display.AfficheThrow(manager.getHistoryProfile(manager.getCurrentProfileId()));
+            break;
+        case 8:
+            String nom = read.ReadName();
+            String prenom = read.ReadSurname();
+            if (manager.RemoveProfile(nom, prenom))
+            {
+                Console.WriteLine("Profil supprimé");
+            }
+            else
+            {
+                Console.WriteLine("Ce profil n'existe pas");
+            }
+            break;
         default: break;
     }
 }

@@ -1,11 +1,8 @@
 ﻿using Modele.Business.DiceFolder;
 using Modele.Business.ProfileFolder;
-using System;
-using System.Collections.Generic;
+using Modele.Business.ThrowFolder;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FunctionalTest.Menu
 {
@@ -20,6 +17,9 @@ namespace FunctionalTest.Menu
                 "3 - Ajouter un Dé\n" +
                 "4 - Afficher les Dés\n" +
                 "5 - Lancer les Dés\n" +
+                "6 - Afficher l'historique des lancers\n" +
+                "7 - Afficher l'historique de vos lancers\n" +
+                "8 - Supprimer un profil\n" +
                 "0 - Quitter");
         }
 
@@ -44,6 +44,16 @@ namespace FunctionalTest.Menu
             foreach (Dice dice in dices)
             {
                 Console.WriteLine("NbFaces : {0} Result :{1}", dice.NbFaces, dice.Result);
+            }
+        }
+
+        internal void AfficheThrow(ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> readOnlyDictionary)
+        {
+            foreach(var key in readOnlyDictionary.Keys)
+            {
+                Console.WriteLine(key);
+                foreach (var value in readOnlyDictionary[key].ThrowsROC)
+                    Console.WriteLine("nbFaces : {0], Result :{1}",value.Dice.NbFaces, value.Dice.Result);
             }
         }
     }

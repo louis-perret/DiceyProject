@@ -98,7 +98,9 @@ namespace Modele.Manager.ProfileManagerFolder
         /// <returns>true if the profile could be removed, false otherwise</returns>
         public virtual bool RemoveProfile(Guid id)
         {
-            return _saver.RemoveProfile(GetProfile(id));
+            if((CurrentProfile == null) || (!CurrentProfile.Id.Equals(id)))
+                return _saver.RemoveProfile(GetProfile(id));
+            return false;
         }
 
         /// <summary>
@@ -109,7 +111,9 @@ namespace Modele.Manager.ProfileManagerFolder
         /// <returns>true if the profile could be removed, false otherwise</returns>
         public virtual bool RemoveProfile(string name, string surname)
         {
-            return _saver.RemoveProfile(GetProfile(name, surname));
+            if((CurrentProfile == null) || (!CurrentProfile.Name.Equals(name) || !CurrentProfile.Name.Equals(surname)))
+                return _saver.RemoveProfile(GetProfile(name, surname));
+            return false;
         }
 
         /// <summary>

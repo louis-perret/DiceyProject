@@ -28,7 +28,7 @@ namespace Modele.Manager.ManagerFolder
         /// Manager which manages our profiles
         /// </summary>
         internal ProfileManager profileManager;
-        
+
         /// <summary>
         /// Manager which manages our dice
         /// </summary>
@@ -73,7 +73,7 @@ namespace Modele.Manager.ManagerFolder
         /// <returns>The list of profiles</returns>
         public ReadOnlyCollection<Profile> GetProfilesByPage(int nbPage, int count)
         {
-            return new ReadOnlyCollection<Profile>(profileManager.GetProfileByPage(nbPage,count));
+            return new ReadOnlyCollection<Profile>(profileManager.GetProfileByPage(nbPage, count));
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Modele.Manager.ManagerFolder
         /// <returns></returns>
         public bool LaunchAllDice()
         {
-            if(!diceLauncher.LaunchAllDice(GetAllDice()))
+            if (!diceLauncher.LaunchAllDice(GetAllDice()))
                 return false;
             foreach (Dice dice in GetAllDice())
                 throwHistory.AddThrow(DateTimeConverter.ConverToDateOnly(DateTime.Now), dice, profileManager.CurrentProfile.Id);
@@ -117,6 +117,45 @@ namespace Modele.Manager.ManagerFolder
         public bool Connect(string name, string surname)
         {
             return profileManager.ConnectProfile(name, surname);
+        }
+
+        /// <summary>
+        /// Method that returns the history of all the throws
+        /// </summary>
+        /// <returns>the history of all the throws</returns>
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getHistory()
+        {
+            return throwHistory.getThrows();
+        }
+
+        /// <summary>
+        /// Method that returns the history of all the throws for a profile
+        /// </summary>
+        /// <param name="idProf">the profile to get the history of</param>
+        /// <returns>the history of all the throws for the profile passed in parameter</returns>
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getHistoryProfile(Guid idProf)
+        {
+            return new ReadOnlyDictionary<DateOnly, ListThrowEncapsulation>(throwHistory.GetProfileThrows(idProf));
+        }
+
+        /// <summary>
+        /// Method that returns the Id of the currentProfile
+        /// </summary>
+        /// <returns>the Id of the currentProfile</returns>
+        public Guid getCurrentProfileId()
+        {
+            return profileManager.CurrentProfile.Id;
+        }
+
+        /// <summary>
+        /// Method that removes a profile from the list of Profiles that's different from the current profile
+        /// </summary>
+        /// <param name="name">name of the profile to remove</param>
+        /// <param name="surname">surname of the profile to remove</param>
+        /// <returns>true if the profile could be removed, false otherwise</returns>
+        public bool RemoveProfile(string nom, string prenom)
+        {
+            return profileManager.RemoveProfile(nom,prenom);
         }
     }
 }

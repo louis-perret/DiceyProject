@@ -11,7 +11,9 @@ using FunctionalTest.Menu;
 using FunctionalTest.Reader;
 using Modele.Data;
 using Modele.Manager.ManagerFolder;
+using Persistance_EF;
 using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
 
 /**
  * Represents our fonctional test for our app, currently it doesn't exposed all our features (like Session) 
@@ -23,8 +25,27 @@ LoggerConfig.SetModelConfig();
 int choix = -1;
 Display display = new Display();
 Reader read = new Reader();
-Stub stub = new Stub();
-Manager manager = new Manager(stub,stub);
+ILoader load;
+ISaver save;
+switch (read.ReadChoicePersistance())
+{
+    case 1:
+        DBManager dbManager = new DBManager(new DbContextOptionsBuilder<DiceyProject_DBContext>()
+                        .UseInMemoryDatabase(databaseName: "Test_database")
+                        .Options, true);
+        load = dbManager;
+        save = dbManager;
+        break;
+
+    default:
+        Stub stub = new Stub();
+        load = stub;
+        save = stub;
+        break;
+
+}
+
+Manager manager = new Manager(save, load);
 
 Console.WriteLine("Avant de lancer l'application");
 String name = read.ReadName();

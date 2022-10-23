@@ -168,5 +168,21 @@ namespace Modele.Manager.ProfileManagerFolder
         {
             return _loader.GetProfileBySubString(subString);
         }
+
+        /// <summary>
+        /// Method that allows the user to become the currentprofile
+        /// </summary>
+        /// <param name="name">name of the user who wants to be connected</param>
+        /// <param name="surname">surname of the user who wants to be connected</param>
+        /// <returns>true if the profile has been connected, false if it couldn't</returns>
+        public bool ConnectProfile(String name, String surname)
+        {
+            IList<Profile> prof = _loader.GetProfileByName(name, surname);
+            if (prof.Count < 0)
+                return false;
+            else
+                CurrentProfile = prof.First();
+            return true;
+        }
     }
 }

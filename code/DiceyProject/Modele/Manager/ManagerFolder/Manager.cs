@@ -11,6 +11,9 @@ using Modele.Manager.ProfileManagerFolder;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using Modele.Business.DiceLauncherFolder;
+using Modele.Business.ThrowFolder;
+using System.ComponentModel;
+using DateTimeConverter = Modele.Business.ThrowFolder.DateTimeConverter;
 
 [assembly: InternalsVisibleTo("UT_Modele")]
 
@@ -24,11 +27,14 @@ namespace Modele.Manager.ManagerFolder
 
         internal IDiceLauncher diceLauncher;
 
+        internal IThrowHistory throwHistory;
+
         public Manager(ISaver saver, ILoader loader)
         {
             profileManager = new SimpleProfileManager(loader, saver);
             diceManager = new SimpleDiceManager();
             diceLauncher = new SimpleDiceLauncher();
+            throwHistory = new SimpleThrowHistory();
         }
 
         public bool AddProfile(string name, string surname)
@@ -53,7 +59,11 @@ namespace Modele.Manager.ManagerFolder
 
         public bool LancerDés()
         {
-            return diceLauncher.LaunchAllDice(GetAllDice());
+            if(!diceLauncher.LaunchAllDice(GetAllDice()))
+                return false;
+            foreach (Dice dice in GetAllDice())
+                throwHistory.AddThrow(DateTimeConverter.ConverToDateOnly(DateTime.Now), dice, profileManager.CurrentProfile.Id);
+            return true;
         }
     }
 }

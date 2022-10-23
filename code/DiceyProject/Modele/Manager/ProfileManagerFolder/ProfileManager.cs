@@ -4,8 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+
+[assembly: InternalsVisibleTo("UT_Modele")]
 
 namespace Modele.Manager.ProfileManagerFolder
 {
@@ -38,9 +41,9 @@ namespace Modele.Manager.ProfileManagerFolder
             private set => _currentProfile = value;
         }
 
-        private ILoader _loader;
+        internal ILoader _loader;
 
-        private ISaver _saver;
+        internal ISaver _saver;
 
         public ProfileManager(ILoader loader, ISaver saver)
         {
@@ -58,7 +61,7 @@ namespace Modele.Manager.ProfileManagerFolder
         public ProfileManager(ILoader loader, ISaver saver, IList<Profile> profiles) : this(loader, saver)
         {
             _profiles = new List<Profile>(profiles);
-            Profiles = new ObservableCollection<Profile>();
+            Profiles = new ObservableCollection<Profile>(_profiles);
         }
 
         /// <summary>
@@ -145,5 +148,25 @@ namespace Modele.Manager.ProfileManagerFolder
             return _loader.GetProfileByName(name, surname).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Method that returns a list of x profile regarding to the number of the page
+        /// </summary>
+        /// <param name="numberPage">number of the page</param>
+        /// <param name="count">number of profiles to get</param>
+        /// <returns></returns>
+        public virtual IList<Profile> GetProfileByPage(int numberPage, int count)
+        {
+            return _loader.GetProfileByPage(numberPage, count);
+        }
+        
+        /// <summary>
+        /// Method that returns a list of x profiles where their name or surname contains substring
+        /// </summary>
+        /// <param name="subString">substring to look for in all profiles</param>
+        /// <returns></returns>
+        public virtual IList<Profile> GetProfileBySubString(string subString)
+        {
+            return _loader.GetProfileBySubString(subString);
+        }
     }
 }

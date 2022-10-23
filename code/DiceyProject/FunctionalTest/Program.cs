@@ -48,12 +48,12 @@ switch (choixPers)
 
 Manager manager = new Manager(save, load);
 
-Console.WriteLine("Avant de lancer l'application");
+Console.WriteLine("Avant de lancer l'application, entrez le nom et votre surnom de votre profil (si vous n'en avez pas, tapé le nom et le prénom que vous souhaité à la place");
 String name = read.ReadName();
 String surname = read.ReadSurname();
 while (!manager.Connect(name, surname))
 {
-    Console.WriteLine("Ce profil n'existe pas, voulez-vous en créer un nouveau ? (o/n");
+    Console.WriteLine("Ce profil n'existe pas, voulez-vous en créer un nouveau ? (o/n)");
     String choice = read.ReadLine();
     if(choice.Equals("o"))
     {

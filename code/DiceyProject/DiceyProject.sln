@@ -20,6 +20,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingConfig", "LoggingConfig\LoggingConfig.csproj", "{0929B7BA-948D-474C-B6F3-42219BBBCE64}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalTest", "FunctionalTest\FunctionalTest.csproj", "{93A20D6E-8177-4C32-BC6C-49BFB6796E2B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E7AC1BB2-A818-46D9-94AE-EBD3592129B6} = {E7AC1BB2-A818-46D9-94AE-EBD3592129B6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

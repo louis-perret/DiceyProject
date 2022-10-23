@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LoggingConfig\LoggingConfig.csproj" />
     <ProjectReference Include="..\Modele\Modele.csproj" />
+    <ProjectReference Include="..\UT_Persistance_EF\UT_Persistance_EF.csproj" />
   </ItemGroup>
 
 </Project>

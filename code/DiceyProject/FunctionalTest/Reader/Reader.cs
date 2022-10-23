@@ -36,9 +36,25 @@ namespace FunctionalTest.Reader
             return ReadLine();
         }
 
-        public string ReadLine()
+        internal string ReadLine()
         {
             return Console.ReadLine();
         }
+
+        internal int ReadChoicePersistance()
+        {
+            Console.WriteLine("Choisissez votre persistance : \n" +
+                "0 - Stub\n" +
+                "1 - EntityFramework\n");
+
+            int ret = ReadInt();
+            if(ret != 0 && ret != 1)
+            {
+                return ReadChoicePersistance();
+            } 
+
+            return ret;
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Persistance_EF.Entities;
+﻿using Persistance_EF;
+using Persistance_EF.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,57 @@ namespace UT_Persistance_EF.UT_Entities
             Assert.Equal(Guid.Empty, profile.Id);
             Assert.Equal("Perret", profile.Name);
             Assert.Equal("Louis", profile.Surname);
+        }
+
+        public static IEnumerable<object?[]> Data_Test_Equals()
+        {
+            yield return new object[]
+            {
+                new ProfileEntity(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Perret", "Louis"),
+                new ProfileEntity(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Perret", "Louis"),
+                true,
+                false,
+            };
+
+            yield return new object?[]
+            {
+                new ProfileEntity(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Perret", "Louis"),
+                null,
+                false,
+                false
+            };
+
+            yield return new object[]
+            {
+                new ProfileEntity(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Perret", "Louis"),
+                new DBManager(),
+                false,
+                false
+            };
+
+            yield return new object?[]
+            {
+                new ProfileEntity(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Perret", "Louis"),
+                null,
+                true,
+                true
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_Equals))]
+        public void Test_Equals_Generic(ProfileEntity profile1, object? profile2, bool expectedResult, bool isSameReference)
+        {
+            if (isSameReference)
+            {
+                object p = profile1;
+                Assert.Equal(expectedResult, profile1.Equals(p));
+            }
+
+            else
+            {
+                Assert.Equal(expectedResult, profile1.Equals(profile2));
+            }
         }
     }
 }

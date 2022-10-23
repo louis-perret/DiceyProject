@@ -1,4 +1,5 @@
-﻿using Modele.Data;
+﻿using Modele.Business.ProfileFolder;
+using Modele.Data;
 using Modele.Manager.ManagerFolder;
 using System;
 using System.Collections.Generic;
@@ -31,5 +32,19 @@ namespace UT_Modele.UT_Manager.UT_ManagerFolder
             manager.AddProfile(name, surname);
             Assert.Equal(expectedCount, stub.Profiles.Count);
         }
+
+        [Theory]
+        [InlineData(0, 0, 0)]
+        [InlineData(0, 5, 0)]
+        [InlineData(1, 5, 5)]
+        public void Test_GetProfileByPage(int numberPage, int count, int expectedCount)
+        {
+            Stub stub = new Stub();
+            Manager manager = new Manager(stub, stub);
+            var actualProfiles = manager.GetProfilesByPage(numberPage, count);
+            Assert.NotNull(actualProfiles);
+            Assert.Equal(expectedCount, actualProfiles.Count);
+        }
+
     }
 }

@@ -12,6 +12,7 @@ namespace UT_Persistance_EF.UT_DBContext
 {
     public class UT_DiceyProject_DBContext
     {
+
         [Theory]
         [InlineData(true)]
         public void Test_Constructor(bool isOptions)

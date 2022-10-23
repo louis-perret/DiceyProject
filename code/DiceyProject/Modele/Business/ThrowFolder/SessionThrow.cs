@@ -9,9 +9,19 @@ using System.Transactions;
 
 namespace Modele.Business.ThrowFolder
 {
+    /// <summary>
+    /// Class that represents a Throw made during a session
+    /// </summary>
     public class SessionThrow : SimpleThrow, IEqualityComparer<SessionThrow>
     {
+        /// <summary>
+        /// The Id of the session the throw has been made in
+        /// </summary>
         private Guid _sessionId;
+
+        /// <summary>
+        /// Property that encapsulates the attribute _sessionId, throws an ArgumentException if the Id is empty
+        /// </summary>
         public Guid SessionId { 
             get => _sessionId; 
             private set
@@ -22,11 +32,22 @@ namespace Modele.Business.ThrowFolder
             }
         }
 
+        /// <summary>
+        /// Constructor with parameters
+        /// </summary>
+        /// <param name="profileId">Id of the Profile the Throw has been made by</param>
+        /// <param name="dice">Dice that was thrown</param>
+        /// <param name="sessionId">Id of the Session the Throw has been made in</param>
         public SessionThrow(Guid profileId, Dice dice, Guid sessionId) : base(profileId, dice)
         {
             SessionId = sessionId;
         }
 
+        /// <summary>
+        /// Equals method
+        /// </summary>
+        /// <param name="obj">The object to compare to this instance</param>
+        /// <returns>True if both objects are equal, false otherwise</returns>
         public override bool Equals(Object? obj)
         {
             if (obj == null) return false;
@@ -38,6 +59,12 @@ namespace Modele.Business.ThrowFolder
             return Equals(this, newOther);
         }
 
+        /// <summary>
+        /// Equals method
+        /// </summary>
+        /// <param name="x">the first SessionThrow to compare</param>
+        /// <param name="y">the second SessionThrow to compare</param>
+        /// <returns>True if both objects are equal, false otherwise</returns>
         public bool Equals(SessionThrow? x, SessionThrow? y)
         {
             if (x == null || y == null) return false;

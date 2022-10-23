@@ -13,7 +13,14 @@ namespace Modele.Business.ThrowFolder
     /// </summary>
     public abstract class Throw : IEqualityComparer<Throw>
     {
+        /// <summary>
+        /// The Id of the profile that made the throw
+        /// </summary>
         private Guid _profileId;
+
+        /// <summary>
+        /// Property that encapsulates the attribute _profileId
+        /// </summary>
         public Guid ProfileId { 
             get => _profileId; 
             
@@ -27,8 +34,14 @@ namespace Modele.Business.ThrowFolder
         }
 
         // Dé ayant un nombre de faces et un résultat.
+        /// <summary>
+        /// The dice that was thrown during this throw
+        /// </summary>
         public Dice Dice { get; private set; }
 
+        /// <summary>
+        /// DateTime at which the Throw has been made
+        /// </summary>
         public DateTime DateTime { get; private set; }
 
         /// <summary>
@@ -44,6 +57,11 @@ namespace Modele.Business.ThrowFolder
             Dice = dice;
         }
 
+        /// <summary>
+        /// Equals method
+        /// </summary>
+        /// <param name="obj">The object to compare to this instance</param>
+        /// <returns>true if both objects are the same, false otherwise</returns>
         public override bool Equals(Object? obj)
         {
             if (obj == null) return false;
@@ -57,6 +75,12 @@ namespace Modele.Business.ThrowFolder
 
         }
 
+        /// <summary>
+        /// Equals method
+        /// </summary>
+        /// <param name="x">The first throw to compare</param>
+        /// <param name="y">The second throw to compare</param>
+        /// <returns>true if both throws are the same, false otherwise</returns>
         public virtual bool Equals(Throw? x, Throw? y)
         {
             if (x == null || y == null) return false;
@@ -68,12 +92,20 @@ namespace Modele.Business.ThrowFolder
             return x.Dice.Equals(y.Dice);
         }
 
-
+        /// <summary>
+        /// HashCode method
+        /// </summary>
+        /// <returns>The hashcode of this instance</returns>
         public override int GetHashCode()
         {
             return HashCode.Combine<Dice, Guid>(Dice, ProfileId);
         }
 
+        /// <summary>
+        /// HashCode method
+        /// </summary>
+        /// <param name="obj">the Throw to get the HashCode of</param>
+        /// <returns>The hashcode of obj</returns>
         public int GetHashCode([DisallowNull] Throw obj)
         {
             return obj.GetHashCode();

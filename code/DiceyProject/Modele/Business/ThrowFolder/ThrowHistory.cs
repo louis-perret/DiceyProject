@@ -69,20 +69,30 @@ namespace Modele.Business.ThrowFolder
         /// <param name="dice"> Dé contenant le résultat du lancé. </param>
         /// <param name="profileId"></param>
         /// <returns></returns>
-
         public bool AddThrow(DateOnly date, Dice dice, Guid sessionId, Guid profileId)
         {
             SessionThrow @throw = new SessionThrow(profileId, dice, sessionId);
             return AddThrow(date, @throw);
         }
 
+        /// <summary>
+        /// Method that adds a throw in the dictionnary of throws
+        /// </summary>
+        /// <param name="date">Date of the Throw</param>
+        /// <param name="dice">Dice that was thrown</param>
+        /// <param name="profileId">Id of the profile that made the throw</param>
+        /// <returns>true if the throw could be added, false otherwise</returns>
         public bool AddThrow(DateOnly date, Dice dice, Guid profileId)
         {
             SimpleThrow @throw = new SimpleThrow(profileId, dice);
             return AddThrow(date, @throw);
         }
 
-
+        /// <summary>
+        /// Method that adds a dictionnary of throws to this instance's dictionary
+        /// </summary>
+        /// <param name="dic">dictionnary of Throws copied in this instance's dictionary</param>
+        /// <returns>true if it could be added, false otherwise</returns>
         public bool AddThrows(Dictionary<DateOnly, IList<Throw>> dic)
         {
             foreach (KeyValuePair<DateOnly, IList<Throw>> kvp in dic)
@@ -97,22 +107,40 @@ namespace Modele.Business.ThrowFolder
             return true;
         }
 
+        /// <summary>
+        /// Method that returns the History of Throws
+        /// </summary>
+        /// <returns>the History of Throws</returns>
         public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows()
         {
             return History;
         }
 
+        /// <summary>
+        /// Method that returns the history of throws in the session
+        /// </summary>
+        /// <param name="sessionId">The id of the session to get the history of throws from</param>
+        /// <returns>the history of throws from the session passed in parameter</returns>
         public Dictionary<DateOnly, ListThrowEncapsulation> GetSessionThrows(Guid sessionId)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Method that returns the history of Throws from a Profile
+        /// </summary>
+        /// <param name="profileID">the id of the profile to get the history of Throws from</param>
+        /// <returns>The history of throws from the profile passed in parameter</returns>
         public Dictionary<DateOnly, ListThrowEncapsulation> GetProfileThrows(Guid profileID)
         {
             throw new NotImplementedException();
         }
 
-
+        /// <summary>
+        /// Method that adds a Throw to the dictionary
+        /// </summary>
+        /// <param name="date">date of the Throw</param>
+        /// <param name="t">Throw to be added</param>
         private void AddThrowWithoutVerif(DateOnly date, Throw t)
         {
             if (_history.ContainsKey(date))
@@ -128,6 +156,11 @@ namespace Modele.Business.ThrowFolder
             }
         }
 
+        /// <summary>
+        /// Method that verifies if the date is ealier or equal to the current date
+        /// </summary>
+        /// <param name="date">the date to check</param>
+        /// <returns>true id the date is ealier or equal to the current date, false otherwise</returns>
         private bool checkDate(DateOnly date)
         {
             if (date > DateTimeConverter.ConverToDateOnly(DateTime.Now)) return false;

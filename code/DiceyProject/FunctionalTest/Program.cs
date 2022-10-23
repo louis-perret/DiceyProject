@@ -27,7 +27,8 @@ Display display = new Display();
 Reader read = new Reader();
 ILoader load;
 ISaver save;
-switch (read.ReadChoicePersistance())
+int choixPers = read.ReadChoicePersistance();
+switch (choixPers)
 {
     case 1:
         DBManager dbManager = new DBManager(new DbContextOptionsBuilder<DiceyProject_DBContext>()
@@ -56,7 +57,7 @@ while (!manager.Connect(name, surname))
     String choice = read.ReadLine();
     if(choice.Equals("o"))
     {
-        manager.AddProfile(name, surname);
+        manager.AddProfile(Guid.NewGuid(), name, surname);
     }
     else
     {
@@ -74,7 +75,13 @@ while (choix != 0)
         case 1: 
             String newname = read.ReadName();
             String newsurname = read.ReadSurname();
-            if (manager.AddProfile(newname, newsurname))
+            if(choixPers == 0)
+                if (manager.AddProfile(Guid.NewGuid(), newname, newsurname))
+                    Console.WriteLine("Le profil a été ajouté correctement");
+                else
+                    Console.WriteLine("Le profil n'a pas pu être ajouté");
+            else
+                if (manager.AddProfile(newname, newsurname))
                 Console.WriteLine("Le profil a été ajouté correctement");
             else
                 Console.WriteLine("Le profil n'a pas pu être ajouté");

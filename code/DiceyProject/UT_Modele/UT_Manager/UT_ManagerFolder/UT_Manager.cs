@@ -37,6 +37,29 @@ namespace UT_Modele.UT_Manager.UT_ManagerFolder
             Assert.Equal(expectedCount, stub.Profiles.Count);
         }
 
+        private static IEnumerable<object[]> Data_Test_Add_Profile_Guid()
+        {
+            yield return new object[]
+            {
+                new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),"Perret", "Louis", false, 14
+            };
+            yield return new object[]
+            {
+                Guid.NewGuid(), "Chevaldonne", "Marc", true, 15
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_Add_Profile_Guid))]
+        public void Test_AddProfile_With_Guid(Guid id, string name, string surname, bool expectedResult, int expectedCount)
+        {
+            Stub stub = new Stub();
+            Manager manager = new Manager(stub, stub);
+
+            manager.AddProfile(id,name, surname);
+            Assert.Equal(expectedCount, stub.Profiles.Count);
+        }
+
         [Theory]
         [InlineData(0, 0, 0)]
         [InlineData(0, 5, 0)]

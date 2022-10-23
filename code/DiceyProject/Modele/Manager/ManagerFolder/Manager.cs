@@ -69,6 +69,17 @@ namespace Modele.Manager.ManagerFolder
         }
 
         /// <summary>
+        /// Add a profile
+        /// </summary>
+        /// <param name="id">Id of the new </param>
+        /// <param name="name">Name of new profile</param>
+        /// <param name="surname">Surname of new profile</param>
+        public bool AddProfile(Guid id,string name, string surname)
+        {
+            return profileManager.AddProfile(id, name, surname);
+        }
+
+        /// <summary>
         /// Return a list of profiles which contains a subset of our all profiles based on a number of page and count
         /// </summary>
         /// <param name="nbPage">Number of page</param>

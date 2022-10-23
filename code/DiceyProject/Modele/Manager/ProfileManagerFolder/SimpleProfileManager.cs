@@ -1,4 +1,5 @@
 ﻿using Modele.Business.ProfileFolder;
+using Modele.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,14 @@ namespace Modele.Manager.ProfileManagerFolder
     /// </summary>
     public class SimpleProfileManager : ProfileManager
     {
+        public SimpleProfileManager(ILoader loader, ISaver saver) : base(loader, saver)
+        {
+        }
+
+        public SimpleProfileManager(ILoader loader, ISaver saver, IList<Profile> profiles) : base(loader, saver, profiles)
+        {
+        }
+
         /// <summary>
         /// Method that adds a SimpleProfile to the list of profiles
         /// </summary>

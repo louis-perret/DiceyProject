@@ -177,6 +177,7 @@ namespace Persistance_EF
         public bool RemoveProfile(Profile profile)
         {
             OpenConnectionToDB();
+            if (profile == null) return true;
             var profileEntity = DiceyProjectDBContext?.ProfilesSet.SingleOrDefault(p => p.Equals(profile.ToProfileEntity()));
             if (profileEntity == null)
             {

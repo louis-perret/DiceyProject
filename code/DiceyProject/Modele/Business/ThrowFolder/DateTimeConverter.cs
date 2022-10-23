@@ -11,13 +11,6 @@ namespace Modele.Business.ThrowFolder
     /// </summary>
     public class DateTimeConverter
     {
-        /// <summary>
-        /// Default constructor, specified to make it protected
-        /// </summary>
-        protected DateTimeConverter()
-        {
-
-        }
 
         /// <summary>
         /// Method that converts a DateTime to a DateOnly

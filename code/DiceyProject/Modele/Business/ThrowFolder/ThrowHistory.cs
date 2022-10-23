@@ -55,7 +55,7 @@ namespace Modele.Business.ThrowFolder
         /// <returns></returns>
         public bool AddThrow(DateOnly date, Throw t)
         {
-            if (!checkDate(date)) return false;
+            if (!CheckDate(date)) return false;
 
             AddThrowWithoutVerif(date, t);
 
@@ -97,7 +97,7 @@ namespace Modele.Business.ThrowFolder
         {
             foreach (KeyValuePair<DateOnly, IList<Throw>> kvp in dic)
             {
-                if (!checkDate(kvp.Key)) return false;
+                if (!CheckDate(kvp.Key)) return false;
 
                 for (int i = 0; i < kvp.Value.Count; i++)
                 {
@@ -111,7 +111,7 @@ namespace Modele.Business.ThrowFolder
         /// Method that returns the History of Throws
         /// </summary>
         /// <returns>the History of Throws</returns>
-        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows()
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> GetThrows()
         {
             return History;
         }
@@ -133,7 +133,20 @@ namespace Modele.Business.ThrowFolder
         /// <returns>The history of throws from the profile passed in parameter</returns>
         public Dictionary<DateOnly, ListThrowEncapsulation> GetProfileThrows(Guid profileID)
         {
-            throw new NotImplementedException();
+            Dictionary<DateOnly, ListThrowEncapsulation> dico = new Dictionary<DateOnly, ListThrowEncapsulation>();
+            foreach (var key in History.Keys)
+            {
+                ListThrowEncapsulation enc = new ListThrowEncapsulation();
+                foreach (var value in History.GetValueOrDefault(key).ThrowsROC)
+                {
+                    if (value.ProfileId.Equals(profileID))
+                    {
+                        enc.AddThrow(value);
+                    }
+                }
+                dico.Add(key, enc);
+            }
+            return dico;
         }
 
         /// <summary>
@@ -161,7 +174,7 @@ namespace Modele.Business.ThrowFolder
         /// </summary>
         /// <param name="date">the date to check</param>
         /// <returns>true id the date is ealier or equal to the current date, false otherwise</returns>
-        private bool checkDate(DateOnly date)
+        private bool CheckDate(DateOnly date)
         {
             if (date > DateTimeConverter.ConverToDateOnly(DateTime.Now)) return false;
             return true;

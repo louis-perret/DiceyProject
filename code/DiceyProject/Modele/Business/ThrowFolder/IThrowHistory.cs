@@ -52,8 +52,7 @@ namespace Modele.Business.ThrowFolder
         /// Method that returns the history of Throws from the app
         /// </summary>
         /// <returns>the history of throws</returns>
-        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows();
-
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> GetThrows();
         /// <summary>
         /// Method that returns the history of throws in the session
         /// </summary>

@@ -2,11 +2,15 @@
 
 
 
+using Modele.Business.DiceFactoryFolder;
+using Modele.Business.DiceFolder;
 using Modele.Business.ProfileFolder;
 using Modele.Data;
+using Modele.Manager.DiceManagerFolder;
 using Modele.Manager.ProfileManagerFolder;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using Modele.Business.DiceLauncherFolder;
 
 [assembly: InternalsVisibleTo("UT_Modele")]
 
@@ -21,15 +25,28 @@ namespace Modele.Manager.ManagerFolder
         /// Manager which manages our profiles
         /// </summary>
         internal ProfileManager profileManager;
+        
+        /// <summary>
+        /// Manager which manages our dice
+        /// </summary>
+        internal DiceManager diceManager;
+
+        /// <summary>
+        /// Object which manages the launch of user's dice
+        /// </summary>
+        internal IDiceLauncher diceLauncher;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="saver">Our saver of data</param>
         /// <param name="loader">Our loader of data</param>
+
         public Manager(ISaver saver, ILoader loader)
         {
             profileManager = new SimpleProfileManager(loader, saver);
+            diceManager = new SimpleDiceManager();
+            diceLauncher = new SimpleDiceLauncher();
         }
 
         /// <summary>
@@ -37,9 +54,9 @@ namespace Modele.Manager.ManagerFolder
         /// </summary>
         /// <param name="name">Name of new profile</param>
         /// <param name="surname">Surname of new profile</param>
-        public void AddProfile(string name, string surname)
+        public bool AddProfile(string name, string surname)
         {
-            profileManager.AddProfile(name, surname);
+            return profileManager.AddProfile(name, surname);
         }
 
         /// <summary>
@@ -48,9 +65,37 @@ namespace Modele.Manager.ManagerFolder
         /// <param name="nbPage">Number of page</param>
         /// <param name="count">Number of profiles to get</param>
         /// <returns></returns>
-        public IReadOnlyCollection<Profile> GetProfilesByPage(int nbPage, int count)
+        public ReadOnlyCollection<Profile> GetProfilesByPage(int nbPage, int count)
         {
             return new ReadOnlyCollection<Profile>(profileManager.GetProfileByPage(nbPage,count));
+        }
+
+        /// <summary>
+        /// Add a dice to launch
+        /// </summary>
+        /// <param name="nbFaces">Dice's number of faces</param>
+        /// <returns></returns>
+        public bool AddDice(int nbFaces)
+        {
+            return diceManager.AddDice(nbFaces);
+        }
+
+        /// <summary>
+        /// Return all dice to launch
+        /// </summary>
+        /// <returns></returns>
+        public ReadOnlyCollection<Dice> GetAllDice()
+        {
+            return diceManager.DiceROC;
+        }
+
+        /// <summary>
+        /// Launch all dice wanted by the user
+        /// </summary>
+        /// <returns></returns>
+        public bool LaunchAllDice()
+        {
+            return diceLauncher.LaunchAllDice(GetAllDice());
         }
     }
 }

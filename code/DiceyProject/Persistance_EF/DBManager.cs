@@ -120,7 +120,7 @@ namespace Persistance_EF
         {
             List<Profile>? profilesList = new List<Profile>();
             OpenConnectionToDB();
-            if (numberPage >= 0 && count >= 0)
+            if (numberPage > 0 && count > 0)
             {
                 profilesList = DiceyProjectDBContext?.ProfilesSet.Skip(count * (numberPage - 1))
                                                                .Take(count)

@@ -9,13 +9,16 @@ using Modele.Manager;
 using NLog.Extensions.Logging;
 using FunctionalTest.Menu;
 using FunctionalTest.Reader;
+using Modele.Data;
+using Modele.Manager.ManagerFolder;
 
 LoggerConfig.SetModelConfig();
 
 int choix = 0;
 Display display = new Display();
 Reader read = new Reader();
-Manager manager = new();
+Stub stub = new Stub();
+Manager manager = new Manager(stub,stub);
 
 while(choix != 9)
 { 

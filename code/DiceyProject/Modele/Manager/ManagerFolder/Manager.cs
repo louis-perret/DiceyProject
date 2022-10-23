@@ -21,9 +21,9 @@ namespace Modele.Manager.ManagerFolder
             profileManager.AddProfile(name, surname);
         }
 
-        public IReadOnlyCollection<Profile> getAllProfiles()
+        /*public IReadOnlyCollection<Profile> getAllProfiles()
         {
             //return profileManager.;
-        }
+        }*/
     }
 }

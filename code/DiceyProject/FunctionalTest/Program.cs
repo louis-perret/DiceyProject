@@ -32,7 +32,7 @@ while(choix != 9)
             manager.AddProfile(name, surname);
             break;
         case 2:
-            display.AfficheProfiles(manager.getAllProfiles());
+            //display.AfficheProfiles(manager.getAllProfiles());
             break;
         default: break;
     }

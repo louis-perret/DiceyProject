@@ -176,8 +176,11 @@ namespace UT_Persistance_EF
             }
         }
 
-        [Fact]
-        public void Test_GetProfileByPage()
+        [Theory]
+        [InlineData(1, 5)]
+        [InlineData(0, 0)]
+        [InlineData(0, 5)]
+        public void Test_GetProfileByPage(int numberPage, int count)
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -192,28 +195,33 @@ namespace UT_Persistance_EF
             Profile p3 = new SimpleProfile("Grienenberger", "Côme");
             Profile p4 = new SimpleProfile("Perret", "Christele");
             Profile p5 = new SimpleProfile("Perret", "Bruno");
-        
-            IList<Profile> profilesExpected = new List<Profile>(){
-                p1,
-                p2,
-                p3,
-                p4,
-                p5,
-            };
 
-            IList<Profile> profilesActual = dbManager.GetProfileByPage(0, 5);
+            IList<Profile> profilesExpected = new List<Profile>();
+            if (count > 0 && numberPage > 0)
+            {
+                profilesExpected.Add(p1);
+                profilesExpected.Add(p2);
+                profilesExpected.Add(p3);
+                profilesExpected.Add(p4);
+                profilesExpected.Add(p5);
+            }
+
+            IList<Profile> profilesActual = dbManager.GetProfileByPage(numberPage, count);
 
             Assert.NotNull(profilesActual);
             Assert.Equal(profilesExpected.Count, profilesActual.Count);
-            bool testSameElements = true;
-            for (int i = 0; i < profilesExpected.Count(); i++)
+            if (count > 0 && numberPage > 0)
             {
-                if (!profilesExpected.ElementAt(i).Equals(profilesActual.ElementAt(i)))
+                bool testSameElements = true;
+                for (int i = 0; i < profilesExpected.Count(); i++)
                 {
-                    testSameElements = false;
+                    if (!profilesExpected.ElementAt(i).Equals(profilesActual.ElementAt(i)))
+                    {
+                        testSameElements = false;
+                    }
                 }
+                Assert.True(testSameElements);
             }
-            Assert.True(testSameElements);
         }
 
 

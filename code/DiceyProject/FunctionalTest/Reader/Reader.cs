@@ -11,7 +11,7 @@ namespace FunctionalTest.Reader
         public int ReadInt()
         {
             String? input = ReadLine();
-            int ret = 0;
+            int ret = -1;
             if (input != null)
                 try
                 {
@@ -19,7 +19,7 @@ namespace FunctionalTest.Reader
                 }
                 catch (Exception)
                 {
-                    ret = 0;
+                    ret = -1;
                 }
             return ret;
         }

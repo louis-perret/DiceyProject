@@ -15,10 +15,7 @@ namespace FunctionalTest.Menu
             Console.WriteLine("Choix des options : \n" +
                 "1 - Ajouter un Profil\n" +
                 "2 - Afficher tous les Profils\n" +
-                "9 - Quitter" +
-                "" +
-                "" +
-                "");
+                "0 - Quitter");
         }
 
         internal void AfficheProfiles(IReadOnlyCollection<Profile> profiles)

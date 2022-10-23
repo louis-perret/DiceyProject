@@ -6,6 +6,7 @@ using Modele.Business.ProfileFolder;
 using Modele.Data;
 using Modele.Manager.ProfileManagerFolder;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 [assembly: InternalsVisibleTo("UT_Modele")]
 
@@ -25,9 +26,9 @@ namespace Modele.Manager.ManagerFolder
             profileManager.AddProfile(name, surname);
         }
 
-        /*public IReadOnlyCollection<Profile> getAllProfiles()
+        public IReadOnlyCollection<Profile> GetProfilesByPage(int nbPage, int count)
         {
-            //return profileManager.;
-        }*/
+            return new ReadOnlyCollection<Profile>(profileManager.GetProfileByPage(nbPage,count));
+        }
     }
 }

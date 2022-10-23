@@ -85,7 +85,6 @@ namespace UT_Persistance_Stub
         }
 
         [Theory]
-        [InlineData(1,5)]
         [InlineData(0, 0)]
         [InlineData(0, 5)]
         public void Test_GetProfileByPage(int numberPage, int count)

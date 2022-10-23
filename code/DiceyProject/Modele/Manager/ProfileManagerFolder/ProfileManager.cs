@@ -1,4 +1,5 @@
 ﻿using Modele.Business.ProfileFolder;
+using Modele.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,20 +38,27 @@ namespace Modele.Manager.ProfileManagerFolder
             private set => _currentProfile = value;
         }
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ProfileManager() : this(new List<Profile>()){ }
+        private ILoader _loader;
+
+        private ISaver _saver;
+
+        public ProfileManager(ILoader loader, ISaver saver)
+        {
+            _loader = loader;
+            _saver = saver;
+            _profiles = new List<Profile>();
+            Profiles= new ObservableCollection<Profile>();
+            CurrentProfile = null;
+        }
 
         /// <summary>
         /// Constructor with parameters
         /// </summary>
         /// <param name="profiles">List of profiles copied in _profiles when this constructor is called</param>
-        public ProfileManager(IList<Profile> profiles)
+        public ProfileManager(ILoader loader, ISaver saver, IList<Profile> profiles) : this(loader, saver)
         {
             _profiles = new List<Profile>(profiles);
-            Profiles = new ReadOnlyCollection<Profile>(_profiles);
-            CurrentProfile = null;
+            Profiles = new ObservableCollection<Profile>();
         }
 
         /// <summary>
@@ -77,11 +85,7 @@ namespace Modele.Manager.ProfileManagerFolder
         /// <returns>true if the profile could be added, false otherwise</returns>
         protected virtual bool AddProfile(Profile profile)
         {
-            if (_profiles.Contains(profile))
-                return false;
-            else
-                _profiles.Add(profile);
-            return true;
+            return _saver.AddProfile(profile);
         }
 
         /// <summary>
@@ -91,14 +95,7 @@ namespace Modele.Manager.ProfileManagerFolder
         /// <returns>true if the profile could be removed, false otherwise</returns>
         public virtual bool RemoveProfile(Guid id)
         {
-            Profile prof = GetProfile(id);
-            if (prof != null)
-            {
-                _profiles.Remove(prof);
-                return true;
-            }
-
-            return false;
+            return _saver.RemoveProfile(GetProfile(id));
         }
 
         /// <summary>
@@ -109,14 +106,7 @@ namespace Modele.Manager.ProfileManagerFolder
         /// <returns>true if the profile could be removed, false otherwise</returns>
         public virtual bool RemoveProfile(string name, string surname)
         {
-            Profile prof = GetProfile(name, surname);
-            if (prof != null)
-            {
-                _profiles.Remove(prof);
-                return true;
-            }
-
-            return false;
+            return _saver.RemoveProfile(GetProfile(name, surname));
         }
 
         /// <summary>
@@ -128,15 +118,10 @@ namespace Modele.Manager.ProfileManagerFolder
         /// <returns>true if the profile has been modified, false otherwise</returns>
         public virtual bool ModifyProfile(Guid id, string newName, string newSurname)
         {
-            Profile prof = GetProfile(id);
-            if (prof != null)
-            {
-                prof.Name = newName;
-                prof.Surname = newSurname;
-                return true;
-            }
+            bool ans1 = _saver.ModifyProfileName(id, newName);
+            bool ans2 = _saver.ModifyProfileSurname(id, newSurname);
+            return ans1 && ans2;
 
-            return false;
         }
 
         /// <summary>
@@ -144,15 +129,9 @@ namespace Modele.Manager.ProfileManagerFolder
         /// </summary>
         /// <param name="id">Id of the profile to return</param>
         /// <returns>The profile if it has been found, null otherwise</returns>
-        public virtual Profile GetProfile(Guid id)
+        public virtual Profile? GetProfile(Guid id)
         {
-            Profile p = null;
-            foreach (Profile prof in _profiles)
-            {
-                if (prof.Id == id) p = prof;
-            }
-
-            return p;
+            return _loader.GetProfileById(id);
         }
 
         /// <summary>
@@ -161,15 +140,10 @@ namespace Modele.Manager.ProfileManagerFolder
         /// <param name="name">Name of the profile to return</param>
         /// <param name="surname">Surname of the profile to return</param>
         /// <returns>The profile if it has been found, null otherwise</returns>
-        public virtual Profile GetProfile(string name, string surname)
+        public virtual Profile? GetProfile(string name, string surname)
         {
-            Profile p = null;
-            foreach (Profile prof in _profiles)
-            {
-                if (prof.Name.Equals(name) && prof.Surname.Equals(surname)) p = prof;
-            }
-
-            return p;
+            return _loader.GetProfileByName(name, surname).FirstOrDefault();
         }
+
     }
 }

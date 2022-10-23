@@ -1,6 +1,9 @@
-﻿using Modele.Business.ProfileFolder;
+﻿using Microsoft.EntityFrameworkCore;
+using Modele.Business.ProfileFolder;
+using Modele.Data;
 using Modele.Manager.ProfileManagerFolder;
 using Moq;
+using Persistance_EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +25,7 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
 
         public ProfileManager GetMockProfileManager()
         {
-            var mock = new Mock<ProfileManager>();
+            var mock = new Mock<ProfileManager>(null, null);
             return SetMockProfileManager(mock);
         }
 

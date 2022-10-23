@@ -8,10 +8,12 @@ using Modele.Manager.ProfileManagerFolder;
 public class Manager
 {
     private ProfileManager profileManager;
+
     public Manager()
     {
-        profileManager = new SimpleProfileManager();
+        profileManager = new SimpleProfileManager(null, null);
     }
+
     public void AddProfile(string name, string surname)
     {
         profileManager.AddProfile(name, surname);

@@ -12,14 +12,14 @@ namespace UT_Modele.UT_Manager.UT_ProfileManagerFolder
     {
         private SimpleProfileManager GetSimpleProfile()
         {
-            SimpleProfileManager simpleProfileManager = new SimpleProfileManager();
+            SimpleProfileManager simpleProfileManager = new SimpleProfileManager(null, null);
             simpleProfileManager.AddProfile(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Louis", "Perret");
             return simpleProfileManager;
         }
 
         private SimpleProfileManager GetSimpleProfileWithoutId()
         {
-            SimpleProfileManager simpleProfileManager = new SimpleProfileManager();
+            SimpleProfileManager simpleProfileManager = new SimpleProfileManager(null, null);
             simpleProfileManager.AddProfile("Louis", "Perret");
             return simpleProfileManager;
         }

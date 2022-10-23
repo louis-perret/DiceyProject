@@ -11,6 +11,7 @@ namespace FunctionalTest.Menu
     {
         public void ShowMenu()
         {
+            Console.WriteLine("Bienvenue sur l'application Dicey !");
             Console.WriteLine("Choix des options : \n" +
                 "1 - Ajouter un Profil\n" +
                 "2 - Afficher tous les Profils\n" +

@@ -258,6 +258,28 @@ namespace UT_Persistance_EF
             }
         }
 
+        public static IEnumerable<object?[]> Data_Test_ProfileRemove()
+        {
+            yield return new object[]
+            {
+                true,
+                new SimpleProfile(new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"), "Perret", "Louis")
+            };
+
+            yield return new object[]
+            {
+                false,
+                new SimpleProfile(Guid.NewGuid(), "IMPOSTOR", "IMPOSTOR")
+            };
+
+            yield return new object?[]
+           {
+                false,
+                null
+           };
+
+        }
+
         [Theory]
         [MemberData(nameof(Data_Test_Profile))]
         public void Test_RemoveProfile(bool isProfileIsInDB, Profile profileToRemove)

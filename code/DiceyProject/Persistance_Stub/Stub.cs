@@ -61,9 +61,7 @@ namespace Persistance_Stub
         /// <returns></returns>
         public Profile? GetProfileById(Guid id)
         {
-            Profile? profile = null;
-            var p = _profiles.SingleOrDefault(p => p.Id.Equals(id));
-            return profile;
+            return _profiles.SingleOrDefault(p => p.Id.Equals(id));
         }
 
         /// <summary>
@@ -74,9 +72,7 @@ namespace Persistance_Stub
         /// <returns></returns>
         public IList<Profile> GetProfileByName(string name, string surname)
         {
-            IList<Profile> profileList = new List<Profile>();
-            var p = _profiles.Where(profile => profile.Name.Equals(name) && profile.Surname.Equals(surname)).ToList();
-            return profileList;
+            return _profiles.Where(profile => profile.Name.Equals(name) && profile.Surname.Equals(surname)).ToList();
         }
 
         /// <summary>
@@ -88,7 +84,7 @@ namespace Persistance_Stub
         public IList<Profile> GetProfileByPage(int numberPage, int count)
         {
             List<Profile>? profilesList = new List<Profile>();
-            if (numberPage >= 0 && count >= 0)
+            if (numberPage > 0 && count > 0)
             {
                 profilesList = _profiles.Skip(count * (numberPage - 1))
                                                                .Take(count)
@@ -104,10 +100,8 @@ namespace Persistance_Stub
         /// <returns></returns>
         public IList<Profile> GetProfileBySubString(string subString)
         {
-            IList<Profile>? profilesList = new List<Profile>();
-            profilesList = _profiles.Where(p => p.Name.ToLower().Contains(subString.ToLower()) || p.Surname.ToLower().Contains(subString.ToLower()))
-                                                                .ToList();
-            return profilesList;
+            return _profiles.Where(p => p.Name.ToLower().Contains(subString.ToLower()) || p.Surname.ToLower().Contains(subString.ToLower()))
+                            .ToList();
         }
 
         // <summary>
@@ -177,7 +171,7 @@ namespace Persistance_Stub
         /// <returns></returns>
         public bool RemoveProfile(Profile profile)
         {
-            var p = _profiles.SingleOrDefault(p => p.Equals(p));
+            var p = _profiles.SingleOrDefault(p => p.Equals(profile));
             if (p == null)
             {
                 return false;

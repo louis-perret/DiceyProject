@@ -13,12 +13,13 @@ namespace FunctionalTest.Menu
     {
         internal void ShowMenu()
         {
-            Console.WriteLine("Bienvenue sur l'application Dicey !");
+            Console.WriteLine("Bienvenue sur l'application DiceyProject !");
             Console.WriteLine("Choix des options : \n" +
                 "1 - Ajouter un Profil\n" +
                 "2 - Afficher tous les Profils\n" +
                 "3 - Ajouter un Dé\n" +
                 "4 - Afficher les Dés\n" +
+                "5 - Lancer les Dés\n" +
                 "0 - Quitter");
         }
 
@@ -35,6 +36,14 @@ namespace FunctionalTest.Menu
             foreach(Dice dice in dices)
             {
                 Console.WriteLine("{0}", dice.NbFaces);
+            }
+        }
+
+        internal void AfficheResults(ReadOnlyCollection<Dice> dices)
+        {
+            foreach (Dice dice in dices)
+            {
+                Console.WriteLine("NbFaces : {0} Result :{1}", dice.NbFaces, dice.Result);
             }
         }
     }

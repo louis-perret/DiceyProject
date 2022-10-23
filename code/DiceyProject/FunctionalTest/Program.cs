@@ -50,6 +50,10 @@ while(choix != 0)
         case 4:
             display.AfficheDice(manager.GetAllDice());
             break;
+        case 5:
+            manager.LancerDés();
+            display.AfficheResults(manager.GetAllDice());
+            break;
         default: break;
     }
 }

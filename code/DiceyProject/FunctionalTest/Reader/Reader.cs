@@ -8,7 +8,7 @@ namespace FunctionalTest.Reader
 {
     internal class Reader
     {
-        public int ReadInt()
+        internal int ReadInt()
         {
             String? input = ReadLine();
             int ret = -1;

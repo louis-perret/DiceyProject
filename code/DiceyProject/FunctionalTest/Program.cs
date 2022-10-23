@@ -30,7 +30,10 @@ while(choix != 0)
         case 1: 
             String name = read.ReadName();
             String surname = read.ReadSurname();
-            manager.AddProfile(name, surname);
+            if (manager.AddProfile(name, surname))
+                Console.WriteLine("Le profil a été ajouté correctement");
+            else
+                Console.WriteLine("Le profil n'a pas pu être ajouté");
             break;
         case 2:
             Console.WriteLine("Entrer le numéro de la page : ");
@@ -38,6 +41,14 @@ while(choix != 0)
             Console.WriteLine("Entrer le nombre de profils par page : ");
             int count = read.ReadInt();
             display.AfficheProfiles(manager.GetProfilesByPage(nbPage,count));
+            break;
+        case 3:
+            Console.WriteLine("Entrer le nombre de faces du dé :");
+            int nbFaces = read.ReadInt();
+            manager.AddDice(nbFaces);
+            break;
+        case 4:
+            display.AfficheDice(manager.GetAllDice());
             break;
         default: break;
     }

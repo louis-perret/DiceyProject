@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace UT_Modele.UT_Manager.UT_ManagerFolder
 {
@@ -83,10 +84,11 @@ namespace UT_Modele.UT_Manager.UT_ManagerFolder
             Stub stub = new Stub();
             Manager manager = new Manager(stub, stub);
 
+            manager.Connect("Perret", "Louis");
             manager.AddDice(nbFaces1);
             manager.AddDice(nbFaces2);
             manager.AddDice(nbFaces3);
-            manager.LaunchAllDice();
+            bool ans = manager.LaunchAllDice();
 
             bool isTrue = true;
             foreach(Dice d in manager.GetAllDice())
@@ -95,7 +97,79 @@ namespace UT_Modele.UT_Manager.UT_ManagerFolder
             }
 
             Assert.True(isTrue);
+            Assert.True(ans);
+        }
 
+        [Theory]
+        [InlineData("Perret", "Louis", true)]
+        [InlineData("Chevaldonne", "Marc", false)]
+        public void Test_Connect(string name, string surname, bool expectedAns)
+        {
+            Stub stub = new Stub();
+            Manager manager = new Manager(stub, stub);
+            bool actualAns = manager.Connect(name, surname);
+            Assert.Equal(expectedAns, actualAns);
+            if (expectedAns)
+            {
+                Assert.NotNull(manager.profileManager.CurrentProfile);
+            }
+        }
+
+        public static IEnumerable<object?[]> Data_Test_GetCurrentProfileId()
+        {
+            yield return new object?[]
+            {
+                "Perret", "Louis",new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4")
+            };
+
+            yield return new object?[]
+            {
+                "Chevaldonne", "Marc", Guid.Empty
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(Data_Test_GetCurrentProfileId))]
+        public void Test_GetCurrentProfileId(string name, string surname, Guid expectedGuid)
+        {
+            Stub stub = new Stub();
+            Manager manager = new Manager(stub, stub);
+            manager.Connect(name, surname);
+
+            Guid? realGuid = manager.GetCurrentProfileId();
+            Assert.Equal(expectedGuid, realGuid);
+        }
+
+        [Theory]
+        [InlineData("Perret", "Louis", true)]
+        [InlineData("Chevaldonne", "Marc", false)]
+        public void Test_RemoveProfile(string name, string surname, bool expectedAns)
+        {
+            Stub stub = new Stub();
+            Manager manager = new Manager(stub, stub);
+            Assert.Equal(expectedAns, manager.RemoveProfile(name, surname));
+        }
+
+        
+        /// <summary>
+        /// TODO : Améliorer ce test en ajoutant dans le stub directement une collection de Throws déjà réaliser
+        /// </summary>
+        [Fact]
+        public void Test_GetHistory()
+        {
+            Stub stub = new Stub();
+            Manager manager = new Manager(stub, stub);
+
+            manager.Connect("Perret", "Louis");
+            manager.AddDice(2);
+            manager.AddDice(3);
+            manager.AddDice(4);
+            manager.LaunchAllDice();
+
+            var allThrows = manager.GetHistory();
+            Assert.NotNull(allThrows);
+            Assert.Single(allThrows);
+            Assert.Equal(3, allThrows.First().Value.ThrowsROC.Count);
         }
 
     }

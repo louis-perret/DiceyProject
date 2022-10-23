@@ -55,7 +55,7 @@ namespace Modele.Business.ThrowFolder
         /// <returns></returns>
         public bool AddThrow(DateOnly date, Throw t)
         {
-            if (!checkDate(date)) return false;
+            if (!CheckDate(date)) return false;
 
             AddThrowWithoutVerif(date, t);
 
@@ -87,7 +87,7 @@ namespace Modele.Business.ThrowFolder
         {
             foreach (KeyValuePair<DateOnly, IList<Throw>> kvp in dic)
             {
-                if (!checkDate(kvp.Key)) return false;
+                if (!CheckDate(kvp.Key)) return false;
 
                 for (int i = 0; i < kvp.Value.Count; i++)
                 {
@@ -97,7 +97,7 @@ namespace Modele.Business.ThrowFolder
             return true;
         }
 
-        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> getThrows()
+        public ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> GetThrows()
         {
             return History;
         }
@@ -128,7 +128,7 @@ namespace Modele.Business.ThrowFolder
             }
         }
 
-        private bool checkDate(DateOnly date)
+        private bool CheckDate(DateOnly date)
         {
             if (date > DateTimeConverter.ConverToDateOnly(DateTime.Now)) return false;
             return true;

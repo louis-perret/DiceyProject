@@ -70,7 +70,7 @@ namespace Modele.Manager.ManagerFolder
         /// </summary>
         /// <param name="nbPage">Number of page</param>
         /// <param name="count">Number of profiles to get</param>
-        /// <returns></returns>
+        /// <returns>The list of profiles</returns>
         public ReadOnlyCollection<Profile> GetProfilesByPage(int nbPage, int count)
         {
             return new ReadOnlyCollection<Profile>(profileManager.GetProfileByPage(nbPage,count));
@@ -106,6 +106,17 @@ namespace Modele.Manager.ManagerFolder
             foreach (Dice dice in GetAllDice())
                 throwHistory.AddThrow(DateTimeConverter.ConverToDateOnly(DateTime.Now), dice, profileManager.CurrentProfile.Id);
             return true;
+        }
+
+        /// <summary>
+        /// Method that allows the user to connect.
+        /// </summary>
+        /// <param name="name">name of the user who wants to be connected</param>
+        /// <param name="surname">surname of the user who wants to be connected</param>
+        /// <returns>true if the profile has been connected, false if it couldn't</returns>
+        public bool Connect(string name, string surname)
+        {
+            return profileManager.ConnectProfile(name, surname);
         }
     }
 }

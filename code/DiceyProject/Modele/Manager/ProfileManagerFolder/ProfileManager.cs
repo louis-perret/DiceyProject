@@ -178,7 +178,7 @@ namespace Modele.Manager.ProfileManagerFolder
         public bool ConnectProfile(String name, String surname)
         {
             IList<Profile> prof = _loader.GetProfileByName(name, surname);
-            if (prof.Count < 0)
+            if (prof.Count <= 0)
                 return false;
             else
                 CurrentProfile = prof.First();

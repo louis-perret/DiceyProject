@@ -26,17 +26,17 @@ namespace FunctionalTest.Reader
 
         internal string ReadName()
         {
-            Console.WriteLine("Enter a name :");
+            Console.WriteLine("Entrez un nom :");
             return ReadLine();
         }
 
         internal string ReadSurname()
         {
-            Console.WriteLine("Enter a surname :");
+            Console.WriteLine("Entrez un prénom :");
             return ReadLine();
         }
 
-        private string? ReadLine()
+        public string ReadLine()
         {
             return Console.ReadLine();
         }

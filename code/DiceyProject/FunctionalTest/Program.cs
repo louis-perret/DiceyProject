@@ -21,16 +21,34 @@ Reader read = new Reader();
 Stub stub = new Stub();
 Manager manager = new Manager(stub,stub);
 
-while(choix != 0)
+Console.WriteLine("Avant de lancer l'application");
+String name = read.ReadName();
+String surname = read.ReadSurname();
+while (!manager.Connect(name, surname))
+{
+    Console.WriteLine("Ce profil n'existe pas, voulez-vous en créer un nouveau ? (o/n");
+    String choice = read.ReadLine();
+    if(choice.Equals("o"))
+    {
+        manager.AddProfile(name, surname);
+    }
+    else
+    {
+        name = read.ReadName();
+        surname = read.ReadSurname();
+    }
+}
+
+while (choix != 0)
 { 
     display.ShowMenu();
     choix = read.ReadInt();
     switch (choix)
     {
         case 1: 
-            String name = read.ReadName();
-            String surname = read.ReadSurname();
-            if (manager.AddProfile(name, surname))
+            String newname = read.ReadName();
+            String newsurname = read.ReadSurname();
+            if (manager.AddProfile(newname, newsurname))
                 Console.WriteLine("Le profil a été ajouté correctement");
             else
                 Console.WriteLine("Le profil n'a pas pu être ajouté");

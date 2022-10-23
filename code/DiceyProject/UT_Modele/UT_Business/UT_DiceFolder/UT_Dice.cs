@@ -79,7 +79,7 @@ namespace UT_Modele.UT_Business.UT_DiceFolder
             if (throwsException)
             {
                 int other;
-                Assert.Throws<ArgumentNullException>(() => other = dice.Result);
+                Assert.Throws<ArgumentException>(() => other = dice.Result);
             }
             else
             {

@@ -28,17 +28,6 @@ namespace Modele.Manager.DiceManagerFolder
         /// <param name="dice"> A list of dice </param>
         public SimpleDiceManager(IList<Dice> dice) : base(dice) { }
 
-        /// <summary>
-        /// Calls parent's constructor with a logger.
-        /// </summary>
-        /// <param name="logger"> A SimpleDiceManager logger </param>
-        public SimpleDiceManager(ILogger<SimpleDiceManager> logger) : base(logger) {}
-
-        /// <summary>
-        /// Calls parent's constructor with a dice list and a logger.
-        /// </summary>
-        /// <param name="dice"> A list of dice </param>
-        public SimpleDiceManager(IList<Dice> dice, ILogger<SimpleDiceManager> logger) : base(dice, logger) { }
 
 
 
@@ -55,7 +44,7 @@ namespace Modele.Manager.DiceManagerFolder
                 _dice.Add(new DiceFactory().CreateDice(nbFace));
                 return true;
             }
-            catch(ArgumentOutOfRangeException aoore)
+            catch(ArgumentOutOfRangeException)
             {
                 return false;
             }
@@ -73,7 +62,7 @@ namespace Modele.Manager.DiceManagerFolder
             {
                 return _dice.Remove(new DiceFactory().CreateDice(nbFaces));
             }
-            catch(ArgumentOutOfRangeException aoore)
+            catch(ArgumentOutOfRangeException)
             {
                 return false;
             }

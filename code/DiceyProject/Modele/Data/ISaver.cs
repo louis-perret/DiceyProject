@@ -41,6 +41,6 @@ namespace Modele.Data
         /// <param name="profileId">profile's id to modify</param>
         /// <param name="name">new surname</param>
         /// <returns></returns>
-        public bool ModifyProfileSurname(Guid profileId, string surnname);
+        public bool ModifyProfileSurname(Guid profileId, string surname);
     }
 }

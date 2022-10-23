@@ -40,7 +40,7 @@ namespace Modele.Business.DiceFolder
             //Simple getter.
             get
             {
-                if (_result <= -1) throw new ArgumentNullException(nameof(_result));
+                if (_result <= -1) throw new ArgumentException(nameof(_result));
 
                 return _result;
             }

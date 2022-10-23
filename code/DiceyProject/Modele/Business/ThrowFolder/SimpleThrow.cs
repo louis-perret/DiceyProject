@@ -33,6 +33,7 @@ namespace Modele.Business.ThrowFolder
             return base.Equals(obj);
         }
 
+
         /// <summary>
         /// Implémentation de IEqualityComparer. Appel la procédure d'égalité de sa classe mère.
         /// </summary>
@@ -44,10 +45,24 @@ namespace Modele.Business.ThrowFolder
             return base.Equals(x, y);
         }
 
+        /// <summary>
+        /// Implémentation de IEqualityComparer. Appel la procédure de hashCode de sa classe mère.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         public int GetHashCode([DisallowNull] SimpleThrow obj)
         {
-            throw new NotImplementedException();
+            return base.GetHashCode(obj);
         }
-
+        
+        /// <summary>
+        /// Méthode de Hash de cette classe
+        /// </summary>
+        /// <returns>le Hashcode de la classe</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), ProfileId, Dice, DateTime);
+        }
     }
 }

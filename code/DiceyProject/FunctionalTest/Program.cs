@@ -51,7 +51,7 @@ while(choix != 0)
             display.AfficheDice(manager.GetAllDice());
             break;
         case 5:
-            manager.LancerDés();
+            manager.LaunchAllDice();
             display.AfficheResults(manager.GetAllDice());
             break;
         default: break;

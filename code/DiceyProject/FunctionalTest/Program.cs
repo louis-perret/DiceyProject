@@ -13,6 +13,11 @@ using Modele.Data;
 using Modele.Manager.ManagerFolder;
 using System.Runtime.CompilerServices;
 
+/**
+ * Represents our fonctional test for our app, currently it doesn't exposed all our features (like Session) 
+ * because these latter are not yet implemented, but soon it will do.
+ * */
+
 LoggerConfig.SetModelConfig();
 
 int choix = -1;
@@ -58,7 +63,7 @@ while (choix != 0)
             int nbPage = read.ReadInt();
             Console.WriteLine("Entrer le nombre de profils par page : ");
             int count = read.ReadInt();
-            display.AfficheProfiles(manager.GetProfilesByPage(nbPage,count));
+            display.DisplayProfiles(manager.GetProfilesByPage(nbPage,count));
             break;
         case 3:
             Console.WriteLine("Entrer le nombre de faces du dé :");
@@ -66,17 +71,17 @@ while (choix != 0)
             manager.AddDice(nbFaces);
             break;
         case 4:
-            display.AfficheDice(manager.GetAllDice());
+            display.DisplayDice(manager.GetAllDice());
             break;
         case 5:
             manager.LaunchAllDice();
-            display.AfficheResults(manager.GetAllDice());
+            display.DisplayResults(manager.GetAllDice());
             break;
         case 6:
-            display.AfficheThrow(manager.GetHistory());
+            display.DisplayThrow(manager.GetHistory());
             break;
         case 7:
-            display.AfficheThrow(manager.GetHistoryProfile(manager.GetCurrentProfileId()));
+            display.DisplayThrow(manager.GetHistoryProfile(manager.GetCurrentProfileId()));
             break;
         case 8:
             String nom = read.ReadName();

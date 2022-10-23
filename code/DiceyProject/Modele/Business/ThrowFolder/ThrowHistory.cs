@@ -104,13 +104,18 @@ namespace Modele.Business.ThrowFolder
 
         public Dictionary<DateOnly, ListThrowEncapsulation> GetSessionThrows(Guid sessionId)
         {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<DateOnly, ListThrowEncapsulation> GetProfileThrows(Guid profileID)
+        {
             Dictionary<DateOnly, ListThrowEncapsulation> dico = new Dictionary<DateOnly, ListThrowEncapsulation>();
             foreach (var key in History.Keys)
             {
                 ListThrowEncapsulation enc = new ListThrowEncapsulation();
                 foreach (var value in History.GetValueOrDefault(key).ThrowsROC)
                 {
-                    if (value.ProfileId.Equals(sessionId))
+                    if (value.ProfileId.Equals(profileID))
                     {
                         enc.AddThrow(value);
                     }
@@ -118,11 +123,6 @@ namespace Modele.Business.ThrowFolder
                 dico.Add(key, enc);
             }
             return dico;
-        }
-
-        public Dictionary<DateOnly, ListThrowEncapsulation> GetProfileThrows(Guid profileID)
-        {
-            throw new NotImplementedException();
         }
 
 

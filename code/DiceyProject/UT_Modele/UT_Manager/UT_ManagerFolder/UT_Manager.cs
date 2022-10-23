@@ -152,7 +152,7 @@ namespace UT_Modele.UT_Manager.UT_ManagerFolder
 
         
         /// <summary>
-        /// TODO : Améliorer ce test en ajoutant dans le stub directement une collection de Throws déjà réaliser
+        /// TODO : Améliorer ce test en ajoutant dans le stub directement une collection de Throws déjà réalisés
         /// </summary>
         [Fact]
         public void Test_GetHistory()
@@ -172,5 +172,23 @@ namespace UT_Modele.UT_Manager.UT_ManagerFolder
             Assert.Equal(3, allThrows.First().Value.ThrowsROC.Count);
         }
 
+
+        [Fact]
+        public void Test_GetHistoryProfile()
+        {
+            Stub stub = new Stub();
+            Manager manager = new Manager(stub, stub);
+
+            manager.Connect("Perret", "Louis");
+            manager.AddDice(2);
+            manager.AddDice(3);
+            manager.AddDice(4);
+            manager.LaunchAllDice();
+
+            var allThrows = manager.GetHistoryProfile(manager.GetCurrentProfileId());
+            Assert.NotNull(allThrows);
+            Assert.Single(allThrows);
+            Assert.Equal(3, allThrows.First().Value.ThrowsROC.Count);
+        }
     }
 }

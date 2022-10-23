@@ -25,7 +25,7 @@ namespace Modele.Manager.ProfileManagerFolder
         /// <summary>
         /// Encapsulation of _profiles in a property
         /// </summary>
-        public IReadOnlyCollection<Profile> Profiles;
+        public ReadOnlyCollection<Profile> Profiles;
 
         /// <summary>
         /// The current Profile playing on the application
@@ -50,7 +50,7 @@ namespace Modele.Manager.ProfileManagerFolder
             _loader = loader;
             _saver = saver;
             _profiles = new List<Profile>();
-            Profiles= new ObservableCollection<Profile>();
+            Profiles= new ReadOnlyCollection<Profile>(_profiles);
             CurrentProfile = null;
         }
 
@@ -61,7 +61,7 @@ namespace Modele.Manager.ProfileManagerFolder
         public ProfileManager(ILoader loader, ISaver saver, IList<Profile> profiles) : this(loader, saver)
         {
             _profiles = new List<Profile>(profiles);
-            Profiles = new ObservableCollection<Profile>(_profiles);
+            Profiles = new ReadOnlyCollection<Profile>(_profiles);
         }
 
         /// <summary>

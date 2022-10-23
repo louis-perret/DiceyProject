@@ -6,8 +6,14 @@ using System.Collections.ObjectModel;
 
 namespace FunctionalTest.Menu
 {
+    /// <summary>
+    /// Manages the display of all information we want to show to the current user
+    /// </summary>
     internal class Display
     {
+        /// <summary>
+        /// Display the menu
+        /// </summary>
         internal void ShowMenu()
         {
             Console.WriteLine("Bienvenue sur l'application DiceyProject !");
@@ -23,37 +29,56 @@ namespace FunctionalTest.Menu
                 "0 - Quitter");
         }
 
-        internal void AfficheProfiles(ReadOnlyCollection<Profile> profiles)
+        /// <summary>
+        /// Display profiles
+        /// </summary>
+        /// <param name="profiles"></param>
+        internal void DisplayProfiles(ReadOnlyCollection<Profile> profiles)
         {
-            foreach(Profile profile in profiles)
+            Console.WriteLine("\nAffichage des profils : ");
+            foreach (Profile profile in profiles)
             {
                 Console.WriteLine("{0} {1} {2}", profile.Name, profile.Surname,profile.Id.ToString());
             }
         }
 
-        internal void AfficheDice(ReadOnlyCollection<Dice> dices)
+        /// <summary>
+        /// Display all dice created by the current user
+        /// </summary>
+        /// <param name="dices"></param>
+        internal void DisplayDice(ReadOnlyCollection<Dice> dices)
         {
-            foreach(Dice dice in dices)
+            Console.WriteLine("\nAffichage des dés ajoutés : ");
+            foreach (Dice dice in dices)
             {
                 Console.WriteLine("{0}", dice.NbFaces);
             }
         }
 
-        internal void AfficheResults(ReadOnlyCollection<Dice> dices)
+        /// <summary>
+        /// Display the result of each launched dice
+        /// </summary>
+        /// <param name="dices"></param>
+        internal void DisplayResults(ReadOnlyCollection<Dice> dices)
         {
+            Console.WriteLine("\nLancement des dés !");
             foreach (Dice dice in dices)
             {
                 Console.WriteLine("NbFaces : {0} Result :{1}", dice.NbFaces, dice.Result);
             }
         }
 
-        internal void AfficheThrow(ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> readOnlyDictionary)
+        /// <summary>
+        /// Display throws
+        /// </summary>
+        /// <param name="readOnlyDictionary">Dictionnary which contains a list of throws per date</param>
+        internal void DisplayThrow(ReadOnlyDictionary<DateOnly, ListThrowEncapsulation> readOnlyDictionary)
         {
             foreach(var key in readOnlyDictionary.Keys)
             {
-                Console.WriteLine(key);
+                Console.WriteLine($"Date du jour : {key}");
                 foreach (var value in readOnlyDictionary[key].ThrowsROC)
-                    Console.WriteLine("nbFaces : {0], Result :{1}",value.Dice.NbFaces, value.Dice.Result);
+                    Console.WriteLine("NbFaces : {0}, Result :{1}",value.Dice.NbFaces, value.Dice.Result);
             }
         }
     }
